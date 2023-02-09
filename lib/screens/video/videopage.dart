@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:playit/screens/video/video_list.dart';
-
+import 'package:playit/screens/video/video_list/video_list.dart';
 import 'folder_videos/folder_video_list.dart';
 
 class VideoPage extends StatelessWidget {
@@ -11,10 +10,12 @@ class VideoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.black,
+      
     ));
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        
         body: SafeArea(
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) => [

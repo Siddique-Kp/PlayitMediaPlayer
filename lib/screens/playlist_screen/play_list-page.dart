@@ -70,7 +70,7 @@ class PlayList extends StatelessWidget {
             onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>const FavoriteVideos(),
+                  builder: (context) => FavoriteVideos(),
                 )),
             leading: Container(
               height: 60,
@@ -118,7 +118,6 @@ class PlayList extends StatelessWidget {
       floatingActionButton:const FloatingButton(),
     );
   }
-
   secondHeading(data) {
     return Padding(
       padding: const EdgeInsets.only(left: 15),

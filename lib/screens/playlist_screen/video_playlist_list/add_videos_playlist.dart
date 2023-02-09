@@ -4,9 +4,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:playit/database/video_playlist_db.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/video/access_video.dart';
-import 'package:playit/screens/video/video_thumbnail.dart';
 import '../../../main.dart';
 import '../../video/video_bottom_sheet/video_addto_playlist.dart';
+import '../../video/video_thumbnail.dart';
 
 class AddVideosToPlayList extends StatefulWidget {
   const AddVideosToPlayList(

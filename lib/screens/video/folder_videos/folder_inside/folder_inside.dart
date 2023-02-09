@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:playit/screens/video/access_video.dart';
 import 'package:playit/screens/video/folder_videos/accsess_folder.dart';
-import 'package:playit/screens/video/video_thumbnail.dart';
 import '../../../../main.dart';
 import '../../../../model/playit_media_model.dart';
 import '../../playing_video_screen/playing_video.dart';
 import '../../video_bottom_sheet/video_bottom_sheet.dart';
+import '../../video_thumbnail.dart';
 
 class FolderVideoInside extends StatefulWidget {
   const FolderVideoInside({super.key, required this.folderPath});

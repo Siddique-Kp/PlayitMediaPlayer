@@ -56,7 +56,6 @@ Widget thumbnail({required path, context, duration}) {
             child: duration!=null?
             Text(
                duration.toString().split('0:0').last,
-              // '00:00',
               style: const TextStyle(color: Colors.white, fontSize: 11.0),
             ):null
             ,

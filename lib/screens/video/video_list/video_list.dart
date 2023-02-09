@@ -5,8 +5,8 @@ import 'package:playit/screens/video/playing_video_screen/playing_video.dart';
 import 'package:playit/screens/video/video_bottom_sheet/video_bottom_sheet.dart';
 import 'package:playit/screens/video/video_thumbnail.dart';
 import 'package:video_player/video_player.dart';
-import '../../main.dart';
-import 'access_video.dart';
+import '../../../main.dart';
+import '../access_video.dart';
 
 class VideoList extends StatefulWidget {
   const VideoList({super.key});

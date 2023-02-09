@@ -29,9 +29,9 @@ class _FloatingButtonState extends State<FloatingButton> {
       children: [
         SpeedDialChild(
             child: const Icon(Icons.queue_music),
-            label: 'SongPlaylist',
-            labelStyle: const TextStyle(color: Colors.white),
-            labelBackgroundColor: const Color.fromARGB(255, 48, 47, 47),
+            // label: 'SongPlaylist',
+            // labelStyle: const TextStyle(color: Colors.white),
+            // labelBackgroundColor: const Color.fromARGB(255, 48, 47, 47),
             backgroundColor: const Color.fromARGB(255, 48, 47, 47),
             foregroundColor: Colors.white,
             onTap: () {
@@ -41,9 +41,9 @@ class _FloatingButtonState extends State<FloatingButton> {
             }),
         SpeedDialChild(
             child: const Icon(Icons.playlist_play),
-            label: 'VideoPlaylist',
-            labelBackgroundColor: const Color.fromARGB(255, 48, 47, 47),
-            labelStyle: const TextStyle(color: Colors.white),
+            // label: 'VideoPlaylist',
+            // labelBackgroundColor: const Color.fromARGB(255, 48, 47, 47),
+            // labelStyle: const TextStyle(color: Colors.white),
             backgroundColor: const Color.fromARGB(255, 48, 47, 47),
             foregroundColor: Colors.white,
             onTap: () {

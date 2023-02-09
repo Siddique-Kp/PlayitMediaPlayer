@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:playit/screens/video/playing_video_screen/playing_video.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoBottomController extends StatefulWidget {
   final Duration videoPosition;
   final Duration videoDuration;
   final VideoPlayerController controller;
-  final bool isLocked;
 
-  const VideoBottomController(
-      {super.key,
-      required this.controller,
-      required this.videoDuration,
-      required this.videoPosition,
-      this.isLocked = false});
+  const VideoBottomController({
+    super.key,
+    required this.controller,
+    required this.videoDuration,
+    required this.videoPosition,
+  });
 
   @override
   State<VideoBottomController> createState() => _VideoBottomControllerState();
@@ -45,7 +45,12 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
           children: [
             IconButton(
                 iconSize: 30,
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isVisible = false;
+                    isLocked = true;
+                  });
+                },
                 icon: icon(Icons.lock_open_rounded)),
             IconButton(
                 iconSize: 40,

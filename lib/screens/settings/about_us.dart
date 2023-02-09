@@ -9,7 +9,7 @@ class AboutUs extends StatelessWidget {
       appBar: AppBar(
         title: const Text("About Us"),
       ),
-      body: Text('dddddddddddddddddfffffffffffffffffffffddddddddd'),
+      body:const Text(''),
     );
   }
 }

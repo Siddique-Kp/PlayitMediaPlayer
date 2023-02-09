@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playit/screens/playlist_screen/play_list-page.dart';
 import 'package:playit/screens/video/videopage.dart';
+import 'package:playit/style/theme.dart';
 import '../music/music_page.dart';
 import '../settings/settings_page.dart';
 
@@ -35,7 +36,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       BottomNavBarScreen.pages.elementAt(pageindex),
       bottomNavigationBar: NavigationBar(
           selectedIndex: pageindex,
-          backgroundColor: Colors.white,
+          // backgroundColor: ThemeDataClass.darkTheme.backgroundColor,
+          surfaceTintColor: Colors.amber,
           onDestinationSelected: (value) => changePage(value),
           destinations: const [
             NavigationDestination(

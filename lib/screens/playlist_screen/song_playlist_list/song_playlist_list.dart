@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/screens/music/get_all_songs.dart';
-import 'package:playit/screens/music/playing_music/playing_music.dart';
-import 'package:playit/database/recent_song_db.dart';
-import 'package:playit/screens/music/songbottom_sheet/song_bottom_sheet.dart';
+import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 import 'package:playit/screens/playlist_screen/song_playlist_list/add_songs_playlist.dart';
+import 'package:playit/screens/playlist_screen/song_playlist_list/inside_playlist_popup.dart';
 import '../../../model/playit_media_model.dart';
 
 class SongPlayListList extends StatefulWidget {
@@ -22,8 +21,6 @@ class SongPlayListList extends StatefulWidget {
 }
 
 class _SongPlayListListState extends State<SongPlayListList> {
-
-
   @override
   Widget build(BuildContext context) {
     List<SongModel> songPlaylist;
@@ -34,116 +31,62 @@ class _SongPlayListListState extends State<SongPlayListList> {
           songPlaylist =
               listPlaylist(musicList.values.toList()[widget.listIndex].songId);
           return Scaffold(
-              appBar: AppBar(
-                title: Text(widget.playList.name),
+              body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                flexibleSpace: FlexibleSpaceBar(
+                  title: Text(widget.playList.name),
+                  background: Image.asset(
+                    "assets/Headset.jpeg",
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 actions: [
-                  IconButton(
-                      onPressed: (() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  AddSongsPlaylist(playlist: widget.playList),
-                            ));
-                      }),
-                      icon: const Icon(Icons.playlist_add))
+                  InsidePopupSong(
+                    playlist: widget.playList,
+                    index: widget.listIndex,
+                  )
                 ],
+                pinned: true,
+                expandedHeight: MediaQuery.of(context).size.height * 3 / 10,
               ),
-              body: songPlaylist.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'No Songs found',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextButton.icon(
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return AddSongsPlaylist(
-                                      playlist: widget.playList);
-                                },
-                              ));
-                            },
-                            label: const Text('Add songs'),
-                            icon: const Icon(Icons.add),
-                          )
-                        ],
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: songPlaylist.length,
-                      itemBuilder: (context, index) {
-                        String artistName = songPlaylist[index].artist!;
-                        String songTitle = songPlaylist[index].title;
-                        return ListTile(
-                          leading: QueryArtworkWidget(
-                            id: songPlaylist[index].id,
-                            type: ArtworkType.AUDIO,
-                            artworkBorder: BorderRadius.circular(3),
-                            artworkHeight: 60,
-                            artworkWidth: 60,
-                            artworkFit: BoxFit.cover,
-                            nullArtworkWidget: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(3)),
-                              width: 60,
-                              height: 60,
-                              child: const Center(
-                                  child: Icon(
-                                Icons.music_note,
-                                color: Colors.white,
-                              )),
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                songPlaylist.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'No songs here.',
+                              style: TextStyle(fontWeight: FontWeight.w500),
                             ),
-                          ),
-                          title: Text(
-                            songTitle,
-                            overflow: TextOverflow.clip,
-                            maxLines: 1,
-                          ),
-                          subtitle: Text(
-                            artistName == '<unknown>'
-                                ? "Unknown artist"
-                                : artistName,
-                            overflow: TextOverflow.clip,
-                            maxLines: 1,
-                          ),
-                          trailing: SongBottomSheet(
-                            songTitle: songTitle,
-                            artistName: artistName,
-                            songModel: songPlaylist,
-                            songFavorite: songPlaylist[index],
-                            count: songPlaylist.length,
-                            index: index,
-                            isPLaylist: true,
-                            playList: widget.playList,
-                          ),
-                          onTap: () {
-                            List<SongModel> musicPlaylist = [...songPlaylist];
-                            GetAllSongController.audioPlayer.stop();
-                            GetAllSongController.audioPlayer.setAudioSource(
-                                GetAllSongController.createSongList(
-                                    musicPlaylist),
-                                initialIndex: index);
-                            GetRecentSongController.addRecentlyPlayed(
-                                musicPlaylist[index].id);
-                            GetAllSongController.audioPlayer.play();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      PlayingMusic(songModel: songPlaylist),
-                                ));
-                          },
-                        );
-                      },
-                    ));
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            ElevatedButton(
+                                style: const ButtonStyle(
+                                    elevation: MaterialStatePropertyAll(0)),
+                                onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddSongsPlaylist(
+                                          playlist: widget.playList,
+                                        ),
+                                      ),
+                                    ),
+                                child: const Text("ADD SONGS"))
+                          ],
+                        ),
+                      )
+                    : SongListBuilder(
+                        songModel: songPlaylist,
+                        playList: widget.playList,
+                        isPlaylist: true,
+                      ),
+              ]))
+            ],
+          ));
         });
   }
 

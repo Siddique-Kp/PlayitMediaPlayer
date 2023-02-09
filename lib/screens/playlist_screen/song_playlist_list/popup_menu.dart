@@ -10,7 +10,7 @@ class PlayListPopUpMusic extends StatefulWidget {
   const PlayListPopUpMusic({
     super.key,
     required this.playlist,
-    required this.musicPlayitList,
+     this.musicPlayitList,
     required this.index,
   });
   final PlayItSongModel playlist;
@@ -73,10 +73,13 @@ class _PlayListPopUpMusicState extends State<PlayListPopUpMusic> {
               }
             },
           );
+
+
+
         });
   }
 
-  Future deletePlayList(
+   deletePlayList(
     BuildContext context,
     Box<PlayItSongModel> musicList,
     int index,
@@ -105,6 +108,7 @@ class _PlayListPopUpMusicState extends State<PlayListPopUpMusic> {
               onTap: () {
                 Navigator.pop(context);
                 musicList.deleteAt(index);
+                
                 snackBar(
                     inTotal: 3,
                     width: 2,

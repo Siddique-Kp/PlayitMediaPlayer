@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/splash_screen/splash_screen.dart';
+import 'package:playit/style/theme.dart';
 import 'screens/bottom_navbar/bottom_navbar.dart';
 
 Future<void> main() async {
@@ -54,17 +54,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        appBarTheme: const AppBarTheme(
-          iconTheme: IconThemeData(color: Colors.white),
-          color: Colors.black,
-          foregroundColor: Colors.white,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.black,
-          ),
-        ),
-      ),
+      theme: ThemeDataClass.lightTheme,
+      darkTheme:ThemeData.dark(),
+      themeMode: ThemeMode.light,
+
       title: 'PlayIt App',
       initialRoute: '/',
       routes: {

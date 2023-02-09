@@ -20,31 +20,16 @@ class PlayItSongModel extends HiveObject {
     save();
   }
 
+  clearSongs() {
+    songId.clear();
+  }
+
   bool isValueIn(int id) {
     return songId.contains(id);
   }
 }
 
-@HiveType(typeId: 2)
-class VideoFavourite extends HiveObject {
-  VideoFavourite(
-      {required this.title,
-      this.index,
-      required this.videoPath,
-      required this.duration});
 
-  @HiveField(0)
-  int? index;
-
-  @HiveField(1)
-  final String title;
-
-  @HiveField(2)
-  final String videoPath;
-
-  @HiveField(3)
-  final String duration;
-}
 
 @HiveType(typeId: 3)
 class VideoFavoriteModel {
@@ -94,5 +79,4 @@ class VideoPlayListItem extends HiveObject {
   int playlistFolderindex;
   @HiveField(2)
   String duration;
- 
 }

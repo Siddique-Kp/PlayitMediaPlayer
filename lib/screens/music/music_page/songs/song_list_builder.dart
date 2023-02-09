@@ -11,10 +11,16 @@ class SongListBuilder extends StatefulWidget {
     required this.songModel,
     this.isRecentSong = false,
     this.recentLength = 0,
+    this.isFavor = false,
+    this.isPlaylist = false,
+    this.playList
   });
   final List<SongModel> songModel;
   final bool isRecentSong;
   final int recentLength;
+  final bool isFavor;
+  final bool isPlaylist;
+  final dynamic playList;
 
   @override
   State<SongListBuilder> createState() => _SongListBuilderState();
@@ -25,17 +31,21 @@ class _SongListBuilderState extends State<SongListBuilder> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: widget.isPlaylist ? true : false,
+      physics: const ScrollPhysics(),
       itemExtent: 80,
       itemBuilder: (context, index) {
         allSongs.addAll(widget.songModel);
 
         final String songTitle = widget.songModel[index].displayNameWOExt;
-        String artistName = widget.songModel[index].artist!;
+        String artist =widget.songModel[index].artist!;
+        String artistName = artist == "<unknown>" ? "Unknown artist":artist;
 
         return ListTile(
           leading: QueryArtworkWidget(
             id: widget.songModel[index].id,
             type: ArtworkType.AUDIO,
+            keepOldArtwork: true,
             artworkBorder: BorderRadius.circular(3),
             artworkHeight: 60,
             artworkWidth: 60,
@@ -58,7 +68,7 @@ class _SongListBuilderState extends State<SongListBuilder> {
             maxLines: 1,
           ),
           subtitle: Text(
-            artistName == '<unknown>' ? "Unknown artist" : artistName,
+            artistName,
             overflow: TextOverflow.clip,
             maxLines: 1,
           ),
@@ -69,6 +79,9 @@ class _SongListBuilderState extends State<SongListBuilder> {
             songFavorite: widget.songModel[index],
             count: widget.songModel.length,
             index: index,
+            isFavor: widget.isFavor,
+            isPLaylist: widget.isPlaylist,
+            playList: widget.playList,
           ),
           onTap: () {
             GetAllSongController.audioPlayer.setAudioSource(
@@ -89,7 +102,8 @@ class _SongListBuilderState extends State<SongListBuilder> {
           },
         );
       },
-      itemCount:widget.isRecentSong? widget.recentLength: widget.songModel.length,
+      itemCount:
+          widget.isRecentSong ? widget.recentLength : widget.songModel.length,
     );
   }
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:playit/database/video_playlist_db.dart';
 import 'package:playit/screens/video/playing_video_screen/playing_video.dart';
 import 'package:playit/screens/video/video_bottom_sheet/video_bottom_sheet.dart';
-import 'package:playit/screens/video/video_thumbnail.dart';
 import '../../../model/playit_media_model.dart';
+import '../../video/video_thumbnail.dart';
 import 'add_videos_playlist.dart';
 
 class VideoPlayListList extends StatefulWidget {
@@ -33,9 +33,7 @@ class _VideoPlayListListState extends State<VideoPlayListList> {
                       MaterialPageRoute(
                         builder: (context) => AddVideosToPlayList(
                             playlist: widget.playList,
-                            playlistFolderIndex: widget.playList.index
-                            
-                            ),
+                            playlistFolderIndex: widget.playList.index),
                       ));
                 },
                 icon: const Icon(Icons.add))
@@ -49,8 +47,33 @@ class _VideoPlayListListState extends State<VideoPlayListList> {
             child,
           ) {
             if (videoPlaylistItems.isEmpty) {
-              return const Center(
-                child: Text("No Videos in this Playlist"),
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "No videos here.",
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                     const SizedBox(
+                            height: 10,
+                          ),
+                    ElevatedButton(
+                      style:const ButtonStyle(
+                        elevation: MaterialStatePropertyAll(0)
+                      ),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddVideosToPlayList(
+                              playlist: widget.playList,
+                              playlistFolderIndex: widget.playList.index),
+                        ),
+                      ),
+                      child: const Text("ADD VIDEOS"),
+                    ),
+                  ],
+                ),
               );
             } else {
               return ListView.builder(

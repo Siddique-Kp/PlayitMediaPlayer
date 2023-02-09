@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:playit/model/playit_media_model.dart';
 
-class SongPlaylistDb extends ChangeNotifier{
+class SongPlaylistDb extends ChangeNotifier {
   static ValueNotifier<List<PlayItSongModel>> playlistNotifiier =
       ValueNotifier([]);
   static final songPlaylistDb = Hive.box<PlayItSongModel>('songPlaylistDb');
@@ -31,4 +31,6 @@ class SongPlaylistDb extends ChangeNotifier{
     await songPlaylistDb.putAt(index, value);
     getAllPlaylist();
   }
+
+ 
 }

@@ -19,12 +19,15 @@ class PlayingVideo extends StatefulWidget {
   State<PlayingVideo> createState() => _PlayingVideoState();
 }
 
+bool isVisible = true;
+bool isLocked = false;
+
 class _PlayingVideoState extends State<PlayingVideo> {
   late VideoPlayerController _controller;
   Duration videoDuration = const Duration();
   Duration videoPosition = const Duration();
   bool isPlaying = true;
-  bool isVisible =true;
+  bool isLandscape = true;
 
   @override
   void initState() {
@@ -53,12 +56,28 @@ class _PlayingVideoState extends State<PlayingVideo> {
       backgroundColor: Colors.black,
       body: GestureDetector(
         onTap: () => setState(() {
-          checkVisible();
-         
+          if(isLocked != true)checkVisible();
+
         }),
         child: SafeArea(
           child: Stack(
             children: [
+              Visibility(
+                  visible: isLocked,
+                  child: ColoredBox(
+                    color: const Color.fromARGB(125, 158, 158, 158),
+                    child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isVisible = !isVisible;
+                            isLocked = !isLocked;
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.lock,
+                          color: Colors.white,
+                        )),
+                  )),
               VideoPlayerWidget(controller: _controller),
               Visibility(
                 visible: isVisible,
@@ -90,20 +109,39 @@ class _PlayingVideoState extends State<PlayingVideo> {
                             icon: const Icon(Icons.arrow_back)),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: CircleAvatar(
-                        backgroundColor: const Color.fromARGB(118, 0, 0, 0),
-                        radius: 20,
-                        child: IconButton(
-                          onPressed: () {
-                            _controller.setVolume(isMuted ? 1 : 0);
-                          },
-                          icon: Icon(isMuted
-                              ? Icons.volume_off_outlined
-                              : Icons.volume_up_outlined),
-                          color: Colors.white,
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: const Color.fromARGB(118, 0, 0, 0),
+                            radius: 20,
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  setLandscape();
+                                  isLandscape = !isLandscape;
+                                });
+                              },
+                              icon: const Icon(Icons.screen_rotation),
+                              color: Colors.white,
+                            ),
+                          ),
+                          CircleAvatar(
+                            backgroundColor: const Color.fromARGB(118, 0, 0, 0),
+                            radius: 20,
+                            child: IconButton(
+                              onPressed: () {
+                                _controller.setVolume(isMuted ? 1 : 0);
+                              },
+                              icon: Icon(isMuted
+                                  ? Icons.volume_off_outlined
+                                  : Icons.volume_up_outlined),
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Column(
@@ -119,7 +157,6 @@ class _PlayingVideoState extends State<PlayingVideo> {
                             controller: _controller,
                             videoDuration: videoDuration,
                             videoPosition: videoPosition,
-                            
                           ),
                         ),
                         const SizedBox(
@@ -137,8 +174,19 @@ class _PlayingVideoState extends State<PlayingVideo> {
     );
   }
 
+  Future setLandscape() async {
+    if (isLandscape) {
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+    } else {
+      await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+    }
+  }
+
   checkVisible() {
-    isVisible = false;
-    Future.delayed(const Duration(seconds: 6), () => isVisible = true);
+    isVisible = true;
+    Future.delayed(const Duration(seconds: 6), () => isVisible = false);
   }
 }

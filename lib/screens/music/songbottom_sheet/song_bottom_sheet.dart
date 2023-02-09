@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/music/songbottom_sheet/add_to_playlist.dart';
+import 'package:playit/screens/music/songbottom_sheet/details_song.dart';
 import '../../../database/song_favorite_db.dart';
 import '../../../database/video_favorite_db.dart';
 import '../get_all_songs.dart';
@@ -18,6 +19,7 @@ class SongBottomSheet extends StatefulWidget {
     required this.index,
     this.isPLaylist = false,
     this.playList,
+    this.isFavor = false,
   });
   final String songTitle;
   final String? artistName;
@@ -27,6 +29,7 @@ class SongBottomSheet extends StatefulWidget {
   final int index;
   final bool isPLaylist;
   final dynamic playList;
+  final bool isFavor;
 
   @override
   State<SongBottomSheet> createState() => _SongBottomSheetState();
@@ -46,22 +49,23 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
               count: widget.count,
               index: widget.index,
               isVisible: widget.isPLaylist,
-              playList: widget.playList);
+              playList: widget.playList,
+              isFavor: widget.isFavor);
         },
         icon: const Icon(Icons.more_vert));
   }
 
-  void songBottomSheet({
-    required context,
-    required songTitle,
-    required artistName,
-    required songModel,
-    required SongModel songFavorite,
-    required index,
-    count = 0,
-    required isVisible,
-    required playList,
-  }) {
+  void songBottomSheet(
+      {required context,
+      required songTitle,
+      required artistName,
+      required songModel,
+      required SongModel songFavorite,
+      required index,
+      count = 0,
+      required isVisible,
+      required playList,
+      required isFavor}) {
     showModalBottomSheet(
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -72,128 +76,140 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
         ),
         context: context,
         builder: (context) {
-          return Wrap(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 50,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Text(
-                          songTitle,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.clip,
-                          maxLines: 1,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
+          return StatefulBuilder(builder: (context, setState) {
+            return Wrap(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 50,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Text(
+                            songTitle,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.clip,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  const Divider(thickness: 1,),
-                  ListTile(
-                    leading: const Icon(
-                      Icons.play_arrow_rounded,
-                      size: 37,
-                      color: Color.fromARGB(255, 21, 21, 21),
+                    const Divider(
+                      thickness: 1,
                     ),
-                    title: bottomText("Play"),
-                    onTap: () {
-                      GetAllSongController.audioPlayer.setAudioSource(
-                          GetAllSongController.createSongList(songModel),
-                          initialIndex: index);
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PlayingMusic(
-                            songModel: songModel,
-                            count: count,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  FavoriteDb.isFavor(songFavorite)
-                      ? ListTile(
-                          leading: const Padding(
-                            padding: EdgeInsets.only(left: 8),
-                            child: Icon(
-                              Icons.favorite,
-                              color: Colors.redAccent,
-                              size: 27,
+                    ListTile(
+                      leading: const Icon(
+                        Icons.play_arrow_rounded,
+                        size: 37,
+                        color: Color.fromARGB(255, 21, 21, 21),
+                      ),
+                      title: bottomText("Play"),
+                      onTap: () {
+                        GetAllSongController.audioPlayer.setAudioSource(
+                            GetAllSongController.createSongList(songModel),
+                            initialIndex: index);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlayingMusic(
+                              songModel: songModel,
+                              count: count,
                             ),
                           ),
-                          title: bottomText(
-                            "Remove from favorite",
-                          ),
-                          onTap: () {
-                            Navigator.pop(context);
-                            FavoriteDb.delete(songFavorite.id);
-                            FavoriteDb.favoriteSongs.notifyListeners();
-                            snackBar(
-                              context: context,
-                              content: "Removed from favorite",
-                              width: 3,
-                              inTotal: 5,
-                              bgcolor: const Color.fromARGB(255, 54, 54, 54),
-                            );
-                          },
-                        )
-                      : ListTile(
-                          leading: bottomIcon(Icons.favorite_border_outlined),
-                          title: bottomText("Add to favorite"),
-                          onTap: () {
-                            Navigator.pop(context);
-                            FavoriteDb.add(songFavorite);
-                            snackBar(
-                              context: context,
-                              content: "Song added to favorite",
-                              width: 3,
-                              inTotal: 5,
-                              bgcolor: const Color.fromARGB(255, 54, 54, 54),
-                            );
-                          },
-                        ),
-                  ListTile(
-                    leading: bottomIcon(Icons.playlist_add),
-                    title: bottomText("Add to playlist"),
-                    onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AddToPlaylist(),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    leading: bottomIcon(Icons.info),
-                    title: bottomText("Song Info"),
-                    onTap: () {},
-                  ),
-                  Visibility(
-                    visible: isVisible,
-                    child: ListTile(
-                      leading: bottomIcon(Icons.delete),
-                      title: bottomText("Delete"),
-                      onTap: () {
-                        Navigator.pop(context);
-                        showdialog(widget.playList, songModel, index);
+                        );
                       },
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
-              ),
-            ],
-          );
+                    FavoriteDb.isFavor(songFavorite)
+                        ? ListTile(
+                            leading: const Padding(
+                              padding: EdgeInsets.only(left: 8),
+                              child: Icon(
+                                Icons.favorite,
+                                color: Colors.redAccent,
+                                size: 27,
+                              ),
+                            ),
+                            title: bottomText(
+                              "Remove from favorite",
+                            ),
+                            onTap: () {
+                              setState(() {
+                                FavoriteDb.delete(songFavorite.id);
+                                FavoriteDb.favoriteSongs.notifyListeners();
+                              });
+                              if (isFavor) {
+                                Navigator.pop(context);
+                              }
+
+                              snackBar(
+                                context: context,
+                                content: "Removed from favorite",
+                                width: 3,
+                                inTotal: 5,
+                                bgcolor: const Color.fromARGB(255, 54, 54, 54),
+                              );
+                            },
+                          )
+                        : ListTile(
+                            leading: bottomIcon(Icons.favorite_border_outlined),
+                            title: bottomText("Add to favorite"),
+                            onTap: () {
+                              setState(() {
+                                FavoriteDb.add(songFavorite);
+                              });
+
+                              snackBar(
+                                context: context,
+                                content: "Song added to favorite",
+                                width: 3,
+                                inTotal: 5,
+                                bgcolor: const Color.fromARGB(255, 54, 54, 54),
+                              );
+                            },
+                          ),
+                    ListTile(
+                      leading: bottomIcon(Icons.playlist_add),
+                      title: bottomText("Add to playlist"),
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddToPlaylist(
+                              index: index,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    SongDetails(
+                      artistName: artistName,
+                      songModel: songFavorite,
+                    ),
+                    Visibility(
+                      visible: isVisible,
+                      child: ListTile(
+                        leading: bottomIcon(Icons.delete),
+                        title: bottomText("Delete"),
+                        onTap: () {
+                          Navigator.pop(context);
+                          showdialog(widget.playList, songModel, index);
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ],
+            );
+          });
         });
   }
 

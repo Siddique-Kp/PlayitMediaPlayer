@@ -8,7 +8,8 @@ import 'package:playit/screens/music/music_page/songs/songs_list_page.dart';
 import '../../playlist_screen/floating_button.dart/floating_button.dart';
 
 class AddToPlaylist extends StatefulWidget {
-  const AddToPlaylist({super.key});
+  const AddToPlaylist({super.key,required this.index});
+  final int index;
 
   @override
   State<AddToPlaylist> createState() => _AddToPlaylistState();
@@ -59,7 +60,7 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
                           trailing: const Icon(Icons.chevron_right),
                           onTap: () {
                             songAddToPlaylist(
-                                startSong[index], data, data.name);
+                                startSong[widget.index], data, data.name);
                           },
                         ),
                       );
@@ -69,13 +70,14 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
         backgroundColor: Colors.black,
         child: const Icon(Icons.playlist_add),
         onPressed: () {
-          newPlayList(context, formKey, "Playlist for Music",true);
+          newPlayList(context, formKey, "Playlist for Music", true);
         },
       ),
     );
   }
 
-  void songAddToPlaylist(SongModel data, PlayItSongModel playList, String name) {
+  void songAddToPlaylist(
+      SongModel data, PlayItSongModel playList, String name) {
     if (!playList.isValueIn(data.id)) {
       playList.add(data.id);
       snackBar(

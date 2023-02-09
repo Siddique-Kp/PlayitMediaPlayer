@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/database/video_playlist_db.dart';
 import 'package:playit/model/playit_media_model.dart';
+import 'package:playit/screens/playlist_screen/video_playlist_list/add_videos_playlist.dart';
 
 class PlayListPopUpVideo extends StatefulWidget {
   const PlayListPopUpVideo({
@@ -50,16 +51,17 @@ class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
       elevation: 2,
       onSelected: (value) {
         if (value == 1) {
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (context) =>
-
-          //     ));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddVideosToPlayList(
+                        playlist: widget.playlist,
+                        playlistFolderIndex: widget.playlist.index,
+                      )));
         } else if (value == 2) {
-          editVideoPlaylistName(context, widget.playlist, widget.index);
+          editVideoPlaylistName(context, widget.playlist, widget.playlist.index!);
         } else if (value == 3) {
-          deleteVideoPlayList(context, widget.videoPlayitList, widget.index);
+          deleteVideoPlayList(context, widget.videoPlayitList, widget.playlist.index!);
         }
       },
     );
@@ -202,7 +204,8 @@ class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
                     if (name.isEmpty) {
                       return;
                     } else {
-                      final playlistName = VideoPlaylistModel(name: name,index: index);
+                      final playlistName =
+                          VideoPlaylistModel(name: name, index: index);
                       VideoPlaylistDb.editList(index, playlistName);
                     }
                     textEditingController.clear();

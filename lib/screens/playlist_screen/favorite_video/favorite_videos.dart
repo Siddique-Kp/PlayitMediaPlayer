@@ -6,20 +6,14 @@ import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/video/access_video.dart';
 import 'package:playit/screens/video/playing_video_screen/playing_video.dart';
 import 'package:playit/screens/video/video_thumbnail.dart';
-
 import '../../../main.dart';
 import '../../video/video_bottom_sheet/video_bottom_sheet.dart';
 
-class FavoriteVideos extends StatefulWidget {
-  const FavoriteVideos({super.key});
+class FavoriteVideos extends StatelessWidget {
+  FavoriteVideos({super.key});
 
-  @override
-  State<FavoriteVideos> createState() => _FavoriteVideosState();
-}
-
-class _FavoriteVideosState extends State<FavoriteVideos> {
   final videoInfo = FlutterVideoInfo();
-  // final videoFavDb = VideoFavDb();
+
   @override
   Widget build(BuildContext context) {
     if (!VideoFavoriteDb.isInitialized) {
@@ -42,9 +36,12 @@ class _FavoriteVideosState extends State<FavoriteVideos> {
       ),
       body: ValueListenableBuilder(
           valueListenable: VideoFavoriteDb.videoFavoriteDb,
-          builder: (context, List<VideoFavoriteModel> videoFavData, child) {
+          builder: (context, List<VideoFavoriteModel> videoData, child) {
+            final temp = videoData.reversed.toList();
+            final videoFavData =temp.toSet().toList();
+
             if (videoFavData.isEmpty) {
-              return const  Center(
+              return const Center(
                 child: Text("No Favorite Videos"),
               );
             }
@@ -73,12 +70,15 @@ class _FavoriteVideosState extends State<FavoriteVideos> {
                     videoSize: fileSize(videoListData.videoPath),
                     duration: videoinfo.duration.split('.').first,
                     index: index,
+                    isFavor: true,
                   ),
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => PlayingVideo(
-                            videoFile: videoPath, videoTitle: videoTitle),
+                          videoFile: videoPath,
+                          videoTitle: videoTitle,
+                        ),
                       )),
                 );
               },
