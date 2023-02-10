@@ -38,6 +38,10 @@ class _SongListBuilderState extends State<SongListBuilder> {
         allSongs.addAll(widget.songModel);
 
         final String songTitle = widget.songModel[index].displayNameWOExt;
+        // String songTitle = songfullTitle;
+        //           if (songTitle.length > 20) {
+        //             songTitle = '${songTitle.substring(0, 20)}...';
+        //           }
         String artist =widget.songModel[index].artist!;
         String artistName = artist == "<unknown>" ? "Unknown artist":artist;
 
@@ -62,10 +66,13 @@ class _SongListBuilderState extends State<SongListBuilder> {
               )),
             ),
           ),
-          title: Text(
-            songTitle,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
+          title: SizedBox(
+            width: MediaQuery.of(context).size.width*3/5,
+            child: Text(
+              songTitle,
+             
+              maxLines: 1,
+            ),
           ),
           subtitle: Text(
             artistName,

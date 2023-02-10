@@ -12,7 +12,7 @@ class AddVideosToPlayList extends StatefulWidget {
   const AddVideosToPlayList(
       {super.key, required this.playlist, required this.playlistFolderIndex});
   final dynamic playlist;
-  final int? playlistFolderIndex;
+  final int playlistFolderIndex;
 
   @override
   State<AddVideosToPlayList> createState() => _AddVideosToPlayListState();
@@ -39,6 +39,10 @@ class _AddVideosToPlayListState extends State<AddVideosToPlayList> {
                   String path = accessVideosPath[index];
                   final videoTitle =
                       accessVideosPath[index].toString().split('/').last;
+                       String shorttitle = videoTitle;
+                if (videoTitle.length > 19) {
+                    shorttitle = shorttitle.substring(0, 19);
+                  }
                   AllVideos? videoinfo = videoDB.getAt(index);
                   final listitemshive =
                       Hive.box<VideoPlayListItem>('VideoListItemsBox');
@@ -59,7 +63,7 @@ class _AddVideosToPlayListState extends State<AddVideosToPlayList> {
                             videoinfo!.duration.toString().split(".").first,
                       ),
                       title: Text(
-                        videoTitle,
+                        shorttitle,
                         overflow: TextOverflow.clip,
                         maxLines: 1,
                       ),
@@ -86,12 +90,12 @@ class _AddVideosToPlayListState extends State<AddVideosToPlayList> {
                               ))
                           : IconButton(
                               onPressed: () {
-                                setState(() {
+                                
                                   VideoPlaylistDb.deleteListItem(
                                       index: index, context: context);
                                   VideoPlaylistDb.playlistitemsNotifier
                                       .notifyListeners();
-                                });
+                             
                               },
                               icon: const CircleAvatar(
                                 radius: 10,

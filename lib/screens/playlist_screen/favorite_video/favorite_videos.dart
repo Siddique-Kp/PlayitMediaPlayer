@@ -1,13 +1,11 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/video/access_video.dart';
-import 'package:playit/screens/video/playing_video_screen/playing_video.dart';
+import 'package:playit/screens/video/video_list/video_list_builder.dart';
 import 'package:playit/screens/video/video_thumbnail.dart';
 import '../../../main.dart';
-import '../../video/video_bottom_sheet/video_bottom_sheet.dart';
 
 class FavoriteVideos extends StatelessWidget {
   FavoriteVideos({super.key});
@@ -38,7 +36,7 @@ class FavoriteVideos extends StatelessWidget {
           valueListenable: VideoFavoriteDb.videoFavoriteDb,
           builder: (context, List<VideoFavoriteModel> videoData, child) {
             final temp = videoData.reversed.toList();
-            final videoFavData =temp.toSet().toList();
+            final videoFavData = temp.toSet().toList();
 
             if (videoFavData.isEmpty) {
               return const Center(
@@ -49,55 +47,26 @@ class FavoriteVideos extends StatelessWidget {
               itemCount: videoFavData.length,
               itemBuilder: (context, index) {
                 final videoListData = videoFavData[index];
-                final videoPath = videoListData.videoPath;
+                String videoPath = videoListData.videoPath;
                 final videoTitle = videoPath.toString().split('/').last;
+                String shorttitle = videoTitle;
+                if (videoTitle.length > 19) {
+                    shorttitle = shorttitle.substring(0, 19);
+                  }
                 AllVideos? videoinfo = videoDB.getAt(index);
-                return ListTile(
-                  leading: thumbnail(
-                    path: videoListData.videoPath,
-                    context: context,
-                    duration: videoinfo!.duration.split('.').first,
-                  ),
-                  title: Text(
-                    videoTitle,
-                    overflow: TextOverflow.clip,
-                    maxLines: 1,
-                  ),
-                  subtitle: Text(fileSize(videoListData.videoPath)),
-                  trailing: VideoBottomSheet(
-                    videoTitle: videoTitle,
-                    videoPath: videoPath,
-                    videoSize: fileSize(videoListData.videoPath),
-                    duration: videoinfo.duration.split('.').first,
-                    index: index,
-                    isFavor: true,
-                  ),
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PlayingVideo(
-                          videoFile: videoPath,
-                          videoTitle: videoTitle,
-                        ),
-                      )),
+                String duration =
+                    videoinfo!.duration.toString().split('.').first;
+
+                return VideoListBuilder(
+                  videoPath: videoPath,
+                  videoTitle: shorttitle,
+                  duration: duration,
+                  index: index,
+                  isFavorite: true,
                 );
               },
             );
           }),
     );
-  }
-
-  fileSize(path) {
-    final fileSizeInBytes = File(path).lengthSync();
-    if (fileSizeInBytes < 1024) {
-      return '$fileSizeInBytes bytes';
-    }
-    if (fileSizeInBytes < 1048576) {
-      return '${(fileSizeInBytes / 1024).toStringAsFixed(1)}KB';
-    }
-    if (fileSizeInBytes < 1073741824) {
-      return '${(fileSizeInBytes / 1048576).toStringAsFixed(1)}MB';
-    }
-    return '${(fileSizeInBytes / 1073741824).toStringAsFixed(1)}GB';
   }
 }

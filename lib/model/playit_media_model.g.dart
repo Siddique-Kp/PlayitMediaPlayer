@@ -55,7 +55,7 @@ class VideoFavouriteAdapter extends TypeAdapter<VideoFavourite> {
     };
     return VideoFavourite(
       title: fields[1] as String,
-      index: fields[0] as int?,
+      index: fields[0] as dynamic,
       videoPath: fields[2] as String,
       duration: fields[3] as String,
     );

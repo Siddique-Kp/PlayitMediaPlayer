@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:playit/screens/video/search_video/search_video.dart';
 import 'package:playit/screens/video/video_list/video_list.dart';
 import 'folder_videos/folder_video_list.dart';
 
@@ -10,12 +11,10 @@ class VideoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.black,
-      
     ));
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        
         body: SafeArea(
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -36,7 +35,13 @@ class VideoPage extends StatelessWidget {
                   //   icon: const Icon(Icons.history),
                   // ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SearchVideoPage(),
+                          ));
+                    },
                     icon: const Icon(Icons.search),
                   ),
                 ],
@@ -45,8 +50,8 @@ class VideoPage extends StatelessWidget {
                 floating: true,
                 snap: true,
                 bottom: const TabBar(indicatorColor: Colors.white, tabs: [
-                  Tab(child: Text("Video",style:TextStyle(fontSize: 17))),
-                  Tab(child: Text("Folder",style:TextStyle(fontSize: 17))),
+                  Tab(child: Text("Video", style: TextStyle(fontSize: 17))),
+                  Tab(child: Text("Folder", style: TextStyle(fontSize: 17))),
                 ]),
               ),
             ],

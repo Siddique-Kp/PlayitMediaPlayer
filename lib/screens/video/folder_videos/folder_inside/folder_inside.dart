@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:playit/screens/video/access_video.dart';
 import 'package:playit/screens/video/folder_videos/accsess_folder.dart';
+import 'package:playit/screens/video/video_list/video_list_builder.dart';
 import '../../../../main.dart';
 import '../../../../model/playit_media_model.dart';
-import '../../playing_video_screen/playing_video.dart';
-import '../../video_bottom_sheet/video_bottom_sheet.dart';
-import '../../video_thumbnail.dart';
 
 class FolderVideoInside extends StatefulWidget {
   const FolderVideoInside({super.key, required this.folderPath});
@@ -39,45 +36,22 @@ class _FolderVideoInsideState extends State<FolderVideoInside> {
               return ListView.builder(
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  String videoTitle = videos[index].split('/').last;
-                  AllVideos? videoinfo = videoDB.getAt(index);
-                  return ListTile(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PlayingVideo(
-                            videoFile: videos[index],
-                            videoTitle: videoTitle,
-                          ),
-                        ),
-                      );
-                    },
-                    leading: thumbnail(
-                        path: videos[index],
-                        context: context,
-                        duration: videoinfo!.duration.toString().split('.').first),
-                    title: Text(
-                      videoTitle,
-                      overflow: TextOverflow.clip,
-                      maxLines: 1,
-                    ),
-                    subtitle: Text(fileSize(videos[index])),
-                    trailing: VideoBottomSheet(
-                      videoTitle: videoTitle,
-                      videoPath: videos[index],
-                      videoSize: fileSize(videos[index]),
-                      duration: loadVideoduration()
-                          .toString()
-                          .split('.')
-                          .first,
-                      index: index,
-                    ),
+                  String videoPath = videos[index];
+                  String videoTitle = videoPath.split('/').last;
+                  String shorttitle = videoTitle;
+                  if (videoTitle.length > 19) {
+                    shorttitle = shorttitle.substring(0, 19);
+                  }
+                  AllVideos? info = videoDB.getAt(index);
+                  String duration = info!.duration.split('.').first;
+                  return VideoListBuilder(
+                    videoPath: videoPath,
+                    videoTitle: shorttitle,
+                    duration: duration,
+                    index: index,
                   );
                 },
               );
             }));
   }
-
-
 }

@@ -136,7 +136,7 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
                               ),
                             ),
                             title: bottomText(
-                              "Remove from favorite",
+                              "Added To Favorite",
                             ),
                             onTap: () {
                               setState(() {
@@ -146,19 +146,11 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
                               if (isFavor) {
                                 Navigator.pop(context);
                               }
-
-                              snackBar(
-                                context: context,
-                                content: "Removed from favorite",
-                                width: 3,
-                                inTotal: 5,
-                                bgcolor: const Color.fromARGB(255, 54, 54, 54),
-                              );
                             },
                           )
                         : ListTile(
                             leading: bottomIcon(Icons.favorite_border_outlined),
-                            title: bottomText("Add to favorite"),
+                            title: bottomText("Add To Favorite"),
                             onTap: () {
                               setState(() {
                                 FavoriteDb.add(songFavorite);
@@ -175,7 +167,7 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
                           ),
                     ListTile(
                       leading: bottomIcon(Icons.playlist_add),
-                      title: bottomText("Add to playlist"),
+                      title: bottomText("Add To Playlist"),
                       onTap: () {
                         Navigator.pushReplacement(
                           context,

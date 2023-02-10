@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:playit/main.dart';
 import 'package:playit/model/playit_media_model.dart';
-import 'package:playit/screens/video/playing_video_screen/playing_video.dart';
-import 'package:playit/screens/video/video_bottom_sheet/video_bottom_sheet.dart';
-import 'package:playit/screens/video/video_thumbnail.dart';
+import 'package:playit/screens/video/video_list/video_list_builder.dart';
 import 'package:video_player/video_player.dart';
-import '../../../main.dart';
 import '../access_video.dart';
 
 class VideoList extends StatefulWidget {
@@ -34,46 +32,23 @@ class _VideoListState extends State<VideoList> {
               child: CircularProgressIndicator(),
             );
           }
-        
+
           return ListView.builder(
             itemCount: accessVideosPath.length,
-            itemExtent: 75,
             itemBuilder: (context, index) {
-              final path = accessVideosPath[index];
-              final videoTitle =
-                  accessVideosPath[index].toString().split('/').last;
-              AllVideos? videoinfo = videoDB.getAt(index);
-
-              return ListTile(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PlayingVideo(
-                        videoFile: path,
-                        videoTitle: videoTitle,
-                      ),
-                    ),
-                  );
-                },
-                leading: thumbnail(
-                  path: path,
-                  context: context,
-                  duration: videoinfo!.duration.toString().split(".").first,
-                ),
-                title: Text(
-                  videoTitle,
-                  overflow: TextOverflow.clip,
-                  maxLines: 1,
-                ),
-                subtitle: Text(fileSize(path)),
-                trailing: VideoBottomSheet(
-                  videoTitle: videoTitle,
-                  videoPath: path,
-                  videoSize: fileSize(path),
-                  duration:videoinfo.duration.toString().split(".").first,
-                  index: index,
-                ),
+              String videoPath = accessVideosPath[index];
+              String videoTitle = videoPath.toString().split('/').last;
+               String shorttitle = videoTitle;
+                if (videoTitle.length > 19) {
+                    shorttitle = shorttitle.substring(0, 19);
+                  }
+              AllVideos? videosinfo = videoDB.getAt(index);
+              String duration = videosinfo!.duration.toString().split('.').first;
+              return VideoListBuilder(
+                videoPath: videoPath,
+                videoTitle: shorttitle,
+                duration: duration,
+                index: index,
               );
             },
           );

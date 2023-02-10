@@ -14,7 +14,7 @@ Future<String> getthumbnail(path) async {
       imageFormat: ImageFormat.PNG))!;
 }
 
-Widget thumbnail({required path, context, duration}) {
+Widget thumbnail({required path,required context,required duration}) {
   return Stack(
     children: [
       Container(

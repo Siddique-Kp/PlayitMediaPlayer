@@ -38,7 +38,7 @@ class VideoFavourite extends HiveObject {
       required this.duration});
 
   @HiveField(0)
-  int? index;
+  dynamic index;
 
   @HiveField(1)
   final String title;

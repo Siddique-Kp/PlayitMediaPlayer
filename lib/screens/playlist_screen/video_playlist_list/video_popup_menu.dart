@@ -56,7 +56,7 @@ class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
               MaterialPageRoute(
                   builder: (context) => AddVideosToPlayList(
                         playlist: widget.playlist,
-                        playlistFolderIndex: widget.playlist.index,
+                        playlistFolderIndex: widget.playlist.index!,
                       )));
         } else if (value == 2) {
           editVideoPlaylistName(context, widget.playlist, widget.playlist.index!);
@@ -150,7 +150,7 @@ class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
             child: Form(
                 key: formKey,
                 child: TextFormField(
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                   controller: textEditingController,
                   maxLength: 15,
                   decoration: InputDecoration(
