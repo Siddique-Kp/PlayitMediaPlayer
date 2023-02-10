@@ -73,8 +73,12 @@ class _PlayingMusicState extends State<PlayingMusic> {
     GetAllSongController.audioPlayer.play();
     GetAllSongController.audioPlayer.durationStream.listen((d) {
       if (mounted) {
+      
         setState(() {
-          _duration = d!;
+        if(d != null){
+           _duration = d;
+        }
+       
         });
       }
     });
