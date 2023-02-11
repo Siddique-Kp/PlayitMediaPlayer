@@ -28,7 +28,7 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
     } else {
       result = allVideos
           .where((element) =>
-              element.toLowerCase().contains(searchText.toLowerCase()))
+              element.split('/').last.toLowerCase().contains(searchText.toLowerCase()))
           .toList();
     }
     setState(() {
@@ -111,7 +111,7 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
   }
 
   loadSongs() async {
-    allVideos = accessVideosPath.toList();
+    allVideos = accessVideosPath;
     foundVideo = allVideos;
   }
 }

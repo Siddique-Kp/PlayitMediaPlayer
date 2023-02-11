@@ -31,8 +31,8 @@ class SongArtisPage extends StatelessWidget {
             itemExtent: 80,
             itemCount: items.data!.length,
             itemBuilder: (context, index) {
-              final artist = items.data![index].artist;
-               String artistName = artist == "<unknown>" ? "Unknown artist":artist;
+              final artistName = items.data![index].artist;
+               String artist = artistName == "<unknown>" ? "Unknown artist":artistName;
               return Center(
                 child: ListTile(
                   leading: QueryArtworkWidget(
@@ -56,7 +56,7 @@ class SongArtisPage extends StatelessWidget {
                     ),
                   ),
                   title: Text(
-                    artistName,
+                    artist,
                     overflow: TextOverflow.clip,
                     maxLines: 1,
                   ),

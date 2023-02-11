@@ -20,6 +20,8 @@ class _ArtistInsideListState extends State<ArtistInsideList> {
 
   @override
   Widget build(BuildContext context) {
+    String artist =
+        widget.artistName == "<unknown>" ? "Unknown artist" : widget.artistName;
     return Scaffold(
         appBar: AppBar(
           elevation: 1,
@@ -28,7 +30,7 @@ class _ArtistInsideListState extends State<ArtistInsideList> {
             onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back),
           ),
-          title: Text(widget.artistName),
+          title: Text(artist),
         ),
         body: FutureBuilder<List<SongModel>>(
             future: _audioQuery.querySongs(

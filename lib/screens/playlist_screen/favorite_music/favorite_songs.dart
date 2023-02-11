@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/database/song_favorite_db.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
+import 'package:playit/screens/playlist_screen/favorite_video/favorite_popup.dart';
 
 class FavoriteSongs extends StatefulWidget {
   const FavoriteSongs({super.key});
@@ -23,6 +24,9 @@ class _FavoriteSongsState extends State<FavoriteSongs> {
               elevation: 1,
               backgroundColor: Colors.black,
               title: const Text("Favorite Songs"),
+              actions:const [
+                FavoritePopUp(isVideo: false)
+              ],
             ),
             body: ValueListenableBuilder(
                 valueListenable: FavoriteDb.favoriteSongs,

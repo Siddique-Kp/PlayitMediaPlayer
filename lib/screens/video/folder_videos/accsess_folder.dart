@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
- import '../access_video.dart';
+import '../access_video.dart';
 
 ValueNotifier<List<String>> folderVideos = ValueNotifier([]);
 
 loadVideos(String path) {
+  folderVideos.value.clear();
   List<String> videoPath = [];
   List<String> splittedVideoPath = [];
 
@@ -25,12 +26,13 @@ loadVideos(String path) {
   }
 }
 
-List<String> loadFolders = [];
+ValueNotifier<List<String>> loadFolders = ValueNotifier([]);
 List<String> temp = [];
 
 Future loadFolderList() async {
+  loadFolders.value.clear();
   for (String path in accessVideosPath) {
     temp.add(path.substring(0, path.lastIndexOf('/')));
   }
-  loadFolders = temp.toSet().toList();
+  loadFolders.value = temp.toSet().toList();
 }

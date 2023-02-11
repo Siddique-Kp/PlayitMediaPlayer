@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:playit/main.dart';
+import '../../../model/playit_media_model.dart';
 import '../playing_video_screen/playing_video.dart';
 import '../video_bottom_sheet/video_bottom_sheet.dart';
 import '../video_thumbnail.dart';
@@ -12,6 +15,7 @@ class VideoListBuilder extends StatefulWidget {
     required this.index,
     this.isFavorite = false,
     this.isPlaylist = false,
+    this.isFoldervideo = false,
   });
   final String videoPath;
   final String videoTitle;
@@ -19,12 +23,20 @@ class VideoListBuilder extends StatefulWidget {
   final int index;
   final bool isFavorite;
   final bool isPlaylist;
+  final bool isFoldervideo;
 
   @override
   State<VideoListBuilder> createState() => _VideoListBuilderState();
 }
 
 class _VideoListBuilderState extends State<VideoListBuilder> {
+  String _duration = '00:00';
+  @override
+  void initState() {
+    getduration();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -42,7 +54,7 @@ class _VideoListBuilderState extends State<VideoListBuilder> {
       leading: thumbnail(
         path: widget.videoPath,
         context: context,
-        duration: widget.duration,
+        duration: widget.isFoldervideo ? _duration : widget.duration,
       ),
       title: Text(
         widget.videoTitle,
@@ -54,11 +66,25 @@ class _VideoListBuilderState extends State<VideoListBuilder> {
         videoTitle: widget.videoTitle,
         videoPath: widget.videoPath,
         videoSize: fileSize(widget.videoPath),
-        duration: widget.duration,
+        duration: widget.isFoldervideo ? _duration : widget.duration,
         index: widget.index,
-        isFavor:widget.isFavorite ,
+        isFavor: widget.isFavorite,
         isPlaylist: widget.isPlaylist,
       ),
     );
+  }
+
+  getduration() async {
+    videoDB = await Hive.openBox<AllVideos>('videoplayer');
+    List<AllVideos> data = videoDB.values.toList();
+    List<AllVideos> result =
+        data.where((element) => element.path == widget.videoPath).toList();
+    if (result.isNotEmpty) {
+      _duration = result
+          .where((element) => element.path == widget.videoPath)
+          .first
+          .duration;
+      setState(() {});
+    }
   }
 }

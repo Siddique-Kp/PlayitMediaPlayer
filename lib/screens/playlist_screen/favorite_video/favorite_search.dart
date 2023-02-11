@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:playit/database/song_favorite_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/main.dart';
 import 'package:playit/model/playit_media_model.dart';
@@ -7,7 +8,9 @@ import 'package:playit/screens/video/video_list/video_list_builder.dart';
 class FavSearchVideoPage extends StatefulWidget {
   const FavSearchVideoPage({
     super.key,
+    this.isVideofav = false
   });
+  final bool isVideofav;
 
   @override
   State<FavSearchVideoPage> createState() => _FavSearchVideoPageState();
@@ -16,7 +19,6 @@ class FavSearchVideoPage extends StatefulWidget {
 class _FavSearchVideoPageState extends State<FavSearchVideoPage> {
   List<String> allVideos = [];
   List<String> foundVideo = [];
- 
 
   @override
   void initState() {
@@ -30,8 +32,7 @@ class _FavSearchVideoPageState extends State<FavSearchVideoPage> {
       result = allVideos;
     } else {
       result = allVideos
-          .where(
-              (element) => element.contains(searchText.toLowerCase()))
+          .where((element) => element.contains(searchText.toLowerCase()))
           .toList();
     }
     setState(() {
@@ -114,9 +115,7 @@ class _FavSearchVideoPageState extends State<FavSearchVideoPage> {
   }
 
   loadSongs() {
-
-    allVideos = VideoFavoriteDb.videoDb.values.toList() ;
+    allVideos = widget.isVideofav ? VideoFavoriteDb.videoDb.values.toList():FavoriteDb.musicDb.values.toList() as List<String>;
     foundVideo = allVideos;
-    
   }
 }

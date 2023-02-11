@@ -55,7 +55,7 @@ Widget thumbnail({required path,required context,required duration}) {
             color:const Color.fromARGB(116, 0, 0, 0),
             child: duration!=null?
             Text(
-               duration.toString().split('0:0').last,
+               duration.toString(),
               style: const TextStyle(color: Colors.white, fontSize: 11.0),
             ):null
             ,

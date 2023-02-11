@@ -64,19 +64,23 @@ class _PlayingVideoState extends State<PlayingVideo> {
             children: [
               Visibility(
                   visible: isLocked,
-                  child: ColoredBox(
-                    color: const Color.fromARGB(125, 158, 158, 158),
-                    child: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isVisible = !isVisible;
-                            isLocked = !isLocked;
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.lock,
-                          color: Colors.white,
-                        )),
+                  child: Positioned(
+                    left: 10,
+                    top: 10,
+                    child: ColoredBox(
+                      color: const Color.fromARGB(125, 158, 158, 158),
+                      child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isVisible = !isVisible;
+                              isLocked = !isLocked;
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                          )),
+                    ),
                   )),
               VideoPlayerWidget(controller: _controller),
               Visibility(
