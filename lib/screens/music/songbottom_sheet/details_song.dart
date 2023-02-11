@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/screens/video/access_video.dart';
-import 'package:playit/screens/video/video_thumbnail.dart';
 
 class SongDetails extends StatefulWidget {
   const SongDetails(
@@ -191,16 +190,5 @@ class _SongDetailsState extends State<SongDetails> {
         );
       },
     );
-  }
-
-  String _formatDuration(Duration? duration) {
-    if (duration == null) {
-      return '--:--';
-    } else {
-      String minutes = duration.inMinutes.toString().padLeft(2, '0');
-      String seconds =
-          duration.inSeconds.remainder(60).toString().padLeft(2, '0');
-      return '$minutes:$seconds';
-    }
   }
 }

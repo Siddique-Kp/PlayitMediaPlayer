@@ -45,8 +45,8 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                 stream:
                     GetAllSongController.audioPlayer.shuffleModeEnabledStream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if(snapshot.hasData){
-                      _isShuffling = snapshot.data;
+                  if (snapshot.hasData) {
+                    _isShuffling = snapshot.data;
                   }
                   if (_isShuffling) {
                     return const Icon(Icons.shuffle_rounded,
@@ -150,7 +150,8 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                     icon: const Icon(
                       Icons.skip_next,
                       color: Colors.white,
-                    )),
+                    ),
+                  ),
           ],
         ),
       ],

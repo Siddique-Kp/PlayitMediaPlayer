@@ -55,33 +55,38 @@ class _PlayingVideoState extends State<PlayingVideo> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
-        onTap: () => setState(() {
-          if(isLocked != true)checkVisible();
-
-        }),
+        onTap: () => setState(
+          () {
+            if (isLocked != true) checkVisible();
+          },
+        ),
         child: SafeArea(
           child: Stack(
             children: [
               Visibility(
-                  visible: isLocked,
-                  child: Positioned(
-                    left: 10,
-                    top: 10,
-                    child: ColoredBox(
-                      color: const Color.fromARGB(125, 158, 158, 158),
-                      child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isVisible = !isVisible;
-                              isLocked = !isLocked;
-                            });
+                visible: isLocked,
+                child: Positioned(
+                  left: 10,
+                  top: 10,
+                  child: ColoredBox(
+                    color: const Color.fromARGB(125, 158, 158, 158),
+                    child: IconButton(
+                      onPressed: () {
+                        setState(
+                          () {
+                            isVisible = !isVisible;
+                            isLocked = !isLocked;
                           },
-                          icon: const Icon(
-                            Icons.lock,
-                            color: Colors.white,
-                          )),
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.lock,
+                        color: Colors.white,
+                      ),
                     ),
-                  )),
+                  ),
+                ),
+              ),
               VideoPlayerWidget(controller: _controller),
               Visibility(
                 visible: isVisible,
@@ -123,10 +128,12 @@ class _PlayingVideoState extends State<PlayingVideo> {
                             radius: 20,
                             child: IconButton(
                               onPressed: () {
-                                setState(() {
-                                  setLandscape();
-                                  isLandscape = !isLandscape;
-                                });
+                                setState(
+                                  () {
+                                    setLandscape();
+                                    isLandscape = !isLandscape;
+                                  },
+                                );
                               },
                               icon: const Icon(Icons.screen_rotation),
                               color: Colors.white,

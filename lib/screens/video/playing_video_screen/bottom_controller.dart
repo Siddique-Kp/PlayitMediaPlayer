@@ -36,7 +36,7 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
             Text(
               _formatDuration(widget.videoDuration),
               style: const TextStyle(color: Colors.white),
-            )
+            ),
           ],
         ),
         Row(
@@ -46,10 +46,12 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
             IconButton(
                 iconSize: 30,
                 onPressed: () {
-                  setState(() {
-                    isVisible = false;
-                    isLocked = true;
-                  });
+                  setState(
+                    () {
+                      isVisible = false;
+                      isLocked = true;
+                    },
+                  );
                 },
                 icon: icon(Icons.lock_open_rounded)),
             IconButton(
@@ -60,14 +62,16 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
                 icon: icon(Icons.fast_rewind_rounded)),
             IconButton(
               onPressed: () {
-                setState(() {
-                  if (widget.controller.value.isPlaying) {
-                    widget.controller.pause();
-                  } else {
-                    widget.controller.play();
-                  }
-                  isPlaying = !isPlaying;
-                });
+                setState(
+                  () {
+                    if (widget.controller.value.isPlaying) {
+                      widget.controller.pause();
+                    } else {
+                      widget.controller.play();
+                    }
+                    isPlaying = !isPlaying;
+                  },
+                );
               },
               icon: widget.controller.value.isPlaying
                   ? icon(Icons.pause_rounded)
@@ -83,10 +87,12 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
             IconButton(
                 iconSize: 30,
                 onPressed: () {
-                  setState(() {
-                    setLandscape();
-                    isLandscape = !isLandscape;
-                  });
+                  setState(
+                    () {
+                      setLandscape();
+                      isLandscape = !isLandscape;
+                    },
+                  );
                 },
                 icon: icon(Icons.crop_landscape_rounded)),
           ],

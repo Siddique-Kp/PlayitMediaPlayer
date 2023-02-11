@@ -70,7 +70,7 @@ class _VideoAddToPlayListState extends State<VideoAddToPlayList> {
 }
 
 addItemToPlayList(
-    {required playlistFolderIndex,
+    {required  playlistFolderIndex,
     required String videoPath,
     required context,
     required duration}) async {

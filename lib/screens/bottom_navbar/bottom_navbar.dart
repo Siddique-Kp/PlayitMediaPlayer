@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:playit/screens/playlist_screen/play_list-page.dart';
 import 'package:playit/screens/video/videopage.dart';
-import 'package:playit/style/theme.dart';
 import '../music/music_page.dart';
 import '../settings/settings_page.dart';
 

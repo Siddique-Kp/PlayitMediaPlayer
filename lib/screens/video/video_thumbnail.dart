@@ -14,52 +14,51 @@ Future<String> getthumbnail(path) async {
       imageFormat: ImageFormat.PNG))!;
 }
 
-Widget thumbnail({required path,required context,required duration}) {
+Widget thumbnail({required path, required context, required String duration}) {
   return Stack(
     children: [
       Container(
-          width: MediaQuery.of(context).size.width * 0.25,
-          height: MediaQuery.of(context).size.height * 0.25,
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(3),
+        width: MediaQuery.of(context).size.width * 0.25,
+        height: MediaQuery.of(context).size.height * 0.25,
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(3),
+        ),
+        child: FutureBuilder(
+          future: getthumbnail(path),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              String data = snapshot.data!;
+              return Image.file(
+                File(data),
+                fit: BoxFit.cover,
+              );
+            } else {
+              return Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey, borderRadius: BorderRadius.circular(3)),
+                width: MediaQuery.of(context).size.width * 0.25,
+                height: MediaQuery.of(context).size.height * 0.25,
+                child: const Center(
+                  child: Icon(Icons.smart_display, size: 30),
+                ),
+              );
+            }
+          },
+        ),
+      ),
+      Positioned(
+        right: 1,
+        bottom: 1,
+        child: Card(
+          color: const Color.fromARGB(116, 0, 0, 0),
+          child: Text(
+            duration.split('00:0').last,
+            style: const TextStyle(color: Colors.white, fontSize: 11.0),
           ),
-          child: FutureBuilder(
-            future: getthumbnail(path),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                String data = snapshot.data!;
-                return Image.file(
-                  File(data),
-                  fit: BoxFit.cover,
-                );
-              } else {
-                return Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(3)),
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  height: MediaQuery.of(context).size.height * 0.25,
-                  child: const Center(
-                    child: Icon(Icons.smart_display, size: 30),
-                  ),
-                );
-              }
-            },
-          )),
-       Positioned(
-          right: 1,
-          bottom: 1,
-          child: Card(
-            color:const Color.fromARGB(116, 0, 0, 0),
-            child: duration!=null?
-            Text(
-               duration.toString(),
-              style: const TextStyle(color: Colors.white, fontSize: 11.0),
-            ):null
-            ,
-          ))
+        ),
+      ),
     ],
   );
 }
@@ -85,5 +84,3 @@ fileSize(path) {
   }
   return '${(fileSizeInBytes / 1073741824).toStringAsFixed(1)}GB';
 }
-
-

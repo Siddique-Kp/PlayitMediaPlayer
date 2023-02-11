@@ -168,6 +168,7 @@ Future<void> saveButtonVideoPlaylist(context) async {
       bgcolor: const Color.fromARGB(255, 48, 47, 47),
     );
     Navigator.of(context).pop();
+    textEditingController.clear();
   } else {
     VideoPlaylistDb.addVideoPlaylist(video);
     snackBar(
@@ -198,6 +199,7 @@ Future<void> saveButtonPressedMusic(context) async {
       bgcolor: const Color.fromARGB(255, 48, 47, 47),
     );
     Navigator.of(context).pop();
+    textEditingController.clear();
   } else {
     SongPlaylistDb.addPlaylist(music);
     snackBar(

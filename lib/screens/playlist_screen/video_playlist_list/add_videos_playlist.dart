@@ -12,7 +12,7 @@ class AddVideosToPlayList extends StatefulWidget {
   const AddVideosToPlayList(
       {super.key, required this.playlist, required this.playlistFolderIndex});
   final dynamic playlist;
-  final int playlistFolderIndex;
+  final int? playlistFolderIndex;
 
   @override
   State<AddVideosToPlayList> createState() => _AddVideosToPlayListState();

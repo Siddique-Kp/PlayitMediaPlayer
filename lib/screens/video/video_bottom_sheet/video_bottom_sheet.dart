@@ -116,7 +116,7 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
                     )
                         ? ListTile(
                             leading: bottomIcon(Icons.favorite_border_outlined),
-                            title: bottomText("Add to favorite"),
+                            title: bottomText("Add To Favorite"),
                             onTap: () {
                               setState(
                                 () {
@@ -142,7 +142,7 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
                                 size: 27,
                               ),
                             ),
-                            title: bottomText("Remove from favorite"),
+                            title: bottomText("Added To Favorite"),
                             onTap: () {
                               setState(
                                 () {
@@ -182,6 +182,7 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
                         leading: bottomIcon(Icons.delete),
                         title: bottomText('Delete'),
                         onTap: () {
+                          Navigator.pop(context);
                           showdialog(index);
                         },
                       ),
@@ -196,8 +197,6 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
           });
         });
   }
-
-
 
   bottomStyle() {
     return TextButton.styleFrom(
@@ -265,26 +264,26 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
   }
 }
 
-  Widget bottomText(text) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10.0),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 17,
-          fontWeight: FontWeight.w400,
-        ),
+Widget bottomText(text) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 10.0),
+    child: Text(
+      text,
+      style: const TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.w400,
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Widget bottomIcon(icon) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8),
-      child: Icon(
-        icon,
-        size: 27,
-        color: const Color.fromARGB(255, 21, 21, 21),
-      ),
-    );
-  }
+Widget bottomIcon(icon) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 8),
+    child: Icon(
+      icon,
+      size: 27,
+      color: const Color.fromARGB(255, 21, 21, 21),
+    ),
+  );
+}

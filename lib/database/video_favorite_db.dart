@@ -32,12 +32,11 @@ class VideoFavoriteDb extends ChangeNotifier {
         context: context,
         content: "video added to favorite",
         width: 3,
-        inTotal: 4,
+        inTotal: 5,
         bgcolor: const Color.fromARGB(255, 66, 64, 64));
   }
 
   static videoDelete(String videoPath, context) {
-    
     int deleteKey = 0;
     if (!videoDb.values.contains(videoPath)) {
       return;
@@ -49,14 +48,9 @@ class VideoFavoriteDb extends ChangeNotifier {
       }
     });
     videoDb.delete(deleteKey);
-    videoFavoriteDb.value.removeWhere((element) => element.videoPath == videoPath );
+    videoFavoriteDb.value
+        .removeWhere((element) => element.videoPath == videoPath);
     videoFavoriteDb.notifyListeners();
-    snackBar(
-        context: context,
-        content: "Removed from favorite",
-        width: 2,
-        inTotal: 4,
-        bgcolor:const Color.fromARGB(255, 66, 64, 64));
   }
 }
 
@@ -74,16 +68,31 @@ Future<void> snackBar(
       content: SizedBox(
         height: 17,
         child: Center(
-            child: Text(
-          content,
-          style: const TextStyle(
-            color: Colors.white,
-          ),
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CircleAvatar(
+              radius: 10,
+              backgroundImage: AssetImage('assets/icon/icon.png'),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              content,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ],
         )),
       ),
       backgroundColor: bgcolor,
       behavior: SnackBarBehavior.floating,
-      shape: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+      
+      shape: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(8)),
     ),
   );
 }

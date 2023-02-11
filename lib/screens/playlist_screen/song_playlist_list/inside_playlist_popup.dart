@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 import '../../../database/song_playlist_db.dart';
 import '../../../database/video_favorite_db.dart';
 import '../../../model/playit_media_model.dart';
