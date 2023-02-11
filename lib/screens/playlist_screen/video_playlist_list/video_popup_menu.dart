@@ -93,6 +93,7 @@ class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
               onTap: () {
                 Navigator.pop(context);
                 videoList.deleteAt(index);
+                
                 snackBar(
                     inTotal: 3,
                     width: 2,

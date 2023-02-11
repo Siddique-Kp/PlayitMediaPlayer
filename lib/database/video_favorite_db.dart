@@ -87,7 +87,7 @@ Future<void> snackBar(
           ],
         )),
       ),
-      backgroundColor: bgcolor,
+      backgroundColor: const Color.fromARGB(255, 48, 47, 47),
       behavior: SnackBarBehavior.floating,
       
       shape: OutlineInputBorder(

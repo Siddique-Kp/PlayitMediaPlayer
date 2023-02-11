@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/database/video_playlist_db.dart';
 import 'package:playit/screens/video/playing_video_screen/playing_video.dart';
+import 'package:playit/screens/video/video_bottom_sheet/video-addfavorite.dart';
 import 'package:playit/screens/video/video_bottom_sheet/video_addto_playlist.dart';
 import 'package:playit/screens/video/video_bottom_sheet/video_details.dart';
-import '../../../model/playit_media_model.dart';
-import '../video_thumbnail.dart';
 
 class VideoBottomSheet extends StatefulWidget {
   const VideoBottomSheet({
@@ -108,55 +107,12 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
                         );
                       },
                     ),
-                    !VideoFavoriteDb.isVideoFavor(
-                      VideoFavoriteModel(
-                          title: videoTitle,
-                          videoPath: videoPath,
-                          videoSize: fileSize(videoPath)),
-                    )
-                        ? ListTile(
-                            leading: bottomIcon(Icons.favorite_border_outlined),
-                            title: bottomText("Add To Favorite"),
-                            onTap: () {
-                              setState(
-                                () {
-                                  VideoFavoriteDb.videoAdd(
-                                      VideoFavoriteModel(
-                                        title: videoTitle,
-                                        videoPath: videoPath,
-                                        videoSize: fileSize(videoPath),
-                                      ),
-                                      context);
-                                  VideoFavoriteDb.videoFavoriteDb
-                                      .notifyListeners();
-                                },
-                              );
-                            },
-                          )
-                        : ListTile(
-                            leading: const Padding(
-                              padding: EdgeInsets.only(left: 8),
-                              child: Icon(
-                                Icons.favorite,
-                                color: Colors.redAccent,
-                                size: 27,
-                              ),
-                            ),
-                            title: bottomText("Added To Favorite"),
-                            onTap: () {
-                              setState(
-                                () {
-                                  VideoFavoriteDb.videoDelete(
-                                      videoPath, context);
-                                  VideoFavoriteDb.videoFavoriteDb
-                                      .notifyListeners();
-                                },
-                              );
-                              if (isFavor) {
-                                Navigator.pop(context);
-                              }
-                            },
-                          ),
+                    VideoAddToFavorite(
+                      videoPath: videoPath,
+                      videoTitle: videoTitle,
+                      videoSize: videoSize,
+                      isFavor: widget.isFavor,
+                    ),
                     ListTile(
                       leading: bottomIcon(Icons.playlist_add),
                       title: bottomText("Add to playlist"),
@@ -233,11 +189,11 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
                 VideoPlaylistDb.deleteListItem(index: index, context: context);
                 VideoPlaylistDb.playlistitemsNotifier.notifyListeners();
                 snackBar(
-                    inTotal: 4,
+                    inTotal: 5,
                     width: 3,
                     context: context,
                     content: "Deleted successfully",
-                    bgcolor: Colors.black54);
+                    bgcolor: const Color.fromARGB(255, 48, 47, 47));
               },
             ),
             const Divider(
