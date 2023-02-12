@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:playit/database/player_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
-import 'package:playit/database/video_playlist_db.dart';
-import 'package:playit/model/playit_media_model.dart';
-import 'package:playit/screens/playlist_screen/video_playlist_list/add_videos_playlist.dart';
+import 'package:playit/model/player.dart';
 
 class PlayListPopUpVideo extends StatefulWidget {
   const PlayListPopUpVideo({
@@ -12,8 +11,8 @@ class PlayListPopUpVideo extends StatefulWidget {
     required this.videoPlayitList,
     required this.index,
   });
-  final VideoPlaylistModel playlist;
-  final dynamic videoPlayitList;
+  final PlayerModel playlist;
+  final Box<PlayerModel> videoPlayitList;
   final int index;
 
   @override
@@ -27,48 +26,43 @@ class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<int>(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      itemBuilder: (context) => [
-        PopupMenuItem(
-          value: 1,
-          padding: const EdgeInsets.only(left: 20, right: 15),
-          child: Text("Add Videos", style: popupStyle),
-        ),
-        PopupMenuItem(
-          value: 2,
-          padding: const EdgeInsets.only(left: 20, right: 15),
-          child: Text("Rename", style: popupStyle),
-        ),
-        PopupMenuItem(
-          value: 3,
-          padding: const EdgeInsets.only(left: 20, right: 15),
-          child: Text("Delete", style: popupStyle),
-        )
-      ],
-      offset: const Offset(0, 50),
-      color: const Color.fromARGB(255, 48, 47, 47),
-      elevation: 2,
-      onSelected: (value) {
-        if (value == 1) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AddVideosToPlayList(
-                        playlist: widget.playlist,
-                        playlistFolderIndex: widget.playlist.index!,
-                      )));
-        } else if (value == 2) {
-          editVideoPlaylistName(context, widget.playlist, widget.playlist.index!);
-        } else if (value == 3) {
-          deleteVideoPlayList(context, widget.videoPlayitList, widget.playlist.index!);
-        }
-      },
-    );
+    List<String> listVideos = [];
+    return ValueListenableBuilder(
+        valueListenable: Hive.box<PlayerModel>('PlayerDB').listenable(),
+        builder: (context, Box<PlayerModel> videos, child) {
+          listVideos = videos.values.toList()[widget.index].videoPath;
+          return PopupMenuButton<int>(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 2,
+                padding: const EdgeInsets.only(left: 20, right: 35),
+                child: Text("Rename", style: popupStyle),
+              ),
+              PopupMenuItem(
+                value: 3,
+                padding: const EdgeInsets.only(left: 20, right: 35),
+                child: Text("Delete", style: popupStyle),
+              )
+            ],
+            offset: const Offset(0, 50),
+            color: const Color.fromARGB(255, 48, 47, 47),
+            elevation: 2,
+            onSelected: (value) {
+              if (value == 2) {
+                editVideoPlaylistName(context, widget.playlist,widget.index, listVideos);
+              } else if (value == 3) {
+                deleteVideoPlayList(
+                    context, widget.videoPlayitList, widget.index);
+              }
+            },
+          );
+        });
   }
 
   Future deleteVideoPlayList(
-      BuildContext context, Box<VideoPlaylistModel> videoList, int index) {
+      BuildContext context, Box<PlayerModel> videoList, int index) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -93,7 +87,7 @@ class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
               onTap: () {
                 Navigator.pop(context);
                 videoList.deleteAt(index);
-                
+
                 snackBar(
                     inTotal: 3,
                     width: 2,
@@ -124,7 +118,7 @@ class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
   }
 
   Future editVideoPlaylistName(
-      BuildContext context, VideoPlaylistModel data, int index) {
+      BuildContext context, PlayerModel data, int index ,List<String> videoData) {
     return showDialog(
       context: context,
       builder: (context) => SimpleDialog(
@@ -206,8 +200,8 @@ class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
                       return;
                     } else {
                       final playlistName =
-                          VideoPlaylistModel(name: name, index: index);
-                      VideoPlaylistDb.editList(index, playlistName);
+                          PlayerModel(name: name, videoPath: videoData);
+                      VideoPlayerListDB.editList(index, playlistName);
                     }
                     textEditingController.clear();
                     Navigator.pop(context);

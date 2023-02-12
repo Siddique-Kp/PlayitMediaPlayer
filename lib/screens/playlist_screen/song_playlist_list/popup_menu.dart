@@ -3,7 +3,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/database/song_playlist_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/playit_media_model.dart';
-import 'package:playit/screens/playlist_screen/song_playlist_list/add_songs_playlist.dart';
 
 
 class PlayListPopUpMusic extends StatefulWidget {
@@ -39,11 +38,6 @@ class _PlayListPopUpMusicState extends State<PlayListPopUpMusic> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             itemBuilder: (context) => [
               PopupMenuItem(
-                value: 1,
-                padding: const EdgeInsets.only(left: 20, right: 15),
-                child: Text("Add Songs", style: popupStyle),
-              ),
-              PopupMenuItem(
                 value: 2,
                 padding: const EdgeInsets.only(left: 20, right: 15),
                 child: Text("Rename", style: popupStyle),
@@ -58,14 +52,7 @@ class _PlayListPopUpMusicState extends State<PlayListPopUpMusic> {
             color: const Color.fromARGB(255, 48, 47, 47),
             elevation: 2,
             onSelected: (value) {
-              if (value == 1) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          AddSongsPlaylist(playlist: widget.playlist),
-                    ));
-              } else if (value == 2) {
+              if (value == 2) {
                 editPlaylistName(
                     context, widget.playlist, widget.index, listSongs);
               } else if (value == 3) {

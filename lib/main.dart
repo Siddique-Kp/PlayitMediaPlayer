@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/splash_screen/splash_screen.dart';
 import 'package:playit/style/theme.dart';
@@ -25,8 +26,9 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(VideoPlayListItemAdapter().typeId)) {
     Hive.registerAdapter(VideoPlayListItemAdapter());
   }
-
- 
+  if (!Hive.isAdapterRegistered(PlayerModelAdapter().typeId)) {
+    Hive.registerAdapter(PlayerModelAdapter());
+  }
 
   await Hive.initFlutter();
   await Hive.openBox<int>('SongFavoriteDB');
@@ -36,6 +38,7 @@ Future<void> main() async {
   await Hive.openBox<VideoPlaylistModel>('VideoPlaylistDb');
   await Hive.openBox<VideoPlayListItem>('VideoListItemsBox');
   videoDB = await Hive.openBox<AllVideos>('videoplayer');
+  await Hive.openBox<PlayerModel>('PlayerDB');
 
   // await JustAudioBackground.init(
   //   androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
@@ -55,9 +58,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeDataClass.lightTheme,
-      darkTheme:ThemeData.dark(),
+      darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.light,
-
       title: 'PlayIt App',
       initialRoute: '/',
       routes: {

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:playit/database/song_playlist_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
-import 'package:playit/database/video_playlist_db.dart';
+import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
+
+import '../../../database/player_db.dart';
 
 class FloatingButton extends StatefulWidget {
   const FloatingButton({super.key});
@@ -154,9 +156,10 @@ Future newPlayList(BuildContext context, GlobalKey<FormState> formKey,
 
 Future<void> saveButtonVideoPlaylist(context) async {
   final name = textEditingController.text.trim();
-  final video = VideoPlaylistModel(name: name);
-  final datas =
-      VideoPlaylistDb.videoPlaylistdb.values.map((e) => e.name.trim()).toList();
+  final video = PlayerModel(name: name, videoPath: []);
+  final datas = VideoPlayerListDB.videoPlayerListDB.values
+      .map((e) => e.name.trim())
+      .toList();
   if (name.isEmpty) {
     return;
   } else if (datas.contains(video.name)) {
@@ -170,7 +173,7 @@ Future<void> saveButtonVideoPlaylist(context) async {
     Navigator.of(context).pop();
     textEditingController.clear();
   } else {
-    VideoPlaylistDb.addVideoPlaylist(video);
+    VideoPlayerListDB.addPlaylist(video);
     snackBar(
       context: context,
       content: "Playlist created successfully",

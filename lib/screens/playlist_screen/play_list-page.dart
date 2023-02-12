@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:playit/screens/playlist_screen/song_playlist_list/new_music_playlist.dart';
 import 'package:playit/screens/playlist_screen/favorite_music/favorite_songs.dart';
 import 'package:playit/screens/playlist_screen/floating_button.dart/floating_button.dart';
-import 'package:playit/screens/playlist_screen/video_playlist_list/new_video_playlist.dart';
+import 'package:playit/screens/playlist_screen/video_playlist_list/play_list_of_video.dart';
 
 import 'favorite_video/favorite_videos.dart';
 
@@ -111,7 +111,7 @@ class PlayList extends StatelessWidget {
           ),
           // ------------ New Playlist view -----------
          const NewMuciPlaylist(),
-          const NewVideoPlaylist()
+          const PlaylistOfVideo(),
         ],
       ),
       // ---------- Floating Button ---------------

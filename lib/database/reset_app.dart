@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/database/song_favorite_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
+import 'package:playit/model/player.dart';
 import 'package:playit/screens/splash_screen/splash_screen.dart';
 
 import '../model/playit_media_model.dart';
@@ -15,6 +16,7 @@ class ResetApp {
     final videoPlaylist = Hive.box<VideoPlaylistModel>('VideoPlaylistDb');
     final videoPlaylistItems = Hive.box<VideoPlayListItem>('VideoListItemsBox');
     final allVideoinfo = Hive.box<AllVideos>('videoplayer');
+    final allVideoPlaylist = Hive.box<PlayerModel>('PlayerDB');
     await songFavorite.clear();
     await videoFavorite.clear();
     await recentSong.clear();
@@ -22,6 +24,7 @@ class ResetApp {
     await videoPlaylist.clear();
     await videoPlaylistItems.clear();
     await allVideoinfo.clear();
+    await allVideoPlaylist.clear();
     FavoriteDb.favoriteSongs.value.clear();
     VideoFavoriteDb.videoFavoriteDb.value.clear();
 
