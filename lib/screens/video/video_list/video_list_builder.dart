@@ -12,6 +12,7 @@ class VideoListBuilder extends StatefulWidget {
     required this.videoPath,
     required this.videoTitle,
     required this.duration,
+    this.playlist,
     required this.index,
     this.isFavorite = false,
     this.isPlaylist = false,
@@ -20,6 +21,7 @@ class VideoListBuilder extends StatefulWidget {
   final String videoPath;
   final String videoTitle;
   final String duration;
+  final dynamic playlist;
   final int index;
   final bool isFavorite;
   final bool isPlaylist;
@@ -67,6 +69,7 @@ class _VideoListBuilderState extends State<VideoListBuilder> {
         videoPath: widget.videoPath,
         videoSize: fileSize(widget.videoPath),
         duration: widget.isFoldervideo ? _duration : widget.duration,
+        playList: widget.playlist,
         index: widget.index,
         isFavor: widget.isFavorite,
         isPlaylist: widget.isPlaylist,

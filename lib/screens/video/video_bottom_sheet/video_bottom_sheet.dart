@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:playit/database/video_favorite_db.dart';
-import 'package:playit/database/video_playlist_db.dart';
+import 'package:playit/model/player.dart';
 import 'package:playit/screens/video/playing_video_screen/playing_video.dart';
 import 'package:playit/screens/video/video_bottom_sheet/video-addfavorite.dart';
 import 'package:playit/screens/video/video_bottom_sheet/video_addto_playlist.dart';
@@ -13,6 +13,7 @@ class VideoBottomSheet extends StatefulWidget {
     required this.videoPath,
     required this.videoSize,
     required this.duration,
+    this.playList,
     required this.index,
     this.isPlaylist = false,
     this.isFavor = false,
@@ -21,6 +22,7 @@ class VideoBottomSheet extends StatefulWidget {
   final String videoPath;
   final String videoSize;
   final String duration;
+  final dynamic playList;
   final int index;
   final bool isPlaylist;
   final bool isFavor;
@@ -139,7 +141,7 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
                         title: bottomText('Delete'),
                         onTap: () {
                           Navigator.pop(context);
-                          showdialog(index);
+                          showdialog(widget.playList, videoPath, index);
                         },
                       ),
                     ),
@@ -161,6 +163,8 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
   }
 
   showdialog(
+    PlayerModel playList,
+    String videoPath,
     int index,
   ) {
     showDialog(
@@ -186,8 +190,7 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
                   )),
               onTap: () {
                 Navigator.pop(context);
-                VideoPlaylistDb.deleteListItem(index: index, context: context);
-                VideoPlaylistDb.playlistitemsNotifier.notifyListeners();
+                playList.deleteData(videoPath);
                 snackBar(
                     inTotal: 5,
                     width: 3,

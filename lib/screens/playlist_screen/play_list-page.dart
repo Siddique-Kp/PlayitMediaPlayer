@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/screens/playlist_screen/song_playlist_list/new_music_playlist.dart';
 import 'package:playit/screens/playlist_screen/favorite_music/favorite_songs.dart';
 import 'package:playit/screens/playlist_screen/floating_button.dart/floating_button.dart';
 import 'package:playit/screens/playlist_screen/video_playlist_list/play_list_of_video.dart';
 
+import '../../model/player.dart';
+import '../../model/playit_media_model.dart';
 import 'favorite_video/favorite_videos.dart';
 
-class PlayList extends StatelessWidget {
+class PlayList extends StatefulWidget {
   const PlayList({super.key});
 
   @override
+  State<PlayList> createState() => _PlayListState();
+}
+
+class _PlayListState extends State<PlayList> {
+
+ 
+  // @override
+  // void didChangeDependencies() {
+  //    Hive.box<PlayItSongModel>('songplaylistDb');
+  //    Hive.box<PlayerModel>('PlayerDB');
+  //   super.didChangeDependencies();
+  // }
+  @override
   Widget build(BuildContext context) {
+     final musicHivebox = Hive.box<PlayItSongModel>('songplaylistDb');
+     final videoHivebox = Hive.box<PlayerModel>('PlayerDB');
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.black,
@@ -62,7 +80,7 @@ class PlayList extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            trailing: const Icon(Icons.arrow_forward_ios_rounded),
+            trailing: const Icon(Icons.chevron_right,size: 35,),
           ),
           const SizedBox(height: 20),
           // ------------ container for liked videos--------------
@@ -99,25 +117,50 @@ class PlayList extends StatelessWidget {
               ),
             ),
             trailing: const Icon(
-              Icons.arrow_forward_ios_rounded,
+              Icons.chevron_right,
+              size: 35,
             ),
           ),
           const SizedBox(
             height: 20,
           ),
-          secondHeading("PlayList"),
-          const SizedBox(
-            height: 20,
-          ),
+          // if(musicHivebox.isEmpty && videoHivebox.isEmpty)
+          // Column(
+          //   children: [
+          //       secondHeading("PlayLists"),
+          // const SizedBox(
+          //   height: 20,
+          // ),
+
+          //   ],
+          // ),
+        
           // ------------ New Playlist view -----------
-         const NewMuciPlaylist(),
-          const PlaylistOfVideo(),
+         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+           children: [
+            secondHeading('Song Playlist'),
+            const SizedBox(height: 20,),
+             const NewMuciPlaylist(),
+             const SizedBox(height: 20,),
+           ],
+         ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              secondHeading('Video Playlist'),
+              const SizedBox(height: 20,),
+              const PlaylistOfVideo(),
+              const SizedBox(height: 20,),
+            ],
+          ),
         ],
       ),
       // ---------- Floating Button ---------------
       floatingActionButton:const FloatingButton(),
     );
   }
+
   secondHeading(data) {
     return Padding(
       padding: const EdgeInsets.only(left: 15),

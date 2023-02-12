@@ -24,13 +24,14 @@ class _VideoPlayListListState extends State<VideoPlayListList> {
   @override
   Widget build(BuildContext context) {
     List<String> allListVideos;
+    List<String> tempVideo = [];
     return ValueListenableBuilder(
       valueListenable: Hive.box<PlayerModel>('PlayerDB').listenable(),
       builder: (context, Box<PlayerModel> videoPlaylistItems, child) {
-        allListVideos = videoPlaylist(
+        tempVideo = videoPlaylist(
             videoPlaylistItems.values.toList()[widget.listIndex].videoPath);
-        // final temp = items.reversed.toList();
-        // final videoPlaylistItems = temp.toSet().toList();
+        final temp = tempVideo.reversed.toList();
+        allListVideos  = temp.toSet().toList();
         return Scaffold(
           appBar: AppBar(
             title: Text(widget.playList.name),
@@ -41,8 +42,8 @@ class _VideoPlayListListState extends State<VideoPlayListList> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => AddVideosToPlayList(
-                              playlist: widget.playList,
-                      ),
+                            playlist: widget.playList,
+                          ),
                         ));
                   },
                   icon: const Icon(Icons.add))
@@ -65,8 +66,8 @@ class _VideoPlayListListState extends State<VideoPlayListList> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => AddVideosToPlayList(
-                                playlist: widget.playList,
-                           ),
+                              playlist: widget.playList,
+                            ),
                           ),
                         ),
                         child: const Text("ADD VIDEOS"),
@@ -90,6 +91,7 @@ class _VideoPlayListListState extends State<VideoPlayListList> {
                       videoPath: videoPath,
                       videoTitle: shorttitle,
                       duration: duration,
+                      playlist: widget.playList,
                       index: index,
                       isPlaylist: true,
                     );

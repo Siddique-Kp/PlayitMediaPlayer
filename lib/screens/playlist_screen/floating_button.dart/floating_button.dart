@@ -173,6 +173,7 @@ Future<void> saveButtonVideoPlaylist(context) async {
     Navigator.of(context).pop();
     textEditingController.clear();
   } else {
+  
     VideoPlayerListDB.addPlaylist(video);
     snackBar(
       context: context,

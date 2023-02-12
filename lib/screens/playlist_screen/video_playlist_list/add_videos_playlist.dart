@@ -70,7 +70,9 @@ class _AddVideosToPlayListState extends State<AddVideosToPlayList> {
                         ))
                     : IconButton(
                         onPressed: () {
-                          widget.playlist.deleteData(path);
+                          setState(() {
+                            widget.playlist.deleteData(path);
+                          });
                         },
                         icon: const CircleAvatar(
                           radius: 10,

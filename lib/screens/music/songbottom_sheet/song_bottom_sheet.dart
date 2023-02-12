@@ -59,7 +59,7 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
       {required context,
       required songTitle,
       required artistName,
-      required songModel,
+      required List<SongModel>songModel,
       required SongModel songFavorite,
       required index,
       count = 0,
