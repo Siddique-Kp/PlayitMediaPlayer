@@ -1,34 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/screens/playlist_screen/song_playlist_list/new_music_playlist.dart';
 import 'package:playit/screens/playlist_screen/favorite_music/favorite_songs.dart';
 import 'package:playit/screens/playlist_screen/floating_button.dart/floating_button.dart';
 import 'package:playit/screens/playlist_screen/video_playlist_list/play_list_of_video.dart';
-
-import '../../model/player.dart';
-import '../../model/playit_media_model.dart';
 import 'favorite_video/favorite_videos.dart';
 
-class PlayList extends StatefulWidget {
+class PlayList extends StatelessWidget {
   const PlayList({super.key});
 
-  @override
-  State<PlayList> createState() => _PlayListState();
-}
-
-class _PlayListState extends State<PlayList> {
-
- 
   // @override
-  // void didChangeDependencies() {
-  //    Hive.box<PlayItSongModel>('songplaylistDb');
-  //    Hive.box<PlayerModel>('PlayerDB');
-  //   super.didChangeDependencies();
-  // }
   @override
   Widget build(BuildContext context) {
-     final musicHivebox = Hive.box<PlayItSongModel>('songplaylistDb');
-     final videoHivebox = Hive.box<PlayerModel>('PlayerDB');
+    //  final musicHivebox = Hive.box<PlayItSongModel>('songplaylistDb');
+    //  final videoHivebox = Hive.box<PlayerModel>('PlayerDB');
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.black,
@@ -58,7 +42,7 @@ class _PlayListState extends State<PlayList> {
               height: 60,
               width: 60,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(4),
                 gradient: const LinearGradient(
                   colors: [
                     Color.fromARGB(255, 229, 12, 12),
@@ -94,7 +78,7 @@ class _PlayListState extends State<PlayList> {
               height: 60,
               width: 60,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(4),
                 gradient: const LinearGradient(
                   colors: [
                     Color.fromARGB(255, 12, 63, 229),
@@ -140,7 +124,7 @@ class _PlayListState extends State<PlayList> {
           crossAxisAlignment: CrossAxisAlignment.start,
            children: [
             secondHeading('Song Playlist'),
-            const SizedBox(height: 20,),
+            const SizedBox(height: 10,),
              const NewMuciPlaylist(),
              const SizedBox(height: 20,),
            ],
@@ -149,9 +133,9 @@ class _PlayListState extends State<PlayList> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               secondHeading('Video Playlist'),
-              const SizedBox(height: 20,),
+              const SizedBox(height: 10,),
               const PlaylistOfVideo(),
-              const SizedBox(height: 20,),
+              const SizedBox(height: 60,),
             ],
           ),
         ],

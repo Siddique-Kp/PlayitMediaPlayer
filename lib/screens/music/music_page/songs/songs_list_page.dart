@@ -4,17 +4,11 @@ import 'package:playit/database/song_favorite_db.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 import '../../get_all_songs.dart';
 
-class SongList extends StatefulWidget {
-  const SongList({super.key});
+class SongList extends StatelessWidget {
+  SongList({super.key});
 
-  @override
-  State<SongList> createState() => _SongListState();
-}
+  final List<SongModel> allSongs = [];
 
-List<SongModel> startSong = [];
-
-class _SongListState extends State<SongList> {
-  List<SongModel> allSongs = [];
   final _audioQuery = OnAudioQuery();
 
   @override
@@ -48,3 +42,5 @@ class _SongListState extends State<SongList> {
     );
   }
 }
+
+List<SongModel> startSong = [];

@@ -21,7 +21,7 @@ class VideoBottomController extends StatefulWidget {
 
 class _VideoBottomControllerState extends State<VideoBottomController> {
   bool isPlaying = true;
-  bool isLandscape = true;
+  bool isLandscape = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -86,11 +86,11 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
                 icon: icon(Icons.fast_forward)),
             IconButton(
                 iconSize: 30,
-                onPressed: () {
+                onPressed: () async {
                   setState(
-                    () {
-                      setLandscape();
+                    () async {
                       isLandscape = !isLandscape;
+                      // setLandscape();
                     },
                   );
                 },
@@ -126,14 +126,16 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
     );
   }
 
-  Future setLandscape() async {
-    if (isLandscape) {
-      await SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ]);
-    } else {
-      await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-    }
-  }
+  // Future setLandscape() async {
+  //   if (isLandscape) {
+  //     // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+  //     //     overlays: []);
+  //     await SystemChrome.setPreferredOrientations([
+  //       DeviceOrientation.landscapeLeft,
+  //       DeviceOrientation.landscapeRight,
+  //     ]);
+  //   } else {
+  //     await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+  //   }
+  // }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:playit/main.dart';
 import 'package:playit/model/playit_media_model.dart';
@@ -19,8 +20,20 @@ class _VideoListState extends State<VideoList> {
   @override
   void initState() {
     askPermission();
+    deviceOrientation();
+    // _deviceOrientation();
+
     super.initState();
   }
+
+  deviceOrientation() async {
+    await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+  }
+
+  // _deviceOrientation() {
+  //   SystemChrome.setPreferredOrientations(
+  //       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +51,13 @@ class _VideoListState extends State<VideoList> {
             itemBuilder: (context, index) {
               String videoPath = accessVideosPath[index];
               String videoTitle = videoPath.toString().split('/').last;
-               String shorttitle = videoTitle;
-                if (videoTitle.length > 19) {
-                    shorttitle = shorttitle.substring(0, 19);
-                  }
+              String shorttitle = videoTitle;
+              if (videoTitle.length > 19) {
+                shorttitle = shorttitle.substring(0, 19);
+              }
               AllVideos? videosinfo = videoDB.getAt(index);
-              String duration = videosinfo!.duration.toString().split('.').first;
+              String duration =
+                  videosinfo!.duration.toString().split('.').first;
               return VideoListBuilder(
                 videoPath: videoPath,
                 videoTitle: shorttitle,

@@ -36,7 +36,7 @@ class PlaylistOfVideo extends StatelessWidget {
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7),
+                  borderRadius: BorderRadius.circular(4),
                   color: Colors.grey,
                 ),
                 child: const Center(

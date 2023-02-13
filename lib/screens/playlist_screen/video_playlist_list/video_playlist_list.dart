@@ -7,7 +7,7 @@ import 'package:playit/screens/video/video_list/video_list_builder.dart';
 import '../../../model/playit_media_model.dart';
 import 'add_videos_playlist.dart';
 
-class VideoPlayListList extends StatefulWidget {
+class VideoPlayListList extends StatelessWidget {
   const VideoPlayListList({
     super.key,
     required this.playList,
@@ -17,11 +17,6 @@ class VideoPlayListList extends StatefulWidget {
   final int listIndex;
 
   @override
-  State<VideoPlayListList> createState() => _VideoPlayListListState();
-}
-
-class _VideoPlayListListState extends State<VideoPlayListList> {
-  @override
   Widget build(BuildContext context) {
     List<String> allListVideos;
     List<String> tempVideo = [];
@@ -29,12 +24,12 @@ class _VideoPlayListListState extends State<VideoPlayListList> {
       valueListenable: Hive.box<PlayerModel>('PlayerDB').listenable(),
       builder: (context, Box<PlayerModel> videoPlaylistItems, child) {
         tempVideo = videoPlaylist(
-            videoPlaylistItems.values.toList()[widget.listIndex].videoPath);
+            videoPlaylistItems.values.toList()[listIndex].videoPath);
         final temp = tempVideo.reversed.toList();
         allListVideos  = temp.toSet().toList();
         return Scaffold(
           appBar: AppBar(
-            title: Text(widget.playList.name),
+            title: Text(playList.name),
             actions: [
               IconButton(
                   onPressed: () {
@@ -42,7 +37,7 @@ class _VideoPlayListListState extends State<VideoPlayListList> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => AddVideosToPlayList(
-                            playlist: widget.playList,
+                            playlist: playList,
                           ),
                         ));
                   },
@@ -66,7 +61,7 @@ class _VideoPlayListListState extends State<VideoPlayListList> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => AddVideosToPlayList(
-                              playlist: widget.playList,
+                              playlist: playList,
                             ),
                           ),
                         ),
@@ -91,7 +86,7 @@ class _VideoPlayListListState extends State<VideoPlayListList> {
                       videoPath: videoPath,
                       videoTitle: shorttitle,
                       duration: duration,
-                      playlist: widget.playList,
+                      playlist: playList,
                       index: index,
                       isPlaylist: true,
                     );

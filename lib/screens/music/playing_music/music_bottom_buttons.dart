@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:playit/database/recent_song_db.dart';
 import 'package:playit/screens/music/music_page/favorite_button/favorite_button.dart';
 import '../get_all_songs.dart';
 
@@ -104,6 +105,8 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                     iconSize: 40,
                     onPressed: () {
                       if (GetAllSongController.audioPlayer.hasPrevious) {
+                        GetRecentSongController.addRecentlyPlayed(
+                            widget.favSongModel.id);
                         GetAllSongController.audioPlayer.seekToPrevious();
                       }
                     },
@@ -144,6 +147,8 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                     iconSize: 40,
                     onPressed: () {
                       if (GetAllSongController.audioPlayer.hasNext) {
+                        GetRecentSongController.addRecentlyPlayed(
+                            widget.favSongModel.id);
                         GetAllSongController.audioPlayer.seekToNext();
                       }
                     },

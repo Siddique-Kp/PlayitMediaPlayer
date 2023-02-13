@@ -18,8 +18,8 @@ Widget thumbnail({required path, required context, required String duration}) {
   return Stack(
     children: [
       Container(
-        width: MediaQuery.of(context).size.width * 0.25,
-        height: MediaQuery.of(context).size.height * 0.25,
+        width: 100,
+        height: MediaQuery.of(context).size.width * 0.25,
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           color: Colors.black,

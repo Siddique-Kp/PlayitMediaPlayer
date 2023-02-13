@@ -157,7 +157,8 @@ class _PlayingMusicState extends State<PlayingMusic> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextScroll(
-                          widget.songModel[currentIndex].displayNameWOExt,
+                          '${widget.songModel[currentIndex].displayNameWOExt}                     ',
+                          velocity: const Velocity(pixelsPerSecond: Offset(40,0)),
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

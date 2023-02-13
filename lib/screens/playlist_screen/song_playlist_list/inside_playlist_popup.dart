@@ -4,18 +4,14 @@ import '../../../database/video_favorite_db.dart';
 import '../../../model/playit_media_model.dart';
 import 'add_songs_playlist.dart';
 
-class InsidePopupSong extends StatefulWidget {
+class InsidePopupSong extends StatelessWidget {
   const InsidePopupSong(
       {super.key, required this.playlist, required this.index});
   final dynamic playlist;
   final int index;
 
-  @override
-  State<InsidePopupSong> createState() => _InsidePopupSongState();
-}
-
-class _InsidePopupSongState extends State<InsidePopupSong> {
   final TextStyle popupStyle = const TextStyle(color: Colors.black);
+
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<int>(
@@ -41,12 +37,11 @@ class _InsidePopupSongState extends State<InsidePopupSong> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    AddSongsPlaylist(playlist: widget.playlist),
+                builder: (context) => AddSongsPlaylist(playlist: playlist),
               ));
         }
         if (value == 2) {
-          clearPlaylist(context, widget.playlist);
+          clearPlaylist(context, playlist);
         }
       },
     );
@@ -84,10 +79,8 @@ class _InsidePopupSongState extends State<InsidePopupSong> {
                   )),
               onTap: () {
                 Navigator.pop(context);
-             
-                  data.clearSongs();
-                  SongPlaylistDb.playlistNotifiier.notifyListeners();
-           
+                data.clearSongs();
+                SongPlaylistDb.playlistNotifiier.notifyListeners();
 
                 snackBar(
                     inTotal: 3,

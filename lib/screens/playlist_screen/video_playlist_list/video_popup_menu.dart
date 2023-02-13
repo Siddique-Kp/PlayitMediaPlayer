@@ -4,8 +4,8 @@ import 'package:playit/database/player_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/player.dart';
 
-class PlayListPopUpVideo extends StatefulWidget {
-  const PlayListPopUpVideo({
+class PlayListPopUpVideo extends StatelessWidget {
+   PlayListPopUpVideo({
     super.key,
     required this.playlist,
     required this.videoPlayitList,
@@ -15,14 +15,11 @@ class PlayListPopUpVideo extends StatefulWidget {
   final Box<PlayerModel> videoPlayitList;
   final int index;
 
-  @override
-  State<PlayListPopUpVideo> createState() => _PlayListPopUpVideoState();
-}
-
-class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
   final TextStyle popupStyle = const TextStyle(color: Colors.white);
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController textEditingController = TextEditingController();
+
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +27,7 @@ class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
     return ValueListenableBuilder(
         valueListenable: Hive.box<PlayerModel>('PlayerDB').listenable(),
         builder: (context, Box<PlayerModel> videos, child) {
-          listVideos = videos.values.toList()[widget.index].videoPath;
+          listVideos = videos.values.toList()[index].videoPath;
           return PopupMenuButton<int>(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -51,10 +48,10 @@ class _PlayListPopUpVideoState extends State<PlayListPopUpVideo> {
             elevation: 2,
             onSelected: (value) {
               if (value == 2) {
-                editVideoPlaylistName(context, widget.playlist,widget.index, listVideos);
+                editVideoPlaylistName(context, playlist,index, listVideos);
               } else if (value == 3) {
                 deleteVideoPlayList(
-                    context, widget.videoPlayitList, widget.index);
+                    context, videoPlayitList, index);
               }
             },
           );

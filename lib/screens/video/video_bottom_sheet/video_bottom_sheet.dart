@@ -6,7 +6,7 @@ import 'package:playit/screens/video/video_bottom_sheet/video-addfavorite.dart';
 import 'package:playit/screens/video/video_bottom_sheet/video_addto_playlist.dart';
 import 'package:playit/screens/video/video_bottom_sheet/video_details.dart';
 
-class VideoBottomSheet extends StatefulWidget {
+class VideoBottomSheet extends StatelessWidget {
   const VideoBottomSheet({
     super.key,
     required this.videoTitle,
@@ -28,22 +28,18 @@ class VideoBottomSheet extends StatefulWidget {
   final bool isFavor;
 
   @override
-  State<VideoBottomSheet> createState() => _VideoBottomSheetState();
-}
-
-class _VideoBottomSheetState extends State<VideoBottomSheet> {
-  @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
         videoBottomSheet(
-            videoTitle: widget.videoTitle,
-            videoPath: widget.videoPath,
-            videoSize: widget.videoSize,
-            duration: widget.duration,
-            index: widget.index,
-            isPlaylist: widget.isPlaylist,
-            isFavor: widget.isFavor);
+            videoTitle: videoTitle,
+            videoPath: videoPath,
+            videoSize: videoSize,
+            duration: duration,
+            index: index,
+            isPlaylist: isPlaylist,
+            isFavor: isFavor,
+            context: context);
       },
       icon: const Icon(Icons.more_vert),
     );
@@ -56,18 +52,20 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
       required duration,
       required index,
       required isPlaylist,
-      required isFavor}) {
+      required isFavor,
+      required BuildContext context}) {
     showModalBottomSheet(
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
-        context: context,
-        builder: (context) {
-          return StatefulBuilder(builder: (context, setState) {
+      ),
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
             return Wrap(
               children: [
                 Column(
@@ -87,9 +85,7 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
                         ),
                       ),
                     ),
-                    const Divider(
-                      thickness: 1,
-                    ),
+                    const Divider(thickness: 1),
                     ListTile(
                       leading: const Icon(
                         Icons.play_arrow_rounded,
@@ -113,7 +109,7 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
                       videoPath: videoPath,
                       videoTitle: videoTitle,
                       videoSize: videoSize,
-                      isFavor: widget.isFavor,
+                      isFavor: isFavor,
                     ),
                     ListTile(
                       leading: bottomIcon(Icons.playlist_add),
@@ -141,19 +137,19 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
                         title: bottomText('Delete'),
                         onTap: () {
                           Navigator.pop(context);
-                          showdialog(widget.playList, videoPath, index);
+                          showdialog(playList, videoPath, index, context);
                         },
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    )
+                    const SizedBox(height: 10),
                   ],
                 ),
               ],
             );
-          });
-        });
+          },
+        );
+      },
+    );
   }
 
   bottomStyle() {
@@ -163,10 +159,7 @@ class _VideoBottomSheetState extends State<VideoBottomSheet> {
   }
 
   showdialog(
-    PlayerModel playList,
-    String videoPath,
-    int index,
-  ) {
+      PlayerModel playList, String videoPath, int index, BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {

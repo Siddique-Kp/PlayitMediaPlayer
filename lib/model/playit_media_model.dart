@@ -22,6 +22,7 @@ class PlayItSongModel extends HiveObject {
 
   clearSongs() {
     songId.clear();
+    save();
   }
 
   bool isValueIn(int id) {

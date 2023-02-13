@@ -5,8 +5,8 @@ import 'package:playit/database/recent_song_db.dart';
 import '../../playing_music/playing_music.dart';
 import '../../songbottom_sheet/song_bottom_sheet.dart';
 
-class SongListBuilder extends StatefulWidget {
-  const SongListBuilder({
+class SongListBuilder extends StatelessWidget {
+   SongListBuilder({
     super.key,
     required this.songModel,
     this.isRecentSong = false,
@@ -22,32 +22,28 @@ class SongListBuilder extends StatefulWidget {
   final bool isPlaylist;
   final dynamic playList;
 
-  @override
-  State<SongListBuilder> createState() => _SongListBuilderState();
-}
+  final List<SongModel> allSongs = [];
 
-class _SongListBuilderState extends State<SongListBuilder> {
-  List<SongModel> allSongs = [];
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      shrinkWrap: widget.isPlaylist ? true : false,
+      shrinkWrap: isPlaylist ? true : false,
       physics: const ScrollPhysics(),
       itemExtent: 80,
       itemBuilder: (context, index) {
-        allSongs.addAll(widget.songModel);
+        allSongs.addAll(songModel);
 
-        final String songTitle = widget.songModel[index].displayNameWOExt;
+        final String songTitle = songModel[index].displayNameWOExt;
         // String songTitle = songfullTitle;
         //           if (songTitle.length > 20) {
         //             songTitle = '${songTitle.substring(0, 20)}...';
         //           }
-        String artist =widget.songModel[index].artist!;
+        String artist =songModel[index].artist!;
         String artistName = artist == "<unknown>" ? "Unknown artist":artist;
 
         return ListTile(
           leading: QueryArtworkWidget(
-            id: widget.songModel[index].id,
+            id: songModel[index].id,
             type: ArtworkType.AUDIO,
             keepOldArtwork: true,
             artworkBorder: BorderRadius.circular(3),
@@ -82,27 +78,27 @@ class _SongListBuilderState extends State<SongListBuilder> {
           trailing: SongBottomSheet(
             songTitle: songTitle,
             artistName: artistName,
-            songModel: widget.songModel,
-            songFavorite: widget.songModel[index],
-            count: widget.songModel.length,
+            songModel: songModel,
+            songFavorite: songModel[index],
+            count: songModel.length,
             index: index,
-            isFavor: widget.isFavor,
-            isPLaylist: widget.isPlaylist,
-            playList: widget.playList,
+            isFavor: isFavor,
+            isPLaylist: isPlaylist,
+            playList: playList,
           ),
           onTap: () {
             GetAllSongController.audioPlayer.setAudioSource(
-                GetAllSongController.createSongList(widget.songModel),
+                GetAllSongController.createSongList(songModel),
                 initialIndex: index);
             GetRecentSongController.addRecentlyPlayed(
-                widget.songModel[index].id);
+                songModel[index].id);
 
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => PlayingMusic(
-                  songModel: widget.songModel,
-                  count: widget.songModel.length,
+                  songModel: songModel,
+                  count: songModel.length,
                 ),
               ),
             );
@@ -110,7 +106,7 @@ class _SongListBuilderState extends State<SongListBuilder> {
         );
       },
       itemCount:
-          widget.isRecentSong ? widget.recentLength : widget.songModel.length,
+          isRecentSong ? recentLength : songModel.length,
     );
   }
 }

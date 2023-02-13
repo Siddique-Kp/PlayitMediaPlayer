@@ -2,26 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 
-class ArtistInsideList extends StatefulWidget {
+class ArtistInsideList extends StatelessWidget {
   final String artistName;
 
-  const ArtistInsideList({
+  ArtistInsideList({
     super.key,
     required this.artistName,
   });
 
-  @override
-  State<ArtistInsideList> createState() => _ArtistInsideListState();
-}
-
-class _ArtistInsideListState extends State<ArtistInsideList> {
   // List<SongModel> allSongs = [];
   final _audioQuery = OnAudioQuery();
 
   @override
   Widget build(BuildContext context) {
-    String artist =
-        widget.artistName == "<unknown>" ? "Unknown artist" : widget.artistName;
+    String artist = artistName == "<unknown>" ? "Unknown artist" : artistName;
     return Scaffold(
         appBar: AppBar(
           elevation: 1,
@@ -46,7 +40,6 @@ class _ArtistInsideListState extends State<ArtistInsideList> {
                 );
               }
 
-              String artistName = widget.artistName;
               List<SongModel> songByArtist = items.data!
                   .where((song) => song.artist == artistName)
                   .toList();

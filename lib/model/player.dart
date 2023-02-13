@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
- part 'player.g.dart';
+part 'player.g.dart';
 
 @HiveType(typeId: 7)
 class PlayerModel extends HiveObject {
@@ -22,6 +22,7 @@ class PlayerModel extends HiveObject {
 
   clearSongs() {
     videoPath.clear();
+    save();
   }
 
   bool isValueIn(String path) {

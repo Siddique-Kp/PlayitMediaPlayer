@@ -3,14 +3,9 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import '../../../../database/song_favorite_db.dart';
 
-class FavoriteButton extends StatefulWidget {
+class FavoriteButton extends StatelessWidget {
   const FavoriteButton({super.key, required this.songFavorite});
   final SongModel songFavorite;
-  @override
-  State<FavoriteButton> createState() => _FavoriteButtonState();
-}
-
-class _FavoriteButtonState extends State<FavoriteButton> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -19,10 +14,10 @@ class _FavoriteButtonState extends State<FavoriteButton> {
             (BuildContext ctx, List<SongModel> favoriteData, Widget? child) {
           return IconButton(
               onPressed: () {
-                if (FavoriteDb.isFavor(widget.songFavorite)) {
-                  FavoriteDb.delete(widget.songFavorite.id);
+                if (FavoriteDb.isFavor(songFavorite)) {
+                  FavoriteDb.delete(songFavorite.id);
                 } else {
-                  FavoriteDb.add(widget.songFavorite);
+                  FavoriteDb.add(songFavorite);
                   snackBar(
                       context: context,
                       content: "Added To Favorite",
@@ -32,7 +27,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                 }
                 FavoriteDb.favoriteSongs.notifyListeners();
               },
-              icon: FavoriteDb.isFavor(widget.songFavorite)
+              icon: FavoriteDb.isFavor(songFavorite)
                   ? const Icon(Icons.favorite, color: Colors.redAccent)
                   : const Icon(Icons.favorite_outline, color: Colors.white));
         });

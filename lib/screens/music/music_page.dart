@@ -33,7 +33,7 @@ class MusicPage extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        const SearchSongPage(),
+                                        const SearchSongPage(isFavSong: false),
                                   ),
                                 );
                               },
@@ -53,7 +53,7 @@ class MusicPage extends StatelessWidget {
                         ),
                       ],
                   body: TabBarView(children: [
-                    const SongList(),
+                    SongList(),
                     SongArtisPage(),
                     SongAlbumsPage(),
                     const RecentlyPlayedWidget(),

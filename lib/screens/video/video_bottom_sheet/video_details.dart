@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:playit/screens/video/video_bottom_sheet/video_bottom_sheet.dart';
 import 'package:playit/screens/video/video_thumbnail.dart';
 
-class VideoDetailsePage extends StatefulWidget {
+class VideoDetailsePage extends StatelessWidget {
   const VideoDetailsePage(
       {super.key, required this.videoPath, required this.duration});
   final String videoPath;
   final dynamic duration;
 
-  @override
-  State<VideoDetailsePage> createState() => _VideoDetailsePageState();
-}
-
-class _VideoDetailsePageState extends State<VideoDetailsePage> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -20,19 +15,19 @@ class _VideoDetailsePageState extends State<VideoDetailsePage> {
       title: bottomText("Details"),
       onTap: () {
         Navigator.pop(context);
-        videoDetails();
+        videoDetails(context);
       },
     );
   }
 
-  videoDetails() {
+  videoDetails(context) {
     showDialog(
       context: context,
       builder: (context) {
         //----------- All information
-        String videoName = widget.videoPath.split('/').last;
+        String videoName = videoPath.split('/').last;
 
-        String duration = widget.duration.toString().split('0:0').last;
+        String durations = duration.toString().split('00:0').last;
         String format = videoName.split('.').last;
 
         return SimpleDialog(
@@ -43,7 +38,9 @@ class _VideoDetailsePageState extends State<VideoDetailsePage> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               ),
             ),
-           const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
 
             //---------------- video Title
             SimpleDialogOption(
@@ -55,8 +52,9 @@ class _VideoDetailsePageState extends State<VideoDetailsePage> {
                       width: MediaQuery.of(context).size.width * 1.5 / 10,
                       child: const Text('Name')),
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1 / 2,
-                      child: Text(videoName, overflow: TextOverflow.clip)),
+                    width: MediaQuery.of(context).size.width * 1 / 2,
+                    child: Text(videoName, overflow: TextOverflow.clip),
+                  ),
                 ],
               ),
             ),
@@ -71,8 +69,9 @@ class _VideoDetailsePageState extends State<VideoDetailsePage> {
                       width: MediaQuery.of(context).size.width * 1.5 / 10,
                       child: const Text('Duration')),
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1 / 2,
-                      child: Text(duration)),
+                    width: MediaQuery.of(context).size.width * 1 / 2,
+                    child: Text(durations),
+                  ),
                 ],
               ),
             ),
@@ -86,8 +85,9 @@ class _VideoDetailsePageState extends State<VideoDetailsePage> {
                       width: MediaQuery.of(context).size.width * 1.5 / 10,
                       child: const Text('Format')),
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1 / 2,
-                      child: Text(format)),
+                    width: MediaQuery.of(context).size.width * 1 / 2,
+                    child: Text(format),
+                  ),
                 ],
               ),
             ),
@@ -102,7 +102,7 @@ class _VideoDetailsePageState extends State<VideoDetailsePage> {
                       child: const Text('Size')),
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 1 / 2,
-                      child: Text(fileSize(widget.videoPath))),
+                      child: Text(fileSize(videoPath))),
                 ],
               ),
             ),
@@ -118,7 +118,7 @@ class _VideoDetailsePageState extends State<VideoDetailsePage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 1 / 2,
                     child: Text(
-                      widget.videoPath,
+                      videoPath,
                       overflow: TextOverflow.clip,
                     ),
                   ),

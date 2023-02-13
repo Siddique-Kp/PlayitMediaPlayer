@@ -43,7 +43,9 @@ class _PlayingVideoState extends State<PlayingVideo> {
 
   @override
   void dispose() {
+    disposeOrientation();
     _controller.dispose();
+
     super.dispose();
   }
 
@@ -185,8 +187,16 @@ class _PlayingVideoState extends State<PlayingVideo> {
     );
   }
 
+  Future disposeOrientation() async {
+    await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  }
+
   Future setLandscape() async {
     if (isLandscape) {
+      await SystemChrome.setEnabledSystemUIMode(
+        SystemUiMode.immersiveSticky,
+      );
       await SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeLeft,
         DeviceOrientation.landscapeRight,
@@ -198,6 +208,6 @@ class _PlayingVideoState extends State<PlayingVideo> {
 
   checkVisible() {
     isVisible = true;
-    Future.delayed(const Duration(seconds: 6), () => isVisible = false);
+    Future.delayed(const Duration(seconds: 5), () => isVisible = false);
   }
 }

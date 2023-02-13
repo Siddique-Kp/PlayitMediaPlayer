@@ -39,7 +39,7 @@ class VideoPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const SearchVideoPage(),
+                            builder: (context) => const SearchVideoPage(isFavVideos: false),
                           ));
                     },
                     icon: const Icon(Icons.search),

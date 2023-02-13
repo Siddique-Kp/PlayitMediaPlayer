@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/model/player.dart';
 import '../../../database/video_favorite_db.dart';
 
-class VideoAddToPlayList extends StatefulWidget {
+class VideoAddToPlayList extends StatelessWidget {
   const VideoAddToPlayList({
     super.key,
     required this.videoPath,
@@ -12,11 +12,6 @@ class VideoAddToPlayList extends StatefulWidget {
   final String videoPath;
   final String duration;
 
-  @override
-  State<VideoAddToPlayList> createState() => _VideoAddToPlayListState();
-}
-
-class _VideoAddToPlayListState extends State<VideoAddToPlayList> {
   @override
   Widget build(BuildContext context) {
     final videoHivebox = Hive.box<PlayerModel>('PlayerDB');
@@ -53,7 +48,7 @@ class _VideoAddToPlayListState extends State<VideoAddToPlayList> {
                         title: Text(data.name),
                         trailing: const Icon(Icons.chevron_right),
                         onTap: () {
-                          videoAddToPlaylist(widget.videoPath, data, data.name);
+                          videoAddToPlaylist(videoPath, data, data.name,context);
                         }),
                   );
                 });
@@ -61,7 +56,7 @@ class _VideoAddToPlayListState extends State<VideoAddToPlayList> {
     );
   }
 
-  void videoAddToPlaylist(String data, PlayerModel playList, String name) {
+  void videoAddToPlaylist(String data, PlayerModel playList, String name, context) {
     if (!playList.isValueIn(data)) {
       playList.add(data);
       snackBar(

@@ -5,8 +5,8 @@ import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/playit_media_model.dart';
 
 
-class PlayListPopUpMusic extends StatefulWidget {
-  const PlayListPopUpMusic({
+class PlayListPopUpMusic extends StatelessWidget {
+   PlayListPopUpMusic({
     super.key,
     required this.playlist,
      this.musicPlayitList,
@@ -16,14 +16,11 @@ class PlayListPopUpMusic extends StatefulWidget {
   final dynamic musicPlayitList;
   final int index;
 
-  @override
-  State<PlayListPopUpMusic> createState() => _PlayListPopUpMusicState();
-}
-
-class _PlayListPopUpMusicState extends State<PlayListPopUpMusic> {
   final TextStyle popupStyle = const TextStyle(color: Colors.white);
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController textEditingController = TextEditingController();
+
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +29,7 @@ class _PlayListPopUpMusicState extends State<PlayListPopUpMusic> {
         valueListenable:
             Hive.box<PlayItSongModel>('songPlaylistDb').listenable(),
         builder: (context, Box<PlayItSongModel> songs, child) {
-          listSongs = songs.values.toList()[widget.index].songId;
+          listSongs = songs.values.toList()[index].songId;
           return PopupMenuButton<int>(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -54,9 +51,9 @@ class _PlayListPopUpMusicState extends State<PlayListPopUpMusic> {
             onSelected: (value) {
               if (value == 2) {
                 editPlaylistName(
-                    context, widget.playlist, widget.index, listSongs);
+                    context, playlist, index, listSongs);
               } else if (value == 3) {
-                deletePlayList(context, widget.musicPlayitList, widget.index);
+                deletePlayList(context, musicPlayitList, index);
               }
             },
           );
@@ -229,5 +226,4 @@ class _PlayListPopUpMusicState extends State<PlayListPopUpMusic> {
       ),
     );
   }
-
 }

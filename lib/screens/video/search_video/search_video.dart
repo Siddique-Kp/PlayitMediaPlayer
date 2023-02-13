@@ -4,8 +4,11 @@ import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/video/access_video.dart';
 import 'package:playit/screens/video/video_list/video_list_builder.dart';
 
+import '../../../database/video_favorite_db.dart';
+
 class SearchVideoPage extends StatefulWidget {
-  const SearchVideoPage({super.key});
+  const SearchVideoPage({super.key, required this.isFavVideos});
+  final bool isFavVideos;
 
   @override
   State<SearchVideoPage> createState() => _SearchVideoPageState();
@@ -27,8 +30,11 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
       result = allVideos;
     } else {
       result = allVideos
-          .where((element) =>
-              element.split('/').last.toLowerCase().contains(searchText.toLowerCase()))
+          .where((element) => element
+              .split('/')
+              .last
+              .toLowerCase()
+              .contains(searchText.toLowerCase()))
           .toList();
     }
     setState(() {
@@ -49,24 +55,30 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
                 onChanged: (value) => updateList(value),
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.black,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide.none),
-                    hintText: 'Search Song',
-                    hintStyle: const TextStyle(color: Colors.white),
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    prefixIconColor: Colors.white,
-                    suffixStyle: const TextStyle(
-                      color: Colors.white,
-                    ),
-                    suffix: InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: const Text("| cancel"))),
+                  filled: true,
+                  fillColor: Colors.black,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide.none),
+                  hintText: 'Search Song',
+                  hintStyle: const TextStyle(color: Colors.white),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  prefixIconColor: Colors.white,
+                  // suffixStyle: const TextStyle(
+                  //   color: Colors.white,
+                  // ),
+                  suffixIcon: InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(Icons.close,color: Colors.white,)),
+                  suffixIconColor: Colors.white,
+                  // suffix: InkWell(
+                  //   onTap: () => Navigator.pop(context),
+                  //   child: const Text("| cancel"),
+                  // ),
+                ),
               ),
             ),
             const SizedBox(height: 5),
@@ -111,7 +123,9 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
   }
 
   loadSongs() async {
-    allVideos = accessVideosPath;
+    allVideos = widget.isFavVideos
+        ? VideoFavoriteDb.videoDb.values.toList()
+        : accessVideosPath;
     foundVideo = allVideos;
   }
 }
