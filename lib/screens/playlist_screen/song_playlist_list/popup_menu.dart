@@ -89,11 +89,11 @@ class PlayListPopUpMusic extends StatelessWidget {
                 musicList.deleteAt(index);
 
                 snackBar(
-                    inTotal: 3,
+                    inTotal: 4,
                     width: 2,
                     context: context,
                     content: "Deleted successfully",
-                    bgcolor: const Color.fromARGB(255, 48, 47, 47));
+                  );
               },
             ),
             const Divider(thickness: 1),
@@ -202,10 +202,32 @@ class PlayListPopUpMusic extends StatelessWidget {
                     } else {
                       final playlistName =
                           PlayItSongModel(name: name, songId: songid);
-                      SongPlaylistDb.editList(index, playlistName);
+                      final datas = SongPlaylistDb.songPlaylistDb.values
+                          .map((e) => e.name.trim())
+                          .toList();
+                      if (datas.contains(playlistName.name)) {
+                        snackBar(
+                          context: context,
+                          content: "Playlist already exist",
+                          width: 3,
+                          inTotal: 5,
+                        );
+                        Navigator.of(context).pop();
+                        textEditingController.clear();
+                      } else {
+                         SongPlaylistDb.editList(index, playlistName);
+                        snackBar(
+                          context: context,
+                          content: "Playlist updated",
+                          width: 2,
+                          inTotal: 4,
+                        );
+                        Navigator.pop(context);
+                        textEditingController.clear();
+                      }
+                     
                     }
-                    textEditingController.clear();
-                    Navigator.pop(context);
+                    
                   }
                 },
                 child: const Text(

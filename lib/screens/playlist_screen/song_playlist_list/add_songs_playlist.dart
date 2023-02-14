@@ -99,7 +99,7 @@ class _AddSongsPlaylistState extends State<AddSongsPlaylist> {
              width: 1,
               context: context,
               content: "Song Added",
-              bgcolor:const Color.fromARGB(255, 41, 41, 56));
+              );
         },
         icon: const CircleAvatar(
           backgroundColor: Colors.black,
@@ -122,7 +122,7 @@ class _AddSongsPlaylistState extends State<AddSongsPlaylist> {
              width: 1,
               context: context,
               content: "Song Deleted",
-              bgcolor:const Color.fromARGB(255, 41, 41, 56));
+              );
         },
         icon: const CircleAvatar(
           radius: 10,

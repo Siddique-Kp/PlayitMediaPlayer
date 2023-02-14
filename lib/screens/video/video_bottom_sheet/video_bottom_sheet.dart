@@ -172,24 +172,25 @@ class VideoBottomSheet extends StatelessWidget {
           children: [
             InkWell(
               child: const SizedBox(
-                  height: 40,
-                  child: Center(
-                    child: Text(
-                      "Remove from playlist",
-                      style: TextStyle(
-                        color: Colors.redAccent,
-                      ),
+                height: 40,
+                child: Center(
+                  child: Text(
+                    "Remove from playlist",
+                    style: TextStyle(
+                      color: Colors.redAccent,
                     ),
-                  )),
+                  ),
+                ),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 playList.deleteData(videoPath);
                 snackBar(
-                    inTotal: 5,
-                    width: 3,
-                    context: context,
-                    content: "Deleted successfully",
-                    bgcolor: const Color.fromARGB(255, 48, 47, 47));
+                  inTotal: 5,
+                  width: 3,
+                  context: context,
+                  content: "Deleted successfully",
+                );
               },
             ),
             const Divider(

@@ -30,9 +30,6 @@ class _FloatingButtonState extends State<FloatingButton> {
       children: [
         SpeedDialChild(
             child: const Icon(Icons.queue_music),
-            // label: 'SongPlaylist',
-            // labelStyle: const TextStyle(color: Colors.white),
-            // labelBackgroundColor: const Color.fromARGB(255, 48, 47, 47),
             backgroundColor: const Color.fromARGB(255, 48, 47, 47),
             foregroundColor: Colors.white,
             onTap: () {
@@ -42,9 +39,6 @@ class _FloatingButtonState extends State<FloatingButton> {
             }),
         SpeedDialChild(
             child: const Icon(Icons.playlist_play),
-            // label: 'VideoPlaylist',
-            // labelBackgroundColor: const Color.fromARGB(255, 48, 47, 47),
-            // labelStyle: const TextStyle(color: Colors.white),
             backgroundColor: const Color.fromARGB(255, 48, 47, 47),
             foregroundColor: Colors.white,
             onTap: () {
@@ -81,35 +75,36 @@ Future newPlayList(BuildContext context, GlobalKey<FormState> formKey,
           Center(
             child: SimpleDialogOption(
               child: Form(
-                  key: formKey,
-                  child: TextFormField(
-                    textAlign: TextAlign.left,
-                    controller: textEditingController,
-                    maxLength: 15,
-                    decoration: InputDecoration(
-                      counterStyle: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      fillColor: Colors.white.withOpacity(0.7),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(7),
-                      ),
-                      contentPadding: const EdgeInsets.only(left: 15, top: 5),
+                key: formKey,
+                child: TextFormField(
+                  textAlign: TextAlign.left,
+                  controller: textEditingController,
+                  maxLength: 15,
+                  decoration: InputDecoration(
+                    counterStyle: const TextStyle(
+                      color: Colors.white,
                     ),
-                    style: const TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Enter your playlist name";
-                      } else {
-                        return null;
-                      }
-                    },
-                  )),
+                    fillColor: Colors.white.withOpacity(0.7),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(7),
+                    ),
+                    contentPadding: const EdgeInsets.only(left: 15, top: 5),
+                  ),
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Enter your playlist name";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+              ),
             ),
           ),
           Row(
@@ -132,9 +127,9 @@ Future newPlayList(BuildContext context, GlobalKey<FormState> formKey,
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     if (playListFor == true) {
-                      saveButtonPressedMusic(context);
+                      saveMusicPlaylis(context);
                     } else {
-                      saveButtonVideoPlaylist(context);
+                      saveVideoPlaylist(context);
                     }
                   }
                 },
@@ -154,7 +149,7 @@ Future newPlayList(BuildContext context, GlobalKey<FormState> formKey,
   );
 }
 
-Future<void> saveButtonVideoPlaylist(context) async {
+Future<void> saveVideoPlaylist(context) async {
   final name = textEditingController.text.trim();
   final video = PlayerModel(name: name, videoPath: []);
   final datas = VideoPlayerListDB.videoPlayerListDB.values
@@ -167,8 +162,7 @@ Future<void> saveButtonVideoPlaylist(context) async {
       context: context,
       content: "Playlist already exist",
       width: 3,
-      inTotal: 4,
-      bgcolor: const Color.fromARGB(255, 48, 47, 47),
+      inTotal: 5,
     );
     Navigator.of(context).pop();
     textEditingController.clear();
@@ -179,14 +173,13 @@ Future<void> saveButtonVideoPlaylist(context) async {
       content: "Playlist created successfully",
       width: 3,
       inTotal: 4,
-      bgcolor: const Color.fromARGB(255, 48, 47, 47),
     );
     Navigator.pop(context);
     textEditingController.clear();
   }
 }
 
-Future<void> saveButtonPressedMusic(context) async {
+Future<void> saveMusicPlaylis(context) async {
   final name = textEditingController.text.trim();
   final music = PlayItSongModel(name: name, songId: []);
   final datas =
@@ -198,8 +191,7 @@ Future<void> saveButtonPressedMusic(context) async {
       context: context,
       content: "Playlist already exist",
       width: 3,
-      inTotal: 4,
-      bgcolor: const Color.fromARGB(255, 48, 47, 47),
+      inTotal: 5,
     );
     Navigator.of(context).pop();
     textEditingController.clear();
@@ -210,7 +202,6 @@ Future<void> saveButtonPressedMusic(context) async {
       content: "Playlist created successfully",
       width: 3,
       inTotal: 4,
-      bgcolor: const Color.fromARGB(255, 48, 47, 47),
     );
     Navigator.pop(context);
     textEditingController.clear();

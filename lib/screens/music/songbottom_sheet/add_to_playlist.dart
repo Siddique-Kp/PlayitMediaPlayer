@@ -82,9 +82,8 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
       snackBar(
         context: context,
         content: "Song added to $name",
-        width: 2,
+        width: 3,
         inTotal: 4,
-        bgcolor: const Color.fromARGB(255, 44, 43, 43),
       );
     } else {
       snackBar(
@@ -92,7 +91,6 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
         content: "Song already exist in $name",
         width: 3,
         inTotal: 4,
-        bgcolor: const Color.fromARGB(255, 44, 43, 43),
       );
     }
   }

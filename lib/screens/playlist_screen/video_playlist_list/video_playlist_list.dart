@@ -32,11 +32,11 @@ class VideoPlayListList extends StatelessWidget {
           appBar: AppBar(
             title: Text(playList.name),
             actions: [
-              // InsidePopupSong(
-              //   videoPlaylist: playList,
-              //   index: listIndex,
-              //   isVideo: true,
-              // )
+              InsidePopupSong(
+                videoPlalist: playList,
+                index: listIndex,
+                isVideo: true,
+              )
               // IconButton(
               //     onPressed: () {
               //       Navigator.push(

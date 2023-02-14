@@ -74,9 +74,8 @@ class VideoAddToPlayList extends StatelessWidget {
       snackBar(
         context: context,
         content: "Video added to $name",
-        width: 2,
+        width: 3,
         inTotal: 4,
-        bgcolor: const Color.fromARGB(255, 44, 43, 43),
       );
     } else {
       snackBar(
@@ -84,7 +83,6 @@ class VideoAddToPlayList extends StatelessWidget {
         content: "Video already exist in $name",
         width: 3,
         inTotal: 4,
-        bgcolor: const Color.fromARGB(255, 44, 43, 43),
       );
     }
   }

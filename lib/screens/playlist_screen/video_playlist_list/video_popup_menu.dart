@@ -5,7 +5,7 @@ import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/player.dart';
 
 class PlayListPopUpVideo extends StatelessWidget {
-   PlayListPopUpVideo({
+  PlayListPopUpVideo({
     super.key,
     required this.playlist,
     required this.videoPlayitList,
@@ -42,14 +42,13 @@ class PlayListPopUpVideo extends StatelessWidget {
               )
             ],
             // offset: const Offset(0, 50),
-            color:const Color.fromARGB(255, 75, 75, 75),
+            color: const Color.fromARGB(255, 75, 75, 75),
             elevation: 2,
             onSelected: (value) {
               if (value == 2) {
-                editVideoPlaylistName(context, playlist,index, listVideos);
+                editVideoPlaylistName(context, playlist, index, listVideos);
               } else if (value == 3) {
-                deleteVideoPlayList(
-                    context, videoPlayitList, index);
+                deleteVideoPlayList(context, videoPlayitList, index);
               }
             },
           );
@@ -84,11 +83,11 @@ class PlayListPopUpVideo extends StatelessWidget {
                 videoList.deleteAt(index);
 
                 snackBar(
-                    inTotal: 3,
+                    inTotal: 4,
                     width: 2,
                     context: context,
                     content: "Deleted successfully",
-                    bgcolor: const Color.fromARGB(255, 48, 47, 47));
+                  );
               },
             ),
             const Divider(thickness: 1),
@@ -112,8 +111,8 @@ class PlayListPopUpVideo extends StatelessWidget {
     );
   }
 
-  Future editVideoPlaylistName(
-      BuildContext context, PlayerModel data, int index ,List<String> videoData) {
+  Future editVideoPlaylistName(BuildContext context, PlayerModel data,
+      int index, List<String> videoData) {
     return showDialog(
       context: context,
       builder: (context) => SimpleDialog(
@@ -196,10 +195,30 @@ class PlayListPopUpVideo extends StatelessWidget {
                     } else {
                       final playlistName =
                           PlayerModel(name: name, videoPath: videoData);
-                      VideoPlayerListDB.editList(index, playlistName);
+                      final datas = VideoPlayerListDB.videoPlayerListDB.values
+                          .map((e) => e.name.trim())
+                          .toList();
+                      if (datas.contains(playlistName.name)) {
+                        snackBar(
+                          context: context,
+                          content: "Playlist already exist",
+                          width: 2,
+                          inTotal: 4,
+                        );
+                        Navigator.of(context).pop();
+                        textEditingController.clear();
+                      } else {
+                        VideoPlayerListDB.editList(index, playlistName);
+                        snackBar(
+                          context: context,
+                          content: "Playlist updated",
+                          width: 2,
+                          inTotal: 4,
+                        );
+                        Navigator.pop(context);
+                        textEditingController.clear();
+                      }
                     }
-                    textEditingController.clear();
-                    Navigator.pop(context);
                   }
                 },
                 child: const Text(

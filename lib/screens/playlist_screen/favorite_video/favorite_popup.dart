@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/music/search_song/search_song.dart';
 import 'package:playit/screens/video/search_video/search_video.dart';
 import '../../../database/song_favorite_db.dart';
 import '../../../database/video_favorite_db.dart';
 
 class FavoritePopUp extends StatelessWidget {
-  const FavoritePopUp({super.key, required this.isVideo, this.songmodel});
+  const FavoritePopUp({
+    super.key,
+    required this.isVideo,
+  });
   final bool isVideo;
-  final List<PlayItSongModel>? songmodel;
 
   final TextStyle popupStyle = const TextStyle(color: Colors.white);
 
@@ -17,17 +18,19 @@ class FavoritePopUp extends StatelessWidget {
     return PopupMenuButton<int>(
       itemBuilder: (context) => [
         PopupMenuItem(
-            value: 1,
-            child: Text(
-              'Search',
-              style: popupStyle,
-            )),
+          value: 1,
+          child: Text(
+            'Search',
+            style: popupStyle,
+          ),
+        ),
         PopupMenuItem(
-            value: 2,
-            child: Text(
-              'Clear all',
-              style: popupStyle,
-            )),
+          value: 2,
+          child: Text(
+            'Clear all',
+            style: popupStyle,
+          ),
+        ),
       ],
       offset: const Offset(0, 10),
       color: const Color.fromARGB(255, 75, 75, 75),
@@ -42,25 +45,25 @@ class FavoritePopUp extends StatelessWidget {
               ),
             );
           } else if (value == 2) {
-            clearFavorite(true,context);
+            clearFavorite(true, context);
           }
         } else {
           if (value == 1) {
-             Navigator.push(
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const SearchSongPage(isFavSong: true),
               ),
             );
           } else if (value == 2) {
-            clearFavorite(false,context);
+            clearFavorite(false, context);
           }
         }
       },
     );
   }
 
-  clearFavorite(bool isVideo,context) {
+  clearFavorite(bool isVideo, context) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -106,20 +109,21 @@ class FavoritePopUp extends StatelessWidget {
                           width: 2,
                           context: context,
                           content: "Favorite cleared successfully",
-                          bgcolor: const Color.fromARGB(255, 48, 47, 47));
+                          );
                     },
                   )
                 : InkWell(
                     child: const SizedBox(
-                        height: 40,
-                        child: Center(
-                          child: Text(
-                            "Clear all songs",
-                            style: TextStyle(
-                              color: Colors.redAccent,
-                            ),
+                      height: 40,
+                      child: Center(
+                        child: Text(
+                          "Clear all songs",
+                          style: TextStyle(
+                            color: Colors.redAccent,
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
                     onTap: () {
                       Navigator.pop(context);
                       FavoriteDb.musicDb.clear();
@@ -127,11 +131,11 @@ class FavoritePopUp extends StatelessWidget {
                       FavoriteDb.favoriteSongs.notifyListeners();
 
                       snackBar(
-                          inTotal: 3,
-                          width: 2,
-                          context: context,
-                          content: "Favorite cleared successfully",
-                          bgcolor: const Color.fromARGB(255, 48, 47, 47));
+                        inTotal: 3,
+                        width: 2,
+                        context: context,
+                        content: "Favorite cleared successfully",
+                      );
                     },
                   ),
             const Padding(
@@ -140,14 +144,15 @@ class FavoritePopUp extends StatelessWidget {
             ),
             InkWell(
               child: const SizedBox(
-                  height: 40,
-                  child: Center(
-                    child: Text(
-                      "Cancel",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  )),
+                height: 40,
+                child: Center(
+                  child: Text(
+                    "Cancel",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+              ),
               onTap: () {
                 Navigator.pop(context);
               },

@@ -33,7 +33,7 @@ class VideoFavoriteDb extends ChangeNotifier {
         content: "video added to favorite",
         width: 3,
         inTotal: 5,
-        bgcolor: const Color.fromARGB(255, 66, 64, 64));
+       );
   }
 
   static videoDelete(String videoPath, context) {
@@ -59,7 +59,6 @@ Future<void> snackBar(
     required content,
     required int width,
     required int inTotal,
-    required bgcolor,
     function}) async {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(

@@ -161,7 +161,6 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
                                 content: "Song added to favorite",
                                 width: 3,
                                 inTotal: 5,
-                                bgcolor: const Color.fromARGB(255, 54, 54, 54),
                               );
                             },
                           ),
@@ -269,7 +268,7 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
                     width: 3,
                     context: context,
                     content: "Deleted successfully",
-                    bgcolor: Colors.black54);
+                 );
               },
             ),
             const Divider(
