@@ -29,8 +29,8 @@ class FavoritePopUp extends StatelessWidget {
               style: popupStyle,
             )),
       ],
-      offset: const Offset(0, 50),
-      color: const Color.fromARGB(255, 48, 47, 47),
+      offset: const Offset(0, 10),
+      color: const Color.fromARGB(255, 75, 75, 75),
       elevation: 2,
       onSelected: (value) {
         if (isVideo) {

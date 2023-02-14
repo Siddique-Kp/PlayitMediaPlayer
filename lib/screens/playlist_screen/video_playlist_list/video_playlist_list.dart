@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/main.dart';
 import 'package:playit/model/player.dart';
+import 'package:playit/screens/playlist_screen/song_playlist_list/inside_playlist_popup.dart';
 import 'package:playit/screens/video/access_video.dart';
 import 'package:playit/screens/video/video_list/video_list_builder.dart';
 import '../../../model/playit_media_model.dart';
@@ -26,22 +27,27 @@ class VideoPlayListList extends StatelessWidget {
         tempVideo = videoPlaylist(
             videoPlaylistItems.values.toList()[listIndex].videoPath);
         final temp = tempVideo.reversed.toList();
-        allListVideos  = temp.toSet().toList();
+        allListVideos = temp.toSet().toList();
         return Scaffold(
           appBar: AppBar(
             title: Text(playList.name),
             actions: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddVideosToPlayList(
-                            playlist: playList,
-                          ),
-                        ));
-                  },
-                  icon: const Icon(Icons.add))
+              // InsidePopupSong(
+              //   videoPlaylist: playList,
+              //   index: listIndex,
+              //   isVideo: true,
+              // )
+              // IconButton(
+              //     onPressed: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => AddVideosToPlayList(
+              //               playlist: playList,
+              //             ),
+              //           ));
+              //     },
+              //     icon: const Icon(Icons.add))
             ],
           ),
           body: allListVideos.isEmpty

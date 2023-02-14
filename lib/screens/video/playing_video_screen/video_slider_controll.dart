@@ -21,8 +21,8 @@ class _VideoSliderControllerState extends State<VideoSliderController> {
   Widget build(BuildContext context) {
     return SliderTheme(
       data: SliderTheme.of(context).copyWith(
-        activeTrackColor: Colors.orange,
-        thumbColor: Colors.orange,
+        activeTrackColor: Colors.blue,
+        thumbColor: Colors.blue,
         trackHeight: 2,
         inactiveTrackColor: Colors.white,
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 5.0),

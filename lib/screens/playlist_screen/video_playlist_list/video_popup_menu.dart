@@ -30,21 +30,19 @@ class PlayListPopUpVideo extends StatelessWidget {
           listVideos = videos.values.toList()[index].videoPath;
           return PopupMenuButton<int>(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: 2,
-                padding: const EdgeInsets.only(left: 20, right: 35),
                 child: Text("Rename", style: popupStyle),
               ),
               PopupMenuItem(
                 value: 3,
-                padding: const EdgeInsets.only(left: 20, right: 35),
                 child: Text("Delete", style: popupStyle),
               )
             ],
-            offset: const Offset(0, 50),
-            color: const Color.fromARGB(255, 48, 47, 47),
+            // offset: const Offset(0, 50),
+            color:const Color.fromARGB(255, 75, 75, 75),
             elevation: 2,
             onSelected: (value) {
               if (value == 2) {

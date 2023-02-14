@@ -28,48 +28,56 @@ class FavoriteVideos extends StatelessWidget {
     }
 
     return ValueListenableBuilder(
-        valueListenable: VideoFavoriteDb.videoFavoriteDb,
-        builder: (context, List<VideoFavoriteModel> videoData, child) {
-          final temp = videoData.reversed.toList();
-          final videoFavData = temp.toSet().toList();
-          return Scaffold(
-              appBar: AppBar(
-                elevation: 1,
-                backgroundColor: Colors.black,
-                title: const Text("Favorite Videos"),
-                actions: const [
-                  FavoritePopUp(
-                    isVideo: true,
-                  )
-                ],
-              ),
-              body: videoFavData.isEmpty
-                  ? const Center(
-                      child: Text("No Favorite Videos"),
-                    )
-                  : ListView.builder(
-                      itemCount: videoFavData.length,
-                      itemBuilder: (context, index) {
-                        final videoListData = videoFavData[index];
-                        String videoPath = videoListData.videoPath;
-                        final videoTitle = videoPath.toString().split('/').last;
-                        String shorttitle = videoTitle;
-                        if (videoTitle.length > 19) {
-                          shorttitle = shorttitle.substring(0, 19);
-                        }
-                        AllVideos? videoinfo = videoDB.getAt(index);
-                        String duration =
-                            videoinfo!.duration.toString().split('.').first;
+      valueListenable: VideoFavoriteDb.videoFavoriteDb,
+      builder: (context, List<VideoFavoriteModel> videoData, child) {
+        final temp = videoData.reversed.toList();
+        final videoFavData = temp.toSet().toList();
+        return Scaffold(
+          appBar: AppBar(
+            elevation: 1,
+            backgroundColor: Colors.black,
+            title: const Text("Favorite Videos"),
+            actions: const [
+              FavoritePopUp(
+                isVideo: true,
+              )
+            ],
+          ),
+          body: videoFavData.isEmpty
+              ? const Center(
+                  child: Text(
+                    "No Favorite Videos",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 65, 64, 64),
+                      fontSize: 17,
+                    ),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: videoFavData.length,
+                  itemBuilder: (context, index) {
+                    final videoListData = videoFavData[index];
+                    String videoPath = videoListData.videoPath;
+                    final videoTitle = videoPath.toString().split('/').last;
+                    String shorttitle = videoTitle;
+                    if (videoTitle.length > 19) {
+                      shorttitle = shorttitle.substring(0, 19);
+                    }
+                    AllVideos? videoinfo = videoDB.getAt(index);
+                    String duration =
+                        videoinfo!.duration.toString().split('.').first;
 
-                        return VideoListBuilder(
-                          videoPath: videoPath,
-                          videoTitle: shorttitle,
-                          duration: duration,
-                          index: index,
-                          isFavorite: true,
-                        );
-                      },
-                    ));
-        });
+                    return VideoListBuilder(
+                      videoPath: videoPath,
+                      videoTitle: shorttitle,
+                      duration: duration,
+                      index: index,
+                      isFavorite: true,
+                    );
+                  },
+                ),
+        );
+      },
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:playit/screens/music/get_all_songs.dart';
 import 'package:playit/screens/video/playing_video_screen/bottom_controller.dart';
 import 'package:playit/screens/video/playing_video_screen/video_player_widget.dart';
 import 'package:playit/screens/video/playing_video_screen/video_slider_controll.dart';
@@ -26,15 +27,18 @@ class _PlayingVideoState extends State<PlayingVideo> {
   late VideoPlayerController _controller;
   Duration videoDuration = const Duration();
   Duration videoPosition = const Duration();
+ late int videoMicrDuration;
+  Duration videoMicrPosition = const Duration();
   bool isPlaying = true;
   bool isLandscape = true;
 
   @override
   void initState() {
+    GetAllSongController.audioPlayer.stop();
     super.initState();
     _controller = VideoPlayerController.file(File(widget.videoFile));
     _controller.initialize().then((_) => setState(() {}));
-    _controller.setLooping(true);
+    // _controller.setLooping(true);
     _controller.play();
     _controller.addListener(() {
       setState(() {});
@@ -53,6 +57,8 @@ class _PlayingVideoState extends State<PlayingVideo> {
   Widget build(BuildContext context) {
     videoDuration = _controller.value.duration;
     videoPosition = _controller.value.position;
+    videoMicrDuration = _controller.value.duration.inMicroseconds;
+    videoMicrPosition = _controller.value.position;
     final isMuted = _controller.value.volume == 0;
     return Scaffold(
       backgroundColor: Colors.black,
@@ -189,7 +195,7 @@ class _PlayingVideoState extends State<PlayingVideo> {
 
   Future disposeOrientation() async {
     await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
   }
 
   Future setLandscape() async {

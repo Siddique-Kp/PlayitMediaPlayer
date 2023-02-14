@@ -22,6 +22,12 @@ class VideoBottomController extends StatefulWidget {
 class _VideoBottomControllerState extends State<VideoBottomController> {
   bool isPlaying = true;
   bool isLandscape = false;
+  int _index = 0;
+  List<BoxFit> fit = [
+    BoxFit.fitWidth,
+    BoxFit.cover,
+    BoxFit.fitHeight,
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,6 +56,7 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
                     () {
                       isVisible = false;
                       isLocked = true;
+                      lockScreen();
                     },
                   );
                 },
@@ -86,15 +93,12 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
                 icon: icon(Icons.fast_forward)),
             IconButton(
                 iconSize: 30,
-                onPressed: () async {
-                  setState(
-                    () async {
-                      isLandscape = !isLandscape;
-                      // setLandscape();
-                    },
-                  );
+                onPressed: () {
+                  setState(() {
+                    _index = (_index + 1) % fit.length;
+                  });
                 },
-                icon: icon(Icons.crop_landscape_rounded)),
+                icon: icon(Icons.fit_screen)),
           ],
         )
       ],
@@ -124,6 +128,11 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
       videoIcon,
       color: Colors.white,
     );
+  }
+
+  Future lockScreen() async {
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: []);
   }
 
   // Future setLandscape() async {

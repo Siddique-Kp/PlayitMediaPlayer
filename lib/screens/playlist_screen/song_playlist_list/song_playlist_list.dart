@@ -37,6 +37,7 @@ class SongPlayListList extends StatelessWidget {
                     InsidePopupSong(
                       playlist: playList,
                       index: listIndex,
+                    
                     )
                   ],
                   pinned: true,

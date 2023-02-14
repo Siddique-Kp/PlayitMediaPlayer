@@ -4,12 +4,11 @@ import 'package:playit/database/song_playlist_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/playit_media_model.dart';
 
-
 class PlayListPopUpMusic extends StatelessWidget {
-   PlayListPopUpMusic({
+  PlayListPopUpMusic({
     super.key,
     required this.playlist,
-     this.musicPlayitList,
+    this.musicPlayitList,
     required this.index,
   });
   final PlayItSongModel playlist;
@@ -32,7 +31,7 @@ class PlayListPopUpMusic extends StatelessWidget {
           listSongs = songs.values.toList()[index].songId;
           return PopupMenuButton<int>(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: 2,
@@ -45,25 +44,21 @@ class PlayListPopUpMusic extends StatelessWidget {
                 child: Text("Delete", style: popupStyle),
               )
             ],
-            offset: const Offset(0, 50),
-            color: const Color.fromARGB(255, 48, 47, 47),
+            // offset: const Offset(0, 50),
+            color: const Color.fromARGB(255, 75, 75, 75),
             elevation: 2,
             onSelected: (value) {
               if (value == 2) {
-                editPlaylistName(
-                    context, playlist, index, listSongs);
+                editPlaylistName(context, playlist, index, listSongs);
               } else if (value == 3) {
                 deletePlayList(context, musicPlayitList, index);
               }
             },
           );
-
-
-
         });
   }
 
-   deletePlayList(
+  deletePlayList(
     BuildContext context,
     Box<PlayItSongModel> musicList,
     int index,
@@ -92,7 +87,7 @@ class PlayListPopUpMusic extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
                 musicList.deleteAt(index);
-                
+
                 snackBar(
                     inTotal: 3,
                     width: 2,
@@ -148,35 +143,36 @@ class PlayListPopUpMusic extends StatelessWidget {
           ),
           SimpleDialogOption(
             child: Form(
-                key: formKey,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: textEditingController,
-                  maxLength: 15,
-                  decoration: InputDecoration(
-                    counterStyle: const TextStyle(
-                      color: Colors.white,
-                    ),
-                    fillColor: Colors.white.withOpacity(0.7),
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    contentPadding: const EdgeInsets.only(left: 15, top: 5),
+              key: formKey,
+              child: TextFormField(
+                textAlign: TextAlign.left,
+                controller: textEditingController,
+                maxLength: 15,
+                decoration: InputDecoration(
+                  counterStyle: const TextStyle(
+                    color: Colors.white,
                   ),
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Enter your playlist name";
-                    } else {
-                      return null;
-                    }
-                  },
-                )),
+                  fillColor: Colors.white.withOpacity(0.7),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  contentPadding: const EdgeInsets.only(left: 15, top: 5),
+                ),
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Enter your playlist name";
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+            ),
           ),
           const SizedBox(
             height: 8,

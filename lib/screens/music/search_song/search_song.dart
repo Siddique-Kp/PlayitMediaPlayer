@@ -50,24 +50,32 @@ class _SearchSongPageState extends State<SearchSongPage> {
             onChanged: (value) => updateList(value),
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.black,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none),
-                hintText: 'Search Song',
-                hintStyle: const TextStyle(color: Colors.white),
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                prefixIconColor: Colors.white,
-                suffixStyle: const TextStyle(
-                  color: Colors.white,
-                ),
-                suffix: InkWell(
-                    onTap: () => Navigator.pop(context),
-                    child: const Text("| cancel"))),
+              filled: true,
+              fillColor: Colors.black,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide.none),
+              hintText: 'Search Song',
+              hintStyle: const TextStyle(color: Colors.white),
+              prefixIcon: const Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              prefixIconColor: Colors.white,
+              suffixIcon: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: const Icon(Icons.close,color: Colors.white,),
+              ),
+              suffixIconColor: Colors.white
+              // suffixStyle: const TextStyle(
+              //   color: Colors.white,
+              // ),
+              
+              // suffix: InkWell(
+              //   onTap: () => Navigator.pop(context),
+              //   child: const Text("| cancel"),
+              // ),
+            ),
           ),
         ),
         const SizedBox(height: 5),

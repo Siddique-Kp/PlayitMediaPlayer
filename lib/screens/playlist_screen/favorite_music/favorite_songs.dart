@@ -38,7 +38,7 @@ class _FavoriteSongsState extends State<FavoriteSongs> {
                     return const Center(
                       child: Text(
                         "No Favorite Songs",
-                        style: TextStyle(color: Colors.grey, fontSize: 17),
+                        style: TextStyle(color: Color.fromARGB(255, 65, 64, 64), fontSize: 17),
                       ),
                     );
                   } else {

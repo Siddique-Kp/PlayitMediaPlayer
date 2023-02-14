@@ -49,8 +49,8 @@ Widget thumbnail({required path, required context, required String duration}) {
         ),
       ),
       Positioned(
-        right: 1,
-        bottom: 1,
+        right: 4,
+        bottom: 4,
         child: Card(
           color: const Color.fromARGB(116, 0, 0, 0),
           child: Text(

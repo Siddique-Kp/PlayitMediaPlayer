@@ -7,13 +7,7 @@ import '../settings/settings_page.dart';
 class BottomNavBarScreen extends StatefulWidget {
   const BottomNavBarScreen({super.key});
 
-
-  static const List<Widget> pages = [
-    VideoPage(),
-    MusicPage(),
-    PlayList(),
-    SettingsPage(),
-  ];
+ 
 
   @override
   State<BottomNavBarScreen> createState() => _BottomNavBarScreenState();
@@ -21,6 +15,12 @@ class BottomNavBarScreen extends StatefulWidget {
 
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   int pageindex = 0;
+   static const List<Widget> pages = [
+    VideoPage(),
+    MusicPage(),
+    PlayList(),
+    SettingsPage(),
+  ];
 
   changePage(int index) {
     setState(() {
@@ -31,22 +31,28 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: 
-      BottomNavBarScreen.pages.elementAt(pageindex),
+      body: IndexedStack(
+        index: pageindex,
+        children: pages,
+      ),
+      // BottomNavBarScreen.pages.elementAt(pageindex),
+
       bottomNavigationBar: NavigationBar(
           selectedIndex: pageindex,
-          // backgroundColor: ThemeDataClass.darkTheme.backgroundColor,
+          backgroundColor: Colors.white,
           surfaceTintColor: Colors.amber,
           onDestinationSelected: (value) => changePage(value),
           destinations: const [
             NavigationDestination(
                 icon: Icon(Icons.play_circle), label: 'Video'),
-            NavigationDestination(icon: Icon(Icons.headphones), label: 'Music'),
+            NavigationDestination(
+              icon: Icon(Icons.headphones), label: 'Music'),
             NavigationDestination(
                 icon: Icon(Icons.queue_music), label: 'Playlist'),
             NavigationDestination(
                 icon: Icon(Icons.settings), label: 'Settings'),
-          ]),
+          ],),
+          
       // bottomNavigationBar:
       // BottomNavigationBar(
       //     onTap: (index) => changePage(index),

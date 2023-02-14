@@ -15,30 +15,29 @@ class InsidePopupSong extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<int>(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       itemBuilder: (context) => [
         PopupMenuItem(
           value: 1,
-          padding: const EdgeInsets.only(left: 20, right: 15),
           child: Text("Add Songs", style: popupStyle),
         ),
         PopupMenuItem(
           value: 2,
-          padding: const EdgeInsets.only(left: 20, right: 15),
           child: Text("Clear all", style: popupStyle),
         ),
       ],
-      offset: const Offset(0, 50),
+      offset: const Offset(0, 10),
       // color: const Color.fromARGB(255, 48, 47, 47),
       color: Colors.white,
       elevation: 4,
       onSelected: (value) {
         if (value == 1) {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AddSongsPlaylist(playlist: playlist),
-              ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddSongsPlaylist(playlist: playlist),
+            ),
+          );
         }
         if (value == 2) {
           clearPlaylist(context, playlist);

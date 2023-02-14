@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/model/player.dart';
 import '../../../database/video_favorite_db.dart';
+import '../../playlist_screen/floating_button.dart/floating_button.dart';
 
 class VideoAddToPlayList extends StatelessWidget {
   const VideoAddToPlayList({
@@ -20,43 +21,54 @@ class VideoAddToPlayList extends StatelessWidget {
         title: const Text("Add to Playlist"),
       ),
       body: ValueListenableBuilder(
-          valueListenable: videoHivebox.listenable(),
-          builder: (context, Box<PlayerModel> videoList, child) {
-            return ListView.builder(
-                shrinkWrap: true,
-                physics: const ScrollPhysics(),
-                itemCount: videoList.length,
-                itemBuilder: (context, index) {
-                  final data = videoList.values.toList()[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: ListTile(
-                        leading: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(7),
-                            color: Colors.grey,
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.video_collection_outlined,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        title: Text(data.name),
-                        trailing: const Icon(Icons.chevron_right),
-                        onTap: () {
-                          videoAddToPlaylist(videoPath, data, data.name,context);
-                        }),
-                  );
-                });
-          }),
+        valueListenable: videoHivebox.listenable(),
+        builder: (context, Box<PlayerModel> videoList, child) {
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const ScrollPhysics(),
+            itemCount: videoList.length,
+            itemBuilder: (context, index) {
+              final data = videoList.values.toList()[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: ListTile(
+                  leading: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(7),
+                      color: Colors.grey,
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.video_collection_outlined,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  title: Text(data.name),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    videoAddToPlaylist(videoPath, data, data.name, context);
+                  },
+                ),
+              );
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        child: const Icon(Icons.playlist_add),
+        onPressed: () {
+          newPlayList(context, formKey, "Playlist for Video", false);
+        },
+      ),
     );
   }
 
-  void videoAddToPlaylist(String data, PlayerModel playList, String name, context) {
+  void videoAddToPlaylist(
+      String data, PlayerModel playList, String name, context) {
     if (!playList.isValueIn(data)) {
       playList.add(data);
       snackBar(
