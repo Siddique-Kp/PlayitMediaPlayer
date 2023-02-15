@@ -18,16 +18,17 @@ class VideoBottomController extends StatefulWidget {
   @override
   State<VideoBottomController> createState() => _VideoBottomControllerState();
 }
+ int fitIndex = 0;
+  List<BoxFit> fit = [
+    BoxFit.fitHeight,
+    BoxFit.cover,
+    BoxFit.contain,
+  ];
 
 class _VideoBottomControllerState extends State<VideoBottomController> {
   bool isPlaying = true;
   bool isLandscape = false;
-  int _index = 0;
-  List<BoxFit> fit = [
-    BoxFit.fitWidth,
-    BoxFit.cover,
-    BoxFit.fitHeight,
-  ];
+ 
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -95,7 +96,7 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
                 iconSize: 30,
                 onPressed: () {
                   setState(() {
-                    _index = (_index + 1) % fit.length;
+                    fitIndex = (fitIndex + 1) % fit.length;
                   });
                 },
                 icon: icon(Icons.fit_screen)),
@@ -135,16 +136,5 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
         overlays: []);
   }
 
-  // Future setLandscape() async {
-  //   if (isLandscape) {
-  //     // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-  //     //     overlays: []);
-  //     await SystemChrome.setPreferredOrientations([
-  //       DeviceOrientation.landscapeLeft,
-  //       DeviceOrientation.landscapeRight,
-  //     ]);
-  //   } else {
-  //     await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-  //   }
-  // }
+ 
 }

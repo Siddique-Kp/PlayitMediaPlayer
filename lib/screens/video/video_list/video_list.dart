@@ -20,20 +20,9 @@ class _VideoListState extends State<VideoList> {
   @override
   void initState() {
     askPermission();
-    deviceOrientation();
-    // _deviceOrientation();
-
     super.initState();
   }
 
-  deviceOrientation() async {
-    await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-  }
-
-  // _deviceOrientation() {
-  //   SystemChrome.setPreferredOrientations(
-  //       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  // }
 
   @override
   Widget build(BuildContext context) {

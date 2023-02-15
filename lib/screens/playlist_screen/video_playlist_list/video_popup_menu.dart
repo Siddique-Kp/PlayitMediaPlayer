@@ -84,7 +84,7 @@ class PlayListPopUpVideo extends StatelessWidget {
 
                 snackBar(
                     inTotal: 4,
-                    width: 2,
+                    width: 3,
                     context: context,
                     content: "Deleted successfully",
                   );

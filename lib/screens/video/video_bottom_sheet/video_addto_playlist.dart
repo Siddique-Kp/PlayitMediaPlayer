@@ -23,38 +23,46 @@ class VideoAddToPlayList extends StatelessWidget {
       body: ValueListenableBuilder(
         valueListenable: videoHivebox.listenable(),
         builder: (context, Box<PlayerModel> videoList, child) {
-          return ListView.builder(
-            shrinkWrap: true,
-            physics: const ScrollPhysics(),
-            itemCount: videoList.length,
-            itemBuilder: (context, index) {
-              final data = videoList.values.toList()[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: ListTile(
-                  leading: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      color: Colors.grey,
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.video_collection_outlined,
-                        color: Colors.white,
-                      ),
-                    ),
+          return videoHivebox.isEmpty
+              ? const Center(
+                  child: Text(
+                    "No Playlist Found",
+                    style: TextStyle(fontWeight: FontWeight.w500),
                   ),
-                  title: Text(data.name),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    videoAddToPlaylist(videoPath, data, data.name, context);
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  physics: const ScrollPhysics(),
+                  itemCount: videoList.length,
+                  itemBuilder: (context, index) {
+                    final data = videoList.values.toList()[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: ListTile(
+                        leading: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: Colors.grey,
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.video_collection_outlined,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        title: Text(data.name),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () {
+                          videoAddToPlaylist(
+                              videoPath, data, data.name, context);
+                        },
+                      ),
+                    );
                   },
-                ),
-              );
-            },
-          );
+                );
         },
       ),
       floatingActionButton: FloatingActionButton(

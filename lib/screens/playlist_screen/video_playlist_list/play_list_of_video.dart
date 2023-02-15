@@ -10,60 +10,60 @@ class PlaylistOfVideo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final videoHivebox = Hive.box<PlayerModel>('PlayerDB');
-    
+
     return ValueListenableBuilder(
       valueListenable: videoHivebox.listenable(),
       builder: (context, Box<PlayerModel> videoList, child) {
-
-        return videoHivebox.isEmpty?
-        SizedBox(
-          height: MediaQuery.of(context).size.height*2/10,
-          child:const Center(
-            child: Text('No Video Playlist'),
-          ),
-        )
-        : ListView.builder(
-          shrinkWrap: true,
-          physics: const ScrollPhysics(),
-          itemCount: videoList.length,
-          itemBuilder: (context, index) {
-            final data = videoList.values.toList()[index];
-            final itemCount = data.videoPath.length;
-            String videoCount =
-                itemCount < 2 ? '$itemCount Video' : '$itemCount Videos';
-            return ListTile(
-              leading: Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.grey,
-                ),
+        return videoHivebox.isEmpty
+            ? SizedBox(
+                height: MediaQuery.of(context).size.height * 2 / 10,
                 child: const Center(
-                  child: Icon(
-                    Icons.video_collection_outlined,
-                    color: Colors.white,
-                  ),
+                  child: Text('No Video Playlist',
+                      style: TextStyle(fontWeight: FontWeight.w500)),
                 ),
-              ),
-              title: Text(data.name),
-              subtitle: Text(videoCount),
-              trailing: PlayListPopUpVideo(
-                playlist: data,
-                videoPlayitList: videoList,
-                index: index,
-              ),
-              onTap: () => Navigator.push(context, MaterialPageRoute(
-                builder: (context) {
-                  return VideoPlayListList(
-                    playList: data,
-                    listIndex: index,
+              )
+            : ListView.builder(
+                shrinkWrap: true,
+                physics: const ScrollPhysics(),
+                itemCount: videoList.length,
+                itemBuilder: (context, index) {
+                  final data = videoList.values.toList()[index];
+                  final itemCount = data.videoPath.length;
+                  String videoCount =
+                      itemCount < 2 ? '$itemCount Video' : '$itemCount Videos';
+                  return ListTile(
+                    leading: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: Colors.grey,
+                      ),
+                      child: const Center(
+                        child: Icon(
+                          Icons.video_collection_outlined,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    title: Text(data.name),
+                    subtitle: Text(videoCount),
+                    trailing: PlayListPopUpVideo(
+                      playlist: data,
+                      videoPlayitList: videoList,
+                      index: index,
+                    ),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return VideoPlayListList(
+                          playList: data,
+                          listIndex: index,
+                        );
+                      },
+                    )),
                   );
                 },
-              )),
-            );
-          },
-        );
+              );
       },
     );
   }

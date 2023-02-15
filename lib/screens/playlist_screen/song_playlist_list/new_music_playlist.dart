@@ -19,7 +19,7 @@ class NewMuciPlaylist extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 2 / 10,
                 child: const Center(
                   child: Text(
-                    "No Song PLaylist",
+                    "No Song Playlist",
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                 ),

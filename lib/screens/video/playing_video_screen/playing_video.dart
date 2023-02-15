@@ -95,7 +95,7 @@ class _PlayingVideoState extends State<PlayingVideo> {
                   ),
                 ),
               ),
-              VideoPlayerWidget(controller: _controller),
+              VideoPlayerWidget(controller: _controller,fit: fit,index: fitIndex),
               Visibility(
                 visible: isVisible,
                 child: Column(

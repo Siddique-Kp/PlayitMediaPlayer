@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/screens/video/access_video.dart';
+import 'package:intl/intl.dart';
 
 class SongDetails extends StatefulWidget {
   const SongDetails(
@@ -13,6 +14,7 @@ class SongDetails extends StatefulWidget {
 }
 
 class _SongDetailsState extends State<SongDetails> {
+  
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -56,13 +58,13 @@ class _SongDetailsState extends State<SongDetails> {
         //----------- All information
         String songTitle = widget.songModel.displayNameWOExt;
         String albumName = widget.songModel.album!;
-        String songPath = widget.songModel.uri!;
+        String songPath = widget.songModel.uri.toString();
         int totalDuration = widget.songModel.duration!;
         double seconds = totalDuration / 1000;
         dynamic duration = convertSecond(seconds);
         int songSize = widget.songModel.size;
-        double size = songSize / 1024;
-        double siiize = size / 1024;
+        dynamic size = formatSize(songSize);
+        
         return SimpleDialog(
           children: [
             const SimpleDialogOption(
@@ -153,7 +155,7 @@ class _SongDetailsState extends State<SongDetails> {
                       child: const Text('Size')),
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 1 / 2,
-                      child: Text(siiize.toString())),
+                      child: Text(size.toString())),
                 ],
               ),
             ),
@@ -191,4 +193,22 @@ class _SongDetailsState extends State<SongDetails> {
       },
     );
   }
+  String formatSize(int sizeInBytes) {
+  if (sizeInBytes < 1024) {
+    return '$sizeInBytes B';
+  } else if (sizeInBytes < 1024 * 1024) {
+    double sizeInKB = sizeInBytes / 1024;
+    return '${formatNumber(sizeInKB)} KB';
+  } else if (sizeInBytes < 1024 * 1024 * 1024) {
+    double sizeInMB = sizeInBytes / (1024 * 1024);
+    return '${formatNumber(sizeInMB)} MB';
+  } else {
+    double sizeInGB = sizeInBytes / (1024 * 1024 * 1024);
+    return '${formatNumber(sizeInGB)} GB';
+  }
+}
+String formatNumber(double number) {
+  final format = NumberFormat('###,###,###.##');
+  return format.format(number);
+}
 }
