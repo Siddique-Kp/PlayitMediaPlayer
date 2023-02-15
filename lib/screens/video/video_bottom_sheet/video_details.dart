@@ -49,12 +49,13 @@ class VideoDetailsePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1.5 / 10,
+                      width: MediaQuery.of(context).size.width * 1.6 / 10,
                       child: const Text('Name')),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 1 / 2,
-                    child: Text(videoName, overflow: TextOverflow.clip),
-                  ),
+                  Expanded(
+                      child: Text(
+                    videoName,
+                    softWrap: true,
+                  )),
                 ],
               ),
             ),
@@ -66,12 +67,13 @@ class VideoDetailsePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1.5 / 10,
+                      width: MediaQuery.of(context).size.width * 1.6 / 10,
                       child: const Text('Duration')),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 1 / 2,
-                    child: Text(durations),
-                  ),
+                  Expanded(
+                      child: Text(
+                    durations,
+                    softWrap: true,
+                  )),
                 ],
               ),
             ),
@@ -82,12 +84,13 @@ class VideoDetailsePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1.5 / 10,
+                      width: MediaQuery.of(context).size.width * 1.6 / 10,
                       child: const Text('Format')),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 1 / 2,
-                    child: Text(format),
-                  ),
+                  Expanded(
+                      child: Text(
+                    format,
+                    softWrap: true,
+                  )),
                 ],
               ),
             ),
@@ -98,11 +101,13 @@ class VideoDetailsePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1.5 / 10,
+                      width: MediaQuery.of(context).size.width * 1.6 / 10,
                       child: const Text('Size')),
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width * 1 / 2,
-                      child: Text(fileSize(videoPath))),
+                  Expanded(
+                      child: Text(
+                    fileSize(videoPath),
+                    softWrap: true,
+                  )),
                 ],
               ),
             ),
@@ -113,13 +118,12 @@ class VideoDetailsePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1.5 / 10,
+                      width: MediaQuery.of(context).size.width * 1.6 / 10,
                       child: const Text('Path')),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 1 / 2,
+                  Expanded(
                     child: Text(
                       videoPath,
-                      overflow: TextOverflow.clip,
+                      softWrap: true,
                     ),
                   ),
                 ],

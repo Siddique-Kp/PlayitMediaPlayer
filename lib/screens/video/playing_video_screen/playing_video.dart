@@ -178,9 +178,7 @@ class _PlayingVideoState extends State<PlayingVideo> {
                             videoPosition: videoPosition,
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                       
                       ],
                     ),
                   ],

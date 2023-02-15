@@ -82,14 +82,15 @@ class _SongDetailsState extends State<SongDetails> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1.5 / 10,
+                      width: MediaQuery.of(context).size.width * 1.6 / 10,
                       child: const Text('Name')),
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width * 1 / 2,
-                      child: Text(songTitle,
-                          overflow: TextOverflow.clip, maxLines: 3)),
+                  Expanded(
+                    child: Text(songTitle,
+                        softWrap: true,),
+                  ),
                 ],
               ),
             ),
@@ -100,14 +101,14 @@ class _SongDetailsState extends State<SongDetails> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1.5 / 10,
+                      width: MediaQuery.of(context).size.width * 1.6 / 10,
                       child: const Text('Artist')),
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width * 1 / 2,
-                      child: Text(
-                        widget.artistName,
-                        overflow: TextOverflow.clip,
-                      )),
+                  Expanded(
+                    child: Text(
+                      widget.artistName,
+                      softWrap: true,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -118,14 +119,14 @@ class _SongDetailsState extends State<SongDetails> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1.5 / 10,
+                      width: MediaQuery.of(context).size.width * 1.6 / 10,
                       child: const Text('Album')),
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width * 1 / 2,
-                      child: Text(
-                        albumName,
-                        overflow: TextOverflow.clip,
-                      )),
+                  Expanded(
+                    child: Text(
+                      albumName,
+                      softWrap: true,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -136,11 +137,9 @@ class _SongDetailsState extends State<SongDetails> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1.5 / 10,
+                      width: MediaQuery.of(context).size.width * 1.6 / 10,
                       child: const Text('Duration')),
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width * 1 / 2,
-                      child: Text(duration.toString().split('0:0').last)),
+                  Expanded(child: Text(duration.toString().split('0:0').last,softWrap: true,)),
                 ],
               ),
             ),
@@ -151,11 +150,9 @@ class _SongDetailsState extends State<SongDetails> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1.5 / 10,
+                      width: MediaQuery.of(context).size.width * 1.6 / 10,
                       child: const Text('Size')),
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width * 1 / 2,
-                      child: Text(size.toString())),
+                  Expanded(child: Text(size.toString(),softWrap: true,)),
                 ],
               ),
             ),
@@ -166,13 +163,13 @@ class _SongDetailsState extends State<SongDetails> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 1.5 / 10,
+                      width: MediaQuery.of(context).size.width * 1.6 / 10,
                       child: const Text('Path')),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 1 / 2,
+                  Expanded(
                     child: Text(
                       songPath,
                       overflow: TextOverflow.clip,
+                      softWrap: true,
                       maxLines: 3,
                     ),
                   ),

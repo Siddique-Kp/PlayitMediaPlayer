@@ -20,8 +20,8 @@ class VideoBottomController extends StatefulWidget {
 }
  int fitIndex = 0;
   List<BoxFit> fit = [
-    BoxFit.fitHeight,
     BoxFit.cover,
+    BoxFit.fitHeight,
     BoxFit.contain,
   ];
 

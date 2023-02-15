@@ -79,10 +79,9 @@ Future loadVideoduration() async {
     videoDB.clear();
     AllVideos videosObj;
     for (var i = 0; i < accessVideosPath.length; i++) {
-      
       VideoData? info = await videoInfo.getVideoInfo(accessVideosPath[i]);
-      double? second = info!.duration! / 1000;
-      String? duration = convertSecond(second);
+      double second = info!.duration! / 1000;
+      String duration = convertSecond(second);
 
       videosObj = AllVideos(duration: duration,path: info.path!);
       videoDB.add(videosObj);

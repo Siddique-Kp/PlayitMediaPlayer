@@ -25,7 +25,7 @@ class VideoPlayerWidget extends StatelessWidget {
 
   Widget buildVideoPlayer() => SizedBox.expand(
         child: FittedBox(
-          clipBehavior: Clip.antiAlias,
+          clipBehavior: Clip.hardEdge,
           fit: fit[index],
           child: SizedBox(
             width: controller.value.size.width,

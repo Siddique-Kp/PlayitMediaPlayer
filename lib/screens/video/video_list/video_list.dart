@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:playit/main.dart';
 import 'package:playit/model/playit_media_model.dart';
@@ -23,7 +22,6 @@ class _VideoListState extends State<VideoList> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -39,14 +37,13 @@ class _VideoListState extends State<VideoList> {
             itemCount: accessVideosPath.length,
             itemBuilder: (context, index) {
               String videoPath = accessVideosPath[index];
-              String videoTitle = videoPath.toString().split('/').last;
+              String videoTitle = videoPath.split('/').last;
               String shorttitle = videoTitle;
               if (videoTitle.length > 19) {
                 shorttitle = shorttitle.substring(0, 19);
               }
               AllVideos? videosinfo = videoDB.getAt(index);
-              String duration =
-                  videosinfo!.duration.toString().split('.').first;
+              String duration = videosinfo!.duration.split('.').first;
               return VideoListBuilder(
                 videoPath: videoPath,
                 videoTitle: shorttitle,
