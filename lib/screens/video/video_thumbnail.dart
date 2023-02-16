@@ -49,10 +49,14 @@ Widget thumbnail({required path, required context, required String duration}) {
         ),
       ),
       Positioned(
-        right: 4,
-        bottom: 4,
-        child: Card(
-          color: const Color.fromARGB(116, 0, 0, 0),
+        right: 6,
+        bottom: 6,
+        child: Container(
+         
+          decoration: BoxDecoration(
+             color: const Color.fromARGB(116, 0, 0, 0),
+            borderRadius: BorderRadius.circular(2)
+          ),
           child: Text(
             duration.split('00:0').last,
             style: const TextStyle(color: Colors.white, fontSize: 11.0),

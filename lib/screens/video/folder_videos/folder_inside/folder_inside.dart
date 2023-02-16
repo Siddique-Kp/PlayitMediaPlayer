@@ -14,26 +14,26 @@ class FolderVideoInside extends StatefulWidget {
 }
 
 class _FolderVideoInsideState extends State<FolderVideoInside> {
-  String _duration = '00:00';
+  final String _duration = '00:00';
   @override
   void initState() {
     loadVideos(widget.folderPath);
-    getduration();
+    // getduration();
     super.initState();
   }
-    getduration() async {
-    videoDB = await Hive.openBox<AllVideos>('videoplayer');
-    List<AllVideos> data = videoDB.values.toList();
-    List<AllVideos> result =
-        data.where((element) => element.path == widget.folderPath).toList();
-    if (result.isNotEmpty) {
-      _duration = result
-          .where((element) => element.path == widget.folderPath)
-          .first
-          .duration;
-      setState(() {});
-    }
-  }
+  //   getduration() async {
+  //   videoDB = await Hive.openBox<AllVideos>('videoplayer');
+  //   List<AllVideos> data = videoDB.values.toList();
+  //   List<AllVideos> result =
+  //       data.where((element) => element.path == widget.folderPath).toList();
+  //   if (result.isNotEmpty) {
+  //     _duration = result
+  //         .where((element) => element.path == widget.folderPath)
+  //         .first
+  //         .duration;
+  //     setState(() {});
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -18,17 +18,18 @@ class VideoBottomController extends StatefulWidget {
   @override
   State<VideoBottomController> createState() => _VideoBottomControllerState();
 }
- int fitIndex = 0;
-  List<BoxFit> fit = [
-    BoxFit.cover,
-    BoxFit.fitHeight,
-    BoxFit.contain,
-  ];
+
+int fitIndex = 0;
+List<BoxFit> fit = [
+  BoxFit.cover,
+  BoxFit.fitHeight,
+  BoxFit.contain,
+];
 
 class _VideoBottomControllerState extends State<VideoBottomController> {
   bool isPlaying = true;
   bool isLandscape = false;
- 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -116,12 +117,12 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
         .seekTo(widget.controller.value.position - Duration(seconds: sec));
   }
 
-  String _formatDuration(Duration d) {
-    int minute = d.inMinutes;
-    int second = (d.inSeconds > 59) ? (d.inSeconds % 60) : d.inSeconds;
-    String format =
-        "${(minute < 10) ? "0$minute" : "$minute"}:${(second < 10) ? "0$second" : "$second"}";
-    return format;
+  String _formatDuration(Duration duration) {
+    String formattedDuration = duration.inHours > 0
+        ? '${duration.inHours}:${duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}'
+        : '${duration.inMinutes.remainder(60)}:${(duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}';
+
+    return formattedDuration;
   }
 
   Widget icon(videoIcon) {
@@ -135,6 +136,4 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
     await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: []);
   }
-
- 
 }

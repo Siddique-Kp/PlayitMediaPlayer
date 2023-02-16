@@ -17,6 +17,7 @@ class VideoListBuilder extends StatefulWidget {
     this.isFavorite = false,
     this.isPlaylist = false,
     this.isFoldervideo = false,
+    this.isSearchVideo = false,
   });
   final String videoPath;
   final String videoTitle;
@@ -26,6 +27,7 @@ class VideoListBuilder extends StatefulWidget {
   final bool isFavorite;
   final bool isPlaylist;
   final bool isFoldervideo;
+  final bool isSearchVideo;
 
   @override
   State<VideoListBuilder> createState() => _VideoListBuilderState();
@@ -56,7 +58,7 @@ class _VideoListBuilderState extends State<VideoListBuilder> {
       leading: thumbnail(
         path: widget.videoPath,
         context: context,
-        duration: widget.isFoldervideo ? _duration : widget.duration,
+        duration: _duration,
       ),
       title: Text(
         widget.videoTitle,
@@ -68,11 +70,12 @@ class _VideoListBuilderState extends State<VideoListBuilder> {
         videoTitle: widget.videoTitle,
         videoPath: widget.videoPath,
         videoSize: fileSize(widget.videoPath),
-        duration: widget.isFoldervideo ? _duration : widget.duration,
+        duration: _duration,
         playList: widget.playlist,
         index: widget.index,
         isFavor: widget.isFavorite,
         isPlaylist: widget.isPlaylist,
+      
       ),
     );
   }

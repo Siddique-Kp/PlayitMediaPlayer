@@ -105,7 +105,7 @@ class _PlayingVideoState extends State<PlayingVideo> {
                       height: 60,
                       //----------- Appbar starts
                       child: AppBar(
-                        backgroundColor: const Color.fromARGB(34, 0, 0, 0),
+                        backgroundColor:Colors.black.withAlpha(100),
                         title: Text(
                           widget.videoTitle,
                           overflow: TextOverflow.clip,

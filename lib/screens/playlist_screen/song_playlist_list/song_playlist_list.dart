@@ -38,7 +38,6 @@ class SongPlayListList extends StatelessWidget {
                       playlist: playList,
                       index: listIndex,
                       isVideo: false,
-                    
                     )
                   ],
                   pinned: true,
@@ -48,32 +47,34 @@ class SongPlayListList extends StatelessWidget {
                   [
                     songPlaylist.isEmpty
                         ? Padding(
-                            padding: EdgeInsets.only(
-                                top:
-                                    MediaQuery.of(context).size.height * 1 / 4),
-                            child: Column(
-                              children: [
-                                const Text(
-                                  'No songs here.',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
-                                ),
-                                const SizedBox(height: 10),
-                                ElevatedButton(
-                                  style: const ButtonStyle(
-                                      elevation: MaterialStatePropertyAll(0)),
-                                  onPressed: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AddSongsPlaylist(
-                                        playlist: playList,
-                                      ),
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height *
+                                  1 /
+                                  4),
+                          child: Column(
+                            children: [
+                              const Text(
+                                'No songs here.',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.w500),
+                              ),
+                              const SizedBox(height: 10),
+                              ElevatedButton(
+                                style: const ButtonStyle(
+                                    elevation: MaterialStatePropertyAll(0)),
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddSongsPlaylist(
+                                      playlist: playList,
                                     ),
                                   ),
-                                  child: const Text("ADD SONGS"),
-                                )
-                              ],
-                            ),
-                          )
+                                ),
+                                child: const Text("ADD SONGS"),
+                              )
+                            ],
+                          ),
+                        )
                         : SongListBuilder(
                             songModel: songPlaylist,
                             playList: playList,

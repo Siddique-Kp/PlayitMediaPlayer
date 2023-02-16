@@ -13,7 +13,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    videoFetch();
+    // videoFetch();
     gotoHome();
     super.initState();
   }

@@ -3,7 +3,6 @@ import 'package:playit/main.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/video/access_video.dart';
 import 'package:playit/screens/video/video_list/video_list_builder.dart';
-
 import '../../../database/video_favorite_db.dart';
 
 class SearchVideoPage extends StatefulWidget {
@@ -15,12 +14,13 @@ class SearchVideoPage extends StatefulWidget {
 }
 
 class _SearchVideoPageState extends State<SearchVideoPage> {
+  TextEditingController searchtext = TextEditingController();
   List<String> allVideos = [];
   List<String> foundVideo = [];
 
   @override
   void initState() {
-    loadSongs();
+    loadSearchVideo();
     super.initState();
   }
 
@@ -42,6 +42,13 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
     });
   }
 
+  clearSearch() {
+    setState(() {
+      searchtext.clear();
+      loadSearchVideo();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,33 +59,42 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
+                controller: searchtext,
                 onChanged: (value) => updateList(value),
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.black,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide.none),
-                  hintText: 'Search Song',
-                  hintStyle: const TextStyle(color: Colors.white),
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                  prefixIconColor: Colors.white,
-                  // suffixStyle: const TextStyle(
-                  //   color: Colors.white,
-                  // ),
-                  suffixIcon: InkWell(
-                    onTap: () => Navigator.pop(context),
-                    child: const Icon(Icons.close,color: Colors.white,)),
-                  suffixIconColor: Colors.white,
-                  // suffix: InkWell(
-                  //   onTap: () => Navigator.pop(context),
-                  //   child: const Text("| cancel"),
-                  // ),
-                ),
+                    filled: true,
+                    fillColor: Colors.black,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none),
+                    hintText: 'Search Song',
+                    hintStyle: const TextStyle(color: Colors.white),
+                    prefixIcon: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                    ),
+                    prefixIconColor: Colors.white,
+                    // suffixStyle: const TextStyle(
+                    //   color: Colors.white,
+                    // ),
+                    suffixIcon: searchtext.text.isNotEmpty
+                        ? InkWell(
+                            onTap: () => clearSearch(),
+                            child: const Icon(
+                              Icons.close,
+                              color: Colors.white,
+                            ))
+                        : const SizedBox()
+                    // suffixIconColor: Colors.white,
+                    // suffix: InkWell(
+                    //   onTap: () => Navigator.pop(context),
+                    //   child: const Text("| cancel"),
+                    // ),
+                    ),
               ),
             ),
             const SizedBox(height: 5),
@@ -112,6 +128,8 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
                           videoTitle: videoTitle,
                           duration: duration,
                           index: index,
+                          isFavorite: widget.isFavVideos,
+                          isSearchVideo: true,
                         );
                       },
                     ),
@@ -122,7 +140,7 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
     );
   }
 
-  loadSongs() async {
+  loadSearchVideo() async {
     allVideos = widget.isFavVideos
         ? VideoFavoriteDb.videoDb.values.toList()
         : accessVideosPath;

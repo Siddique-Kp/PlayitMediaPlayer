@@ -16,6 +16,7 @@ class _SearchSongPageState extends State<SearchSongPage> {
   List<SongModel> allSongs = [];
   List<SongModel> foundSongs = [];
   final audioQuery = OnAudioQuery();
+  TextEditingController searchtext = TextEditingController();
 
   @override
   void initState() {
@@ -47,35 +48,48 @@ class _SearchSongPageState extends State<SearchSongPage> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
+            controller: searchtext,
             onChanged: (value) => updateList(value),
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.black,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide.none),
-              hintText: 'Search Song',
-              hintStyle: const TextStyle(color: Colors.white),
-              prefixIcon: const Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              prefixIconColor: Colors.white,
-              suffixIcon: InkWell(
-                onTap: () => Navigator.pop(context),
-                child: const Icon(Icons.close,color: Colors.white,),
-              ),
-              suffixIconColor: Colors.white
-              // suffixStyle: const TextStyle(
-              //   color: Colors.white,
-              // ),
-              
-              // suffix: InkWell(
-              //   onTap: () => Navigator.pop(context),
-              //   child: const Text("| cancel"),
-              // ),
-            ),
+                filled: true,
+                fillColor: Colors.black,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide.none),
+                hintText: 'Search Song',
+                hintStyle: const TextStyle(color: Colors.white),
+                prefixIcon: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                ),
+                prefixIconColor: Colors.white,
+                suffixIcon: searchtext.text.isNotEmpty
+                    ? InkWell(
+                        onTap: () {
+                          setState(() {
+                            searchtext.clear();
+                          loadSongs();
+                          });
+                        },
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        ),
+                      )
+                    : const SizedBox()
+                // suffixStyle: const TextStyle(
+                //   color: Colors.white,
+                // ),
+
+                // suffix: InkWell(
+                //   onTap: () => Navigator.pop(context),
+                //   child: const Text("| cancel"),
+                // ),
+                ),
           ),
         ),
         const SizedBox(height: 5),

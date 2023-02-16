@@ -36,7 +36,7 @@ class FavoriteVideos extends StatelessWidget {
           appBar: AppBar(
             elevation: 1,
             backgroundColor: Colors.black,
-            title: const Text("Favorite Videos"),
+            title: const Text("Liked Videos"),
             actions: const [
               FavoritePopUp(
                 isVideo: true,
