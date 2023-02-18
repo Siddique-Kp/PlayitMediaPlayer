@@ -21,47 +21,56 @@ class _FolderVideoListState extends State<FolderVideoList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: requestPermission(Permission.storage),
-        builder: (context, items) {
-          if (items.data == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      future: requestPermission(Permission.storage),
+      builder: (context, items) {
+        if (items.data == null) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
 
-          return ValueListenableBuilder(
-            valueListenable: loadFolders,
-            builder: (context,List<String> folderList, child) {
-              return ListView.builder(
-                itemExtent: 90,
-                itemCount: folderList.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: const Icon(
-                      Icons.folder,
-                      size: 95,
-                    ),
-                    title: Padding(
-                      padding: const EdgeInsets.only(top: 35.0),
-                      child: Text(
-                        loadFolders.value[index].split('/').last,
-                        overflow: TextOverflow.clip,
-                        maxLines: 1,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return FolderVideoInside(folderPath: loadFolders.value[index]);
+        return ValueListenableBuilder(
+          valueListenable: loadFolders,
+          builder: (context, List<String> folderList, child) {
+            return folderList.isEmpty
+                ? const Center(
+                    child: Text('No Folders'),
+                  )
+                : ListView.builder(
+                    itemExtent: 90,
+                    itemCount: folderList.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: const Icon(
+                          Icons.folder,
+                          size: 95,
+                        ),
+                        title: Padding(
+                          padding: const EdgeInsets.only(top: 35.0),
+                          child: Text(
+                            loadFolders.value[index].split('/').last,
+                            overflow: TextOverflow.clip,
+                            maxLines: 1,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return FolderVideoInside(
+                                    folderPath: loadFolders.value[index]);
+                              },
+                            ),
+                          );
                         },
-                      ));
+                      );
                     },
                   );
-                },
-              );
-            }
-          );
-        });
+          },
+        );
+      },
+    );
   }
 
   getPermmission() async {

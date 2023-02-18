@@ -28,7 +28,9 @@ class _AddVideosToPlayListState extends State<AddVideosToPlayList> {
             );
           }
 
-          return ListView.builder(
+          return allVideos.value.isEmpty?
+          const Center(child: Text('No videos'),):
+           ListView.builder(
             itemCount: accessVideosPath.length,
             itemExtent: 75,
             itemBuilder: (context, index) {
@@ -53,7 +55,8 @@ class _AddVideosToPlayListState extends State<AddVideosToPlayList> {
                   maxLines: 1,
                 ),
                 subtitle: Text(fileSize(path)),
-                trailing: !widget.playlist.isValueIn(path)
+                trailing: 
+                !widget.playlist.isValueIn(path)
                     ? IconButton(
                         onPressed: () {
                           setState(() {

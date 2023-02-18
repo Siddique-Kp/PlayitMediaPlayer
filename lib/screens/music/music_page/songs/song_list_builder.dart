@@ -6,15 +6,14 @@ import '../../playing_music/playing_music.dart';
 import '../../songbottom_sheet/song_bottom_sheet.dart';
 
 class SongListBuilder extends StatelessWidget {
-   SongListBuilder({
-    super.key,
-    required this.songModel,
-    this.isRecentSong = false,
-    this.recentLength = 0,
-    this.isFavor = false,
-    this.isPlaylist = false,
-    this.playList
-  });
+  SongListBuilder(
+      {super.key,
+      required this.songModel,
+      this.isRecentSong = false,
+      this.recentLength = 0,
+      this.isFavor = false,
+      this.isPlaylist = false,
+      this.playList});
   final List<SongModel> songModel;
   final bool isRecentSong;
   final int recentLength;
@@ -38,8 +37,8 @@ class SongListBuilder extends StatelessWidget {
         //           if (songTitle.length > 20) {
         //             songTitle = '${songTitle.substring(0, 20)}...';
         //           }
-        String artist =songModel[index].artist!;
-        String artistName = artist == "<unknown>" ? "Unknown artist":artist;
+        String artist = songModel[index].artist!;
+        String artistName = artist == "<unknown>" ? "Unknown artist" : artist;
 
         return ListTile(
           leading: QueryArtworkWidget(
@@ -63,10 +62,9 @@ class SongListBuilder extends StatelessWidget {
             ),
           ),
           title: SizedBox(
-            width: MediaQuery.of(context).size.width*3/5,
+            width: MediaQuery.of(context).size.width * 3 / 5,
             child: Text(
               songTitle,
-             
               maxLines: 1,
             ),
           ),
@@ -90,23 +88,40 @@ class SongListBuilder extends StatelessWidget {
             GetAllSongController.audioPlayer.setAudioSource(
                 GetAllSongController.createSongList(songModel),
                 initialIndex: index);
-            GetRecentSongController.addRecentlyPlayed(
-                songModel[index].id);
+            GetRecentSongController.addRecentlyPlayed(songModel[index].id);
+            Navigator.of(context).push(animatedRoute());
 
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PlayingMusic(
-                  songModel: songModel,
-                  count: songModel.length,
-                ),
-              ),
-            );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => PlayingMusic(
+            //       songModel: songModel,
+            //       count: songModel.length,
+            //     ),
+            //   ),
+            // );
           },
         );
       },
-      itemCount:
-          isRecentSong ? recentLength : songModel.length,
+      itemCount: isRecentSong ? recentLength : songModel.length,
+    );
+  }
+
+  Route animatedRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => PlayingMusic(
+        songModel: songModel,
+        count: songModel.length,
+      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return SlideTransition(position: animation.drive(tween),
+        child: child,);
+      },
     );
   }
 }
