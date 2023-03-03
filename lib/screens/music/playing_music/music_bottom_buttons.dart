@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/database/recent_song_db.dart';
-import 'package:playit/screens/music/music_page/favorite_button/favorite_button.dart';
 import '../get_all_songs.dart';
+import '../widgets/favorite_song_button.dart';
+import '../widgets/next_song_button.dart';
+import '../widgets/play_song_button.dart';
 
 class MusicBottomButtons extends StatefulWidget {
   const MusicBottomButtons({
@@ -116,25 +118,22 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                     ),
                   ),
             CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.white,
-                child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      if (GetAllSongController.audioPlayer.playing) {
-                        GetAllSongController.audioPlayer.pause();
-                      } else {
-                        GetAllSongController.audioPlayer.play();
-                      }
-                      isPlaying = !isPlaying;
-                    });
-                  },
-                  icon: isPlaying
-                      ? const Icon(Icons.pause)
-                      : const Icon(Icons.play_arrow),
+              radius: 30,
+              backgroundColor: Colors.white,
+              child: SongPauseButton(
+                songModel: widget.favSongModel,
+                iconPause: const Icon(
+                  Icons.pause,
                   color: Colors.black,
-                  iconSize: 30,
-                )),
+                  size: 35,
+                ),
+                iconPlay: const Icon(
+                  Icons.play_arrow,
+                  color: Colors.black,
+                  size: 35,
+                ),
+              ),
+            ),
             widget.lastsong
                 ? const IconButton(
                     iconSize: 40,
@@ -143,19 +142,9 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                       Icons.skip_next,
                       color: Color.fromARGB(255, 122, 122, 122),
                     ))
-                : IconButton(
+                : SongSkipNextButton(
+                    favSongModel: widget.favSongModel,
                     iconSize: 40,
-                    onPressed: () {
-                      if (GetAllSongController.audioPlayer.hasNext) {
-                        GetRecentSongController.addRecentlyPlayed(
-                            widget.favSongModel.id);
-                        GetAllSongController.audioPlayer.seekToNext();
-                      }
-                    },
-                    icon: const Icon(
-                      Icons.skip_next,
-                      color: Colors.white,
-                    ),
                   ),
           ],
         ),
@@ -163,3 +152,7 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
     );
   }
 }
+
+
+
+

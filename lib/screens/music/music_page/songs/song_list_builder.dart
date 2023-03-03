@@ -4,9 +4,10 @@ import 'package:playit/screens/music/get_all_songs.dart';
 import 'package:playit/database/recent_song_db.dart';
 import '../../playing_music/playing_music.dart';
 import '../../songbottom_sheet/song_bottom_sheet.dart';
+import '../../widgets/art_work.dart';
 
-class SongListBuilder extends StatelessWidget {
-  SongListBuilder(
+class SongListBuilder extends StatefulWidget {
+  const SongListBuilder(
       {super.key,
       required this.songModel,
       this.isRecentSong = false,
@@ -21,45 +22,33 @@ class SongListBuilder extends StatelessWidget {
   final bool isPlaylist;
   final dynamic playList;
 
+  @override
+  State<SongListBuilder> createState() => _SongListBuilderState();
+}
+
+bool isPlayingSong = false;
+
+class _SongListBuilderState extends State<SongListBuilder> {
   final List<SongModel> allSongs = [];
+  int _selectedIndex = -1; // initially no item is selected
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      shrinkWrap: isPlaylist ? true : false,
+      shrinkWrap: widget.isPlaylist ? true : false,
       physics: const ScrollPhysics(),
       itemExtent: 80,
       itemBuilder: (context, index) {
-        allSongs.addAll(songModel);
+        allSongs.addAll(widget.songModel);
 
-        final String songTitle = songModel[index].displayNameWOExt;
-        // String songTitle = songfullTitle;
-        //           if (songTitle.length > 20) {
-        //             songTitle = '${songTitle.substring(0, 20)}...';
-        //           }
-        String artist = songModel[index].artist!;
+        String songTitle = widget.songModel[index].displayNameWOExt;
+        String artist = widget.songModel[index].artist!;
         String artistName = artist == "<unknown>" ? "Unknown artist" : artist;
 
         return ListTile(
-          leading: QueryArtworkWidget(
-            id: songModel[index].id,
-            type: ArtworkType.AUDIO,
-            keepOldArtwork: true,
-            artworkBorder: BorderRadius.circular(3),
-            artworkHeight: 60,
-            artworkWidth: 60,
-            artworkFit: BoxFit.cover,
-            nullArtworkWidget: Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(3)),
-              width: 60,
-              height: 60,
-              child: const Center(
-                  child: Icon(
-                Icons.music_note,
-                color: Colors.white,
-              )),
-            ),
+          leading: ArtWorkWidget(
+            songModel: widget.songModel[index],
+            size: 60,
           ),
           title: SizedBox(
             width: MediaQuery.of(context).size.width * 3 / 5,
@@ -76,20 +65,27 @@ class SongListBuilder extends StatelessWidget {
           trailing: SongBottomSheet(
             songTitle: songTitle,
             artistName: artistName,
-            songModel: songModel,
-            songFavorite: songModel[index],
-            count: songModel.length,
+            songModel: widget.songModel,
+            songFavorite: widget.songModel[index],
+            count: widget.songModel.length,
             index: index,
-            isFavor: isFavor,
-            isPLaylist: isPlaylist,
-            playList: playList,
+            isFavor: widget.isFavor,
+            isPLaylist: widget.isPlaylist,
+            playList: widget.playList,
           ),
           onTap: () {
+            setState(() {
+              _selectedIndex = index; // update the selected index
+              isPlayingSong = true;
+            });
+
             GetAllSongController.audioPlayer.setAudioSource(
-                GetAllSongController.createSongList(songModel),
+                GetAllSongController.createSongList(widget.songModel),
                 initialIndex: index);
-            GetRecentSongController.addRecentlyPlayed(songModel[index].id);
-            Navigator.of(context).push(animatedRoute());
+            GetRecentSongController.addRecentlyPlayed(
+                widget.songModel[index].id);
+            GetAllSongController.audioPlayer.play();
+            // Navigator.of(context).push(animatedRoute());
 
             // Navigator.push(
             //   context,
@@ -101,17 +97,20 @@ class SongListBuilder extends StatelessWidget {
             //   ),
             // );
           },
+          selected: _selectedIndex == index,
+          selectedColor: _selectedIndex == index ?  Colors.deepOrange: null,
         );
       },
-      itemCount: isRecentSong ? recentLength : songModel.length,
+      itemCount:
+          widget.isRecentSong ? widget.recentLength : widget.songModel.length,
     );
   }
 
   Route animatedRoute() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => PlayingMusic(
-        songModel: songModel,
-        count: songModel.length,
+        songModel: widget.songModel,
+        count: widget.songModel.length,
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
@@ -119,8 +118,10 @@ class SongListBuilder extends StatelessWidget {
         const curve = Curves.ease;
         var tween =
             Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        return SlideTransition(position: animation.drive(tween),
-        child: child,);
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
       },
     );
   }

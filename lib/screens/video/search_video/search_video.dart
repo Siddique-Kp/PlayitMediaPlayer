@@ -68,7 +68,7 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide.none),
-                    hintText: 'Search Song',
+                    hintText: 'Search Video',
                     hintStyle: const TextStyle(color: Colors.white),
                     prefixIcon: InkWell(
                       onTap: () => Navigator.pop(context),

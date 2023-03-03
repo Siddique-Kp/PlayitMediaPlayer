@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:playit/screens/music/music_page/albums/song_albums.dart';
 import 'package:playit/screens/music/music_page/artist/song_artist.dart';
 import 'package:playit/screens/music/music_page/recent/recent_page.dart';
@@ -10,6 +11,11 @@ class MusicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      systemNavigationBarColor: Color.fromARGB(255, 47, 46, 46),
+      statusBarColor: Colors.black,
+    ));
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -17,14 +23,11 @@ class MusicPage extends StatelessWidget {
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) => [
               SliverAppBar(
+                backgroundColor: Colors.black,
                 titleTextStyle: const TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w600,
                 ),
-                // backgroundColor: Colors.black,
-                // systemOverlayStyle: const SystemUiOverlayStyle(
-                //   statusBarColor: Colors.black,
-                // ),
                 title: const Text("MUSIC"),
                 actions: [
                   IconButton(

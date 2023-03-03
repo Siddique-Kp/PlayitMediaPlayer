@@ -70,7 +70,7 @@ class _PlayingMusicState extends State<PlayingMusic> {
     //     ),
     //   );}
 
-    GetAllSongController.audioPlayer.play();
+    // GetAllSongController.audioPlayer.play();
     GetAllSongController.audioPlayer.durationStream.listen((d) {
       if (mounted) {
         setState(() {
@@ -87,6 +87,16 @@ class _PlayingMusicState extends State<PlayingMusic> {
         });
       }
     });
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      systemNavigationBarColor: Color.fromARGB(255, 47, 46, 46),
+      statusBarColor: Colors.black,
+    ));
+
+    super.dispose();
   }
 
   @override
@@ -158,7 +168,8 @@ class _PlayingMusicState extends State<PlayingMusic> {
                       children: [
                         TextScroll(
                           '${widget.songModel[currentIndex].displayNameWOExt}                     ',
-                          velocity: const Velocity(pixelsPerSecond: Offset(40,0)),
+                          velocity:
+                              const Velocity(pixelsPerSecond: Offset(40, 0)),
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
