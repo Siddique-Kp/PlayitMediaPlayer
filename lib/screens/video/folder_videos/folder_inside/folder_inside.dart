@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/screens/video/folder_videos/accsess_folder.dart';
 import 'package:playit/screens/video/video_list/video_list_builder.dart';
-import '../../../../main.dart';
-import '../../../../model/playit_media_model.dart';
 
 class FolderVideoInside extends StatefulWidget {
   const FolderVideoInside({super.key, required this.folderPath});

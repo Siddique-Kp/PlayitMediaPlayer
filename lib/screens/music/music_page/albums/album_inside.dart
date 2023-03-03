@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:playit/screens/music/music_page/songs/now_playint_bottom_sheet.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 
 class AlbumsInsideList extends StatelessWidget {
@@ -43,6 +44,7 @@ class AlbumsInsideList extends StatelessWidget {
           return SongListBuilder(songModel: songByAlbum);
         },
       ),
+      bottomSheet: const NowPlayingBottomSheet(),
     );
   }
 }

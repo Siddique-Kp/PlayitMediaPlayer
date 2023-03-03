@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/screens/music/get_all_songs.dart';
+import 'package:playit/screens/music/music_page/songs/now_playint_bottom_sheet.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 import 'package:playit/screens/playlist_screen/song_playlist_list/add_songs_playlist.dart';
 import 'package:playit/screens/playlist_screen/song_playlist_list/inside_playlist_popup.dart';
@@ -85,6 +86,7 @@ class SongPlayListList extends StatelessWidget {
               ),
             ],
           ),
+          bottomSheet: const NowPlayingBottomSheet(),
         );
       },
     );

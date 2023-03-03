@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:playit/screens/music/music_page/songs/now_playint_bottom_sheet.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
-import 'package:playit/screens/music/music_page/songs/songs_list_page.dart';
 import 'package:playit/screens/playlist_screen/play_list-page.dart';
 import 'package:playit/screens/video/videopage.dart';
 import '../music/music_page.dart';
@@ -35,18 +34,20 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
     return SafeArea(
       child: Scaffold(
         
-        body: IndexedStack(
-          index: pageindex,
-          children: pages,
+        body: Padding(
+          padding:  EdgeInsets.only(bottom: bodyBottomMargin),
+          child: IndexedStack(
+            index: pageindex,
+            children: pages,
+            
+          ),
         ),
-        bottomSheet:  const NowPlayingBottomSheet(),
-        // BottomNavBarScreen.pages.elementAt(pageindex),
-        resizeToAvoidBottomInset: true,
+        bottomSheet: pageindex !=3? const NowPlayingBottomSheet():const SizedBox(),
+        // resizeToAvoidBottomInset: true,
 
         bottomNavigationBar: NavigationBar(
           selectedIndex: pageindex,
           backgroundColor: Colors.white,
-          // surfaceTintColor: Colors.amber,
           onDestinationSelected: (value) => changePage(value),
           destinations: const [
             NavigationDestination(

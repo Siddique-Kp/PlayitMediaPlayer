@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 import 'package:playit/screens/music/widgets/art_work.dart';
 import 'package:text_scroll/text_scroll.dart';
@@ -31,7 +32,6 @@ class _NowPlayingBottomSheetState extends State<NowPlayingBottomSheet> {
         });
       }
     });
-    GetAllSongController.audioPlayer.play();
 
     super.initState();
   }
@@ -48,29 +48,13 @@ class _NowPlayingBottomSheetState extends State<NowPlayingBottomSheet> {
       String songName = songModelEach.displayNameWOExt;
       return BottomSheet(
           enableDrag: false,
-          onDragStart: (details) {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => PlayingMusic(
-            //         songModel: songModel,
-            //         count: songModel.length,
-            //       ),
-            //     ),
-            //   );
-          },
+          onDragStart: (details) {},
           onClosing: () {},
           builder: (context) {
             return GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PlayingMusic(
-                      songModel: songModel,
-                      count: songModel.length,
-                    ),
-                  ),
+                Navigator.of(context).push(
+                  animatedRoute(songModel),
                 );
               },
               child: Container(
@@ -145,16 +129,6 @@ class _NowPlayingBottomSheetState extends State<NowPlayingBottomSheet> {
                     ),
                     Row(
                       children: [
-                        // IconButton(
-                        //   onPressed: () {
-                        //     setState(
-                        //       () {
-                        //         isPlayingSong = false;
-                        //       },
-                        //     );
-                        //   },
-                        //   icon: const Icon(Icons.close),
-                        // ),
 // ----- Favorite button
                         FavoriteButton(
                           songFavorite: songModelEach,
@@ -188,5 +162,25 @@ class _NowPlayingBottomSheetState extends State<NowPlayingBottomSheet> {
     } else {
       return const SizedBox();
     }
+  }
+
+  Route animatedRoute(List<SongModel> songModel) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => PlayingMusic(
+        songModel: songModel,
+        count: songModel.length,
+      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 }

@@ -4,6 +4,7 @@ import 'package:playit/database/song_playlist_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
+import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 import '../../../database/player_db.dart';
 
 class FloatingButton extends StatefulWidget {
@@ -20,32 +21,36 @@ class _FloatingButtonState extends State<FloatingButton> {
   bool playlistFor = true;
   @override
   Widget build(BuildContext context) {
-    return SpeedDial(
-      icon: Icons.playlist_add,
-      backgroundColor: Colors.black,
-      overlayColor: Colors.black,
-      overlayOpacity: 0.4,
-      spacing: 12,
-      spaceBetweenChildren: 4,
-      children: [
-        SpeedDialChild(
-            child: const Icon(Icons.queue_music),
-            backgroundColor: const Color.fromARGB(255, 48, 47, 47),
-            foregroundColor: Colors.white,
-            onTap: () {
-              playlistFor = true;
-              newPlayList(
-                  context, formKey, "Playlist for Music", playlistFor = true);
-            }),
-        SpeedDialChild(
-            child: const Icon(Icons.playlist_play),
-            backgroundColor: const Color.fromARGB(255, 48, 47, 47),
-            foregroundColor: Colors.white,
-            onTap: () {
-              newPlayList(
-                  context, formKey, "Playlist for Video", playlistFor = false);
-            })
-      ],
+    return Padding(
+      padding:  EdgeInsets.only(bottom:bodyBottomMargin),
+      child: SpeedDial(
+        
+        icon: Icons.playlist_add,
+        backgroundColor: Colors.black,
+        overlayColor: Colors.black,
+        overlayOpacity: 0.4,
+        spacing: 12,
+        spaceBetweenChildren: 4,
+        children: [
+          SpeedDialChild(
+              child: const Icon(Icons.queue_music),
+              backgroundColor: const Color.fromARGB(255, 48, 47, 47),
+              foregroundColor: Colors.white,
+              onTap: () {
+                playlistFor = true;
+                newPlayList(
+                    context, formKey, "Playlist for Music", playlistFor = true);
+              }),
+          SpeedDialChild(
+              child: const Icon(Icons.playlist_play),
+              backgroundColor: const Color.fromARGB(255, 48, 47, 47),
+              foregroundColor: Colors.white,
+              onTap: () {
+                newPlayList(
+                    context, formKey, "Playlist for Video", playlistFor = false);
+              })
+        ],
+      ),
     );
   }
 }

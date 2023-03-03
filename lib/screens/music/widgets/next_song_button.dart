@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/screens/music/get_all_songs.dart';
+import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 
 import '../../../database/recent_song_db.dart';
 
-class SongSkipNextButton extends StatelessWidget {
+class SongSkipNextButton extends StatefulWidget {
   const SongSkipNextButton({
     Key? key,
     required this.favSongModel,
@@ -15,13 +16,22 @@ class SongSkipNextButton extends StatelessWidget {
   final double iconSize;
 
   @override
+  State<SongSkipNextButton> createState() => _SongSkipNextButtonState();
+}
+
+class _SongSkipNextButtonState extends State<SongSkipNextButton> {
+  @override
   Widget build(BuildContext context) {
     return IconButton(
-      iconSize: iconSize,
-      onPressed: () {
-        if (GetAllSongController.audioPlayer.hasNext) {
-          GetRecentSongController.addRecentlyPlayed(favSongModel.id);
-          GetAllSongController.audioPlayer.seekToNext();
+      iconSize: widget.iconSize,
+      onPressed: () async {
+        if (GetAllSongController.audioPlayer.hasNext ) {
+          await GetRecentSongController.addRecentlyPlayed(
+              widget.favSongModel.id);
+          await GetAllSongController.audioPlayer.seekToNext();
+          setState(() {
+            selectedIndex = widget.favSongModel.id;
+          });
         }
       },
       icon: const Icon(

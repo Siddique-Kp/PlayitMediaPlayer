@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/screens/music/get_all_songs.dart';
 import 'package:playit/database/recent_song_db.dart';
-import '../../playing_music/playing_music.dart';
 import '../../songbottom_sheet/song_bottom_sheet.dart';
 import '../../widgets/art_work.dart';
 
@@ -27,10 +26,11 @@ class SongListBuilder extends StatefulWidget {
 }
 
 bool isPlayingSong = false;
+double bodyBottomMargin = 0;
+int selectedIndex = -1; // initially no item is selected
 
 class _SongListBuilderState extends State<SongListBuilder> {
   final List<SongModel> allSongs = [];
-  int _selectedIndex = -1; // initially no item is selected
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +44,7 @@ class _SongListBuilderState extends State<SongListBuilder> {
         String songTitle = widget.songModel[index].displayNameWOExt;
         String artist = widget.songModel[index].artist!;
         String artistName = artist == "<unknown>" ? "Unknown artist" : artist;
+        int playingSongId = widget.songModel[index].id;
 
         return ListTile(
           leading: ArtWorkWidget(
@@ -75,8 +76,9 @@ class _SongListBuilderState extends State<SongListBuilder> {
           ),
           onTap: () {
             setState(() {
-              _selectedIndex = index; // update the selected index
+              selectedIndex = playingSongId; // update the selected index
               isPlayingSong = true;
+              bodyBottomMargin = 50;
             });
 
             GetAllSongController.audioPlayer.setAudioSource(
@@ -86,19 +88,10 @@ class _SongListBuilderState extends State<SongListBuilder> {
                 widget.songModel[index].id);
             GetAllSongController.audioPlayer.play();
             // Navigator.of(context).push(animatedRoute());
-
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => PlayingMusic(
-            //       songModel: songModel,
-            //       count: songModel.length,
-            //     ),
-            //   ),
-            // );
           },
-          selected: _selectedIndex == index,
-          selectedColor: _selectedIndex == index ?  Colors.deepOrange: null,
+          selected: selectedIndex == playingSongId,
+          selectedColor:
+              selectedIndex == playingSongId ? Colors.deepOrange : null,
         );
       },
       itemCount:
@@ -106,23 +99,5 @@ class _SongListBuilderState extends State<SongListBuilder> {
     );
   }
 
-  Route animatedRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => PlayingMusic(
-        songModel: widget.songModel,
-        count: widget.songModel.length,
-      ),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.ease;
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
+
 }
