@@ -5,26 +5,19 @@ import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
+import 'package:provider/provider.dart';
 import '../../../database/player_db.dart';
 
-class FloatingButton extends StatefulWidget {
-  const FloatingButton({super.key});
+class FloatingButton extends StatelessWidget {
+    FloatingButton({super.key});
 
-  @override
-  State<FloatingButton> createState() => _FloatingButtonState();
-}
+   bool playlistFor = true;
 
-final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-TextEditingController textEditingController = TextEditingController();
-
-class _FloatingButtonState extends State<FloatingButton> {
-  bool playlistFor = true;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(bottom:bodyBottomMargin),
+      padding: EdgeInsets.only(bottom: bodyBottomMargin),
       child: SpeedDial(
-        
         icon: Icons.playlist_add,
         backgroundColor: Colors.black,
         overlayColor: Colors.black,
@@ -46,14 +39,17 @@ class _FloatingButtonState extends State<FloatingButton> {
               backgroundColor: const Color.fromARGB(255, 48, 47, 47),
               foregroundColor: Colors.white,
               onTap: () {
-                newPlayList(
-                    context, formKey, "Playlist for Video", playlistFor = false);
+                newPlayList(context, formKey, "Playlist for Video",
+                    playlistFor = false);
               })
         ],
       ),
     );
   }
 }
+
+final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+TextEditingController textEditingController = TextEditingController();
 
 Future newPlayList(BuildContext context, GlobalKey<FormState> formKey,
     String text, bool playListFor) {
@@ -201,7 +197,7 @@ Future<void> saveMusicPlaylis(context) async {
     Navigator.of(context).pop();
     textEditingController.clear();
   } else {
-    SongPlaylistDb.addPlaylist(music);
+    Provider.of<SongPlaylistDb>(context, listen: false).addPlaylist(music);
     snackBar(
       context: context,
       content: "Playlist created successfully",

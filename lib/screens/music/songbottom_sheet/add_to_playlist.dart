@@ -6,16 +6,11 @@ import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/music/music_page/songs/songs_list_page.dart';
 import '../../playlist_screen/floating_button.dart/floating_button.dart';
 
-class AddToPlaylist extends StatefulWidget {
-  const AddToPlaylist({super.key,required this.index});
+class AddToPlaylist extends StatelessWidget {
+  AddToPlaylist({super.key, required this.index});
   final int index;
 
-  @override
-  State<AddToPlaylist> createState() => _AddToPlaylistState();
-}
-
-class _AddToPlaylistState extends State<AddToPlaylist> {
-  final floatingButton = const FloatingButton();
+  final floatingButton = FloatingButton();
 
   @override
   Widget build(BuildContext context) {
@@ -25,46 +20,52 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
         title: const Text('Add to playlist'),
       ),
       body: ValueListenableBuilder(
-          valueListenable: musicHivebox.listenable(),
-          builder: (context, Box<PlayItSongModel> musicList, child) {
-            return musicHivebox.isEmpty
-                ? const Center(
-                    child: Text(
-                      "No Playlist Found",
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                  )
-                : ListView.builder(
-                    itemCount: musicList.length,
-                    itemBuilder: (context, index) {
-                      final data = musicList.values.toList()[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: ListTile(
-                          leading: Container(
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(7),
-                              color: Colors.grey,
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.library_music,
-                                color: Colors.white,
-                              ),
+        valueListenable: musicHivebox.listenable(),
+        builder: (context, Box<PlayItSongModel> musicList, child) {
+          return musicHivebox.isEmpty
+              ? const Center(
+                  child: Text(
+                    "No Playlist Found",
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: musicList.length,
+                  itemBuilder: (context, index) {
+                    final data = musicList.values.toList()[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: ListTile(
+                        leading: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: Colors.grey,
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.library_music,
+                              color: Colors.white,
                             ),
                           ),
-                          title: Text(data.name),
-                          trailing: const Icon(Icons.chevron_right),
-                          onTap: () {
-                            songAddToPlaylist(
-                                startSong[widget.index], data, data.name);
-                          },
                         ),
-                      );
-                    });
-          }),
+                        title: Text(data.name),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () {
+                          songAddToPlaylist(
+                            startSong[index],
+                            data,
+                            data.name,
+                            context,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         child: const Icon(Icons.playlist_add),
@@ -76,7 +77,11 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
   }
 
   void songAddToPlaylist(
-      SongModel data, PlayItSongModel playList, String name) {
+    SongModel data,
+    PlayItSongModel playList,
+    String name,
+    context,
+  ) {
     if (!playList.isValueIn(data.id)) {
       playList.add(data.id);
       snackBar(

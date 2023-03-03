@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:playit/database/song_playlist_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/splash_screen/splash_screen.dart';
 import 'package:playit/style/theme.dart';
+import 'package:provider/provider.dart';
+import 'database/song_favorite_db.dart';
+import 'provider/song_playlist/song_playlist.dart';
 import 'screens/bottom_navbar/bottom_navbar.dart';
 
 Future<void> main() async {
@@ -55,17 +59,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeDataClass.lightTheme,
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.light,
-      title: 'PlayIt App',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const SplashScreen(),
-        '/VideoPage': (context) => const BottomNavBarScreen()
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => SongPlaylistDb(),),
+        ChangeNotifierProvider(create: (context) => SongPlylistProvider(),),
+        ChangeNotifierProvider(create: (context) => FavoriteDb(),)
+      ],
+      builder: (context, child)  {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeDataClass.lightTheme,
+          darkTheme: ThemeData.dark(),
+          themeMode: ThemeMode.light,
+          title: 'PlayIt App',
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const SplashScreen(),
+            '/VideoPage': (context) => const BottomNavBarScreen()
+          },
+        );
+      }
     );
   }
 }

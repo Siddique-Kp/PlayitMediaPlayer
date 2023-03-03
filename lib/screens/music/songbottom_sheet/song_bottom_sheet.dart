@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:playit/database/recent_song_db.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/music/songbottom_sheet/add_to_playlist.dart';
 import 'package:playit/screens/music/songbottom_sheet/details_song.dart';
 import '../../../database/song_favorite_db.dart';
 import '../../../database/video_favorite_db.dart';
 import '../get_all_songs.dart';
+import '../music_page/songs/song_list_builder.dart';
 import '../playing_music/playing_music.dart';
 
 class SongBottomSheet extends StatefulWidget {
@@ -59,7 +61,7 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
       {required context,
       required songTitle,
       required artistName,
-      required List<SongModel>songModel,
+      required List<SongModel> songModel,
       required SongModel songFavorite,
       required index,
       count = 0,
@@ -111,18 +113,20 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
                       ),
                       title: bottomText("Play"),
                       onTap: () {
+                        GetRecentSongController.addRecentlyPlayed(
+                            songModel[index].id);
                         GetAllSongController.audioPlayer.setAudioSource(
                             GetAllSongController.createSongList(songModel),
                             initialIndex: index);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PlayingMusic(
-                              songModel: songModel,
-                              count: count,
-                            ),
-                          ),
-                        );
+                        GetAllSongController.audioPlayer.play();
+                        Navigator.of(context).pop();
+                        setState(() {
+                          selectedIndex =
+                              songModel[index].id; // update the selected index
+                          isPlayingSong = true;
+                          bodyBottomMargin = 50;
+                        });
+
                       },
                     ),
                     FavoriteDb.isFavor(songFavorite)
@@ -264,11 +268,11 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
                 Navigator.pop(context);
                 playlist.deleteData(songPlaylist[index].id);
                 snackBar(
-                    inTotal: 4,
-                    width: 3,
-                    context: context,
-                    content: "Deleted successfully",
-                 );
+                  inTotal: 4,
+                  width: 3,
+                  context: context,
+                  content: "Deleted successfully",
+                );
               },
             ),
             const Divider(

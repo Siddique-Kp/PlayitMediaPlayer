@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/database/song_playlist_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/playit_media_model.dart';
+import 'package:provider/provider.dart';
 
 class PlayListPopUpMusic extends StatelessWidget {
   PlayListPopUpMusic({
@@ -89,11 +90,11 @@ class PlayListPopUpMusic extends StatelessWidget {
                 musicList.deleteAt(index);
 
                 snackBar(
-                    inTotal: 4,
-                    width: 3,
-                    context: context,
-                    content: "Deleted successfully",
-                  );
+                  inTotal: 4,
+                  width: 3,
+                  context: context,
+                  content: "Deleted successfully",
+                );
               },
             ),
             const Divider(thickness: 1),
@@ -215,7 +216,8 @@ class PlayListPopUpMusic extends StatelessWidget {
                         Navigator.of(context).pop();
                         textEditingController.clear();
                       } else {
-                         SongPlaylistDb.editList(index, playlistName);
+                        Provider.of<SongPlaylistDb>(context, listen: false)
+                            .editList(index, playlistName);
                         snackBar(
                           context: context,
                           content: "Playlist updated",
@@ -225,9 +227,7 @@ class PlayListPopUpMusic extends StatelessWidget {
                         Navigator.pop(context);
                         textEditingController.clear();
                       }
-                     
                     }
-                    
                   }
                 },
                 child: const Text(

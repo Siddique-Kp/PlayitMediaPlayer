@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playit/database/player_db.dart';
 import 'package:playit/model/player.dart';
+import 'package:provider/provider.dart';
 import '../../../database/song_playlist_db.dart';
 import '../../../database/video_favorite_db.dart';
 import '../../../model/playit_media_model.dart';
@@ -107,14 +108,15 @@ class InsidePopupSong extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
                 data.clearSongs();
-                SongPlaylistDb.playlistNotifiier.notifyListeners();
+                Provider.of<SongPlaylistDb>(context, listen: false)
+                    .getAllPlaylist();
 
                 snackBar(
-                    inTotal: 3,
-                    width: 2,
-                    context: context,
-                    content: "Playlist cleared successfully",
-                    );
+                  inTotal: 3,
+                  width: 2,
+                  context: context,
+                  content: "Playlist cleared successfully",
+                );
               },
             ),
             const Padding(
@@ -177,11 +179,11 @@ class InsidePopupSong extends StatelessWidget {
                 VideoPlayerListDB.playerNotify.notifyListeners();
 
                 snackBar(
-                    inTotal: 3,
-                    width: 2,
-                    context: context,
-                    content: "Playlist cleared successfully",
-                    );
+                  inTotal: 3,
+                  width: 2,
+                  context: context,
+                  content: "Playlist cleared successfully",
+                );
               },
             ),
             const Padding(
