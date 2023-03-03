@@ -3,6 +3,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/database/recent_song_db.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
+import 'package:provider/provider.dart';
 import '../get_all_songs.dart';
 import '../widgets/favorite_song_button.dart';
 import '../widgets/next_song_button.dart';
@@ -104,23 +105,29 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                       color: Color.fromARGB(255, 122, 122, 122),
                     ),
                   )
-                : IconButton(
-                    iconSize: 40,
-                    onPressed: () async {
-                      if (GetAllSongController.audioPlayer.hasPrevious) {
-                        await GetRecentSongController.addRecentlyPlayed(
-                            widget.favSongModel.id);
-                        await GetAllSongController.audioPlayer.seekToPrevious();
-                        setState(() {
-                          selectedIndex = widget.favSongModel.id;
-                        });
-                      }
-                    },
-                    icon: const Icon(
-                      Icons.skip_previous,
-                      color: Colors.white,
-                    ),
-                  ),
+                : Consumer<GetRecentSongController>(
+                  builder: (context, recentSong, child){
+                    return IconButton(
+                        iconSize: 40,
+                        onPressed: () async {
+                          if (GetAllSongController.audioPlayer.hasPrevious) {
+                            await recentSong.addRecentlyPlayed(
+                                widget.favSongModel.id);
+                            await GetAllSongController.audioPlayer.seekToPrevious();
+                            setState(
+                              () {
+                                selectedIndex = widget.favSongModel.id;
+                              },
+                            );
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.skip_previous,
+                          color: Colors.white,
+                        ),
+                      );
+                  }
+                ),
             CircleAvatar(
               radius: 30,
               backgroundColor: Colors.white,

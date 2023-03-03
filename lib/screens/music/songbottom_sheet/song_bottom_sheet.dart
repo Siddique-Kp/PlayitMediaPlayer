@@ -4,6 +4,7 @@ import 'package:playit/database/recent_song_db.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/music/songbottom_sheet/add_to_playlist.dart';
 import 'package:playit/screens/music/songbottom_sheet/details_song.dart';
+import 'package:provider/provider.dart';
 import '../../../database/song_favorite_db.dart';
 import '../../../database/video_favorite_db.dart';
 import '../get_all_songs.dart';
@@ -105,29 +106,33 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
                     const Divider(
                       thickness: 1,
                     ),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.play_arrow_rounded,
-                        size: 37,
-                        color: Color.fromARGB(255, 21, 21, 21),
-                      ),
-                      title: bottomText("Play"),
-                      onTap: () {
-                        GetRecentSongController.addRecentlyPlayed(
-                            songModel[index].id);
-                        GetAllSongController.audioPlayer.setAudioSource(
-                            GetAllSongController.createSongList(songModel),
-                            initialIndex: index);
-                        GetAllSongController.audioPlayer.play();
-                        Navigator.of(context).pop();
-                        setState(() {
-                          selectedIndex =
-                              songModel[index].id; // update the selected index
-                          isPlayingSong = true;
-                          bodyBottomMargin = 50;
-                        });
+                    Consumer<GetRecentSongController>(
+                      builder: (context, recentSong, child){
+                        return ListTile(
+                          leading: const Icon(
+                            Icons.play_arrow_rounded,
+                            size: 37,
+                            color: Color.fromARGB(255, 21, 21, 21),
+                          ),
+                          title: bottomText("Play"),
+                          onTap: () {
+                            recentSong.addRecentlyPlayed(
+                                songModel[index].id);
+                            GetAllSongController.audioPlayer.setAudioSource(
+                                GetAllSongController.createSongList(songModel),
+                                initialIndex: index);
+                            GetAllSongController.audioPlayer.play();
+                            Navigator.of(context).pop();
+                            setState(() {
+                              selectedIndex =
+                                  songModel[index].id; // update the selected index
+                              isPlayingSong = true;
+                              bodyBottomMargin = 50;
+                            });
 
-                      },
+                          },
+                        );
+                      }
                     ),
                     FavoriteDb.isFavor(songFavorite)
                         ? ListTile(

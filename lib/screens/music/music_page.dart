@@ -63,7 +63,7 @@ class MusicPage extends StatelessWidget {
                 SongList(),
                 SongArtisPage(),
                 SongAlbumsPage(),
-                const RecentlyPlayedWidget(),
+                 RecentlyPlayedWidget(),
               ],
             ),
           ),

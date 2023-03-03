@@ -2,41 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/database/recent_song_db.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
+import 'package:provider/provider.dart';
 import '../../../../database/song_favorite_db.dart';
 
-class RecentlyPlayedWidget extends StatefulWidget {
-  const RecentlyPlayedWidget({Key? key}) : super(key: key);
+class RecentlyPlayedWidget extends StatelessWidget {
+  RecentlyPlayedWidget({Key? key}) : super(key: key);
 
-  @override
-  State<RecentlyPlayedWidget> createState() => _RecentlyPlayedWidgetState();
-}
-
-class _RecentlyPlayedWidgetState extends State<RecentlyPlayedWidget> {
   final OnAudioQuery _audioQuery = OnAudioQuery();
   static List<SongModel> recentSong = [];
 
   @override
-  void initState() {
-    super.initState();
-    recentAwait();
-    setState(() {});
-  }
-
-  Future recentAwait() async {
-    await GetRecentSongController.getRecentSongs();
-    setState(() {});
-  }
-
-  @override
   Widget build(BuildContext context) {
     FavoriteDb.favoriteSongs;
-    return FutureBuilder(
-      future: GetRecentSongController.getRecentSongs(),
-      builder: (context, items) {
-        return ValueListenableBuilder(
-          valueListenable: GetRecentSongController.recentSongNotifier,
-          builder:
-              (BuildContext context, List<SongModel> value, Widget? child) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<GetRecentSongController>(context, listen: false)
+          .getRecentSongs();
+    });
+    return Consumer<GetRecentSongController>(
+      builder: (context, recentSongs, child) {
+        return FutureBuilder(
+          future: recentSongs.getRecentSongs(),
+          builder: (context, items) {
+            final value = recentSongs.recentSongNotifier;
             if (value.isEmpty) {
               return const Center(
                 child: Text(

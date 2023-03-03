@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
 
 import '../../../database/recent_song_db.dart';
 import '../get_all_songs.dart';
@@ -23,29 +24,33 @@ class SongPauseButton extends StatefulWidget {
 class _SongPauseButtonState extends State<SongPauseButton> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          GetRecentSongController.addRecentlyPlayed(widget.songModel.id);
-          if (GetAllSongController.audioPlayer.playing) {
-            GetAllSongController.audioPlayer.pause();
-          } else {
-            GetAllSongController.audioPlayer.play();
-          }
-          isPlaying = !isPlaying;
-        });
-      },
-      child: StreamBuilder<bool>(
-        stream: GetAllSongController.audioPlayer.playingStream,
-        builder: (context, snapshot) {
-          bool? playingStage = snapshot.data;
-          if (playingStage != null && playingStage) {
-            return widget.iconPause;
-          } else {
-            return widget.iconPlay;
-          }
-        },
-      ),
+    return Consumer<GetRecentSongController>(
+      builder: (context, recentSong, child){
+        return GestureDetector(
+          onTap: () {
+            setState(() {
+               recentSong.addRecentlyPlayed(widget.songModel.id);
+              if (GetAllSongController.audioPlayer.playing) {
+                GetAllSongController.audioPlayer.pause();
+              } else {
+                GetAllSongController.audioPlayer.play();
+              }
+              isPlaying = !isPlaying;
+            });
+          },
+          child: StreamBuilder<bool>(
+            stream: GetAllSongController.audioPlayer.playingStream,
+            builder: (context, snapshot) {
+              bool? playingStage = snapshot.data;
+              if (playingStage != null && playingStage) {
+                return widget.iconPause;
+              } else {
+                return widget.iconPlay;
+              }
+            },
+          ),
+        );
+      }
     );
   }
 }
