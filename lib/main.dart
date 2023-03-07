@@ -8,6 +8,7 @@ import 'package:playit/style/theme.dart';
 import 'package:provider/provider.dart';
 import 'database/recent_song_db.dart';
 import 'database/song_favorite_db.dart';
+import 'provider/playing_song/playing_list_tile.dart';
 import 'provider/song_playlist/song_playlist.dart';
 import 'screens/bottom_navbar/bottom_navbar.dart';
 
@@ -65,7 +66,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SongPlaylistDb(),),
         ChangeNotifierProvider(create: (context) => SongPlylistProvider(),),
         ChangeNotifierProvider(create: (context) => FavoriteDb(),),
-        ChangeNotifierProvider(create: (context) => GetRecentSongController(),)
+        ChangeNotifierProvider(create: (context) => GetRecentSongController(),),
+        ChangeNotifierProvider(create: (context) => PlayingListTile(),)
       ],
       builder: (context, child)  {
         return MaterialApp(
