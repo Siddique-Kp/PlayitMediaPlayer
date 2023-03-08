@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:playit/screens/music/music_page/songs/now_playint_bottom_sheet.dart';
+import 'package:playit/screens/music/music_page/songs/mini_player_sheet.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 
 class ArtistInsideList extends StatelessWidget {
@@ -48,7 +48,7 @@ class ArtistInsideList extends StatelessWidget {
         },
       ),
 
-      bottomSheet: const NowPlayingBottomSheet(),
+      bottomSheet: const MiniPlayerSheet(),
     );
   }
 }

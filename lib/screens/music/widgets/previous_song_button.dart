@@ -1,37 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:playit/provider/music_buttons/music_buttond_provider.dart';
-import 'package:playit/screens/music/get_all_songs.dart';
 import 'package:provider/provider.dart';
 import '../../../database/recent_song_db.dart';
+import '../../../provider/music_buttons/music_buttond_provider.dart';
+import '../get_all_songs.dart';
 
-class SongSkipNextButton extends StatelessWidget {
-  const SongSkipNextButton({
-    Key? key,
+class SongSkipPreviousButton extends StatelessWidget {
+  const SongSkipPreviousButton({
+    super.key,
     required this.songModel,
-    required this.iconSize,
-  }) : super(key: key);
+  });
 
   final SongModel songModel;
-  final double iconSize;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<GetRecentSongController>(
-      builder: (ctx, recentSong, child) {
+      builder: (context, recentSong, child) {
         return IconButton(
-          iconSize: iconSize,
+          iconSize: 40,
           onPressed: () {
-            if (GetAllSongController.audioPlayer.hasNext) {
+            if (GetAllSongController.audioPlayer.hasPrevious) {
               recentSong.addRecentlyPlayed(songModel.id);
-              GetAllSongController.audioPlayer.seekToNext();
+              GetAllSongController.audioPlayer.seekToPrevious();
               context
                   .read<MusicButtonsProvider>()
                   .selectedListTile(songModel.id);
             }
           },
           icon: const Icon(
-            Icons.skip_next,
+            Icons.skip_previous,
             color: Colors.white,
           ),
         );

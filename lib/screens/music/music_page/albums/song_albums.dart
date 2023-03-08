@@ -69,8 +69,9 @@ class SongAlbumsPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          AlbumsInsideList(albumName: albumName),
+                      builder: (context) => AlbumsInsideList(
+                        albumName: albumName,
+                      ),
                     ),
                   );
                 },

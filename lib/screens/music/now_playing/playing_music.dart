@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:playit/screens/music/playing_music/music_bottom_buttons.dart';
-import 'package:playit/screens/music/playing_music/music_slider.dart';
+import 'package:playit/screens/music/now_playing/music_bottom_buttons.dart';
+import 'package:playit/screens/music/now_playing/music_slider.dart';
 import 'package:text_scroll/text_scroll.dart';
 import '../get_all_songs.dart';
 
@@ -224,7 +224,7 @@ class _PlayingMusicState extends State<PlayingMusic> {
                   height: 20,
                 ),
                 MusicBottomButtons(
-                  favSongModel: widget.songModel[currentIndex],
+                  songModel: widget.songModel[currentIndex],
                   firstsong: firstSong,
                   lastsong: lastSong,
                   count: widget.count,

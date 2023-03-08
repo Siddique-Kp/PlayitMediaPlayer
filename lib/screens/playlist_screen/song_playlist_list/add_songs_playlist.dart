@@ -76,7 +76,7 @@ class AddSongsPlaylist extends StatelessWidget {
                       },
                       icon: !playlist.isValueIn(items.data![index].id)
                           ? const Icon(Icons.add)
-                          : const Icon(Icons.horizontal_rule),
+                          : const Icon(Icons.remove),
                     ),
                   );
                 },

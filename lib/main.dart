@@ -3,12 +3,14 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:playit/database/song_playlist_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
+import 'package:playit/provider/music_buttons/music_buttond_provider.dart';
 import 'package:playit/screens/splash_screen/splash_screen.dart';
 import 'package:playit/style/theme.dart';
 import 'package:provider/provider.dart';
 import 'database/recent_song_db.dart';
 import 'database/song_favorite_db.dart';
-import 'provider/playing_song/playing_list_tile.dart';
+import 'provider/mini_player/mini_player_provider.dart';
+import 'provider/now_playing/now_playing_provider.dart';
 import 'provider/song_playlist/song_playlist.dart';
 import 'screens/bottom_navbar/bottom_navbar.dart';
 
@@ -62,27 +64,42 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => SongPlaylistDb(),),
-        ChangeNotifierProvider(create: (context) => SongPlylistProvider(),),
-        ChangeNotifierProvider(create: (context) => FavoriteDb(),),
-        ChangeNotifierProvider(create: (context) => GetRecentSongController(),),
-        ChangeNotifierProvider(create: (context) => PlayingListTile(),)
-      ],
-      builder: (context, child)  {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeDataClass.lightTheme,
-          darkTheme: ThemeData.dark(),
-          themeMode: ThemeMode.light,
-          title: 'PlayIt App',
-          initialRoute: '/',
-          routes: {
-            '/': (context) => const SplashScreen(),
-            '/VideoPage': (context) => const BottomNavBarScreen()
-          },
-        );
-      }
-    );
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => SongPlaylistDb(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => SongPlylistProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => FavoriteDb(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => GetRecentSongController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => MiniPlayerProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => NowPlayingProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => MusicButtonsProvider(),
+          ),
+        ],
+        builder: (context, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeDataClass.lightTheme,
+            darkTheme: ThemeData.dark(),
+            themeMode: ThemeMode.light,
+            title: 'PlayIt App',
+            initialRoute: '/',
+            routes: {
+              '/': (context) => const SplashScreen(),
+              '/VideoPage': (context) => BottomNavBarScreen()
+            },
+          );
+        });
   }
 }

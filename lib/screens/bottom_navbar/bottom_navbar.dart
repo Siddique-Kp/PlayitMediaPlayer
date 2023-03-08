@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:playit/screens/music/music_page/songs/now_playint_bottom_sheet.dart';
-import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
+import 'package:playit/screens/music/music_page/songs/mini_player_sheet.dart';
 import 'package:playit/screens/playlist_screen/play_list-page.dart';
 import 'package:playit/screens/video/videopage.dart';
+import '../../core/values.dart';
 import '../music/music_page.dart';
 import '../settings/settings_page.dart';
 
+class BottomNavBarScreen extends StatelessWidget {
+  BottomNavBarScreen({super.key});
 
-class BottomNavBarScreen extends StatefulWidget {
-  const BottomNavBarScreen({super.key});
-
-  @override
-  State<BottomNavBarScreen> createState() => _BottomNavBarScreenState();
-}
-
-class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
-  int pageindex = 0;
+  final ValueNotifier<int> pageindex = ValueNotifier(0);
   static const List<Widget> pages = [
     VideoPage(),
     MusicPage(),
@@ -23,41 +17,62 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
     SettingsPage(),
   ];
 
-  changePage(int index) {
-    setState(() {
-      pageindex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        
-        body: Padding(
-          padding:  EdgeInsets.only(bottom: bodyBottomMargin),
-          child: IndexedStack(
-            index: pageindex,
-            children: pages,
-            
-          ),
+        body: ValueListenableBuilder(
+          valueListenable: pageindex,
+          builder: (context, pageIndex, child) {
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: bodyBottomMargin,
+              ),
+              child: IndexedStack(
+                index: pageIndex,
+                children: pages,
+              ),
+            );
+          },
         ),
-        bottomSheet: pageindex !=3? const NowPlayingBottomSheet():const SizedBox(),
-        // resizeToAvoidBottomInset: true,
+        bottomSheet: ValueListenableBuilder(
+            valueListenable: pageindex,
+            builder: (context, value, child) {
+              return pageindex.value != 3
+                  ? const MiniPlayerSheet()
+                  : const SizedBox();
+            }),
 
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: pageindex,
-          backgroundColor: Colors.white,
-          onDestinationSelected: (value) => changePage(value),
-          destinations: const [
-            NavigationDestination(
-                icon: Icon(Icons.play_circle), label: 'Video'),
-            NavigationDestination(icon: Icon(Icons.headphones), label: 'Music'),
-            NavigationDestination(
-                icon: Icon(Icons.queue_music), label: 'Playlist'),
-            NavigationDestination(
-                icon: Icon(Icons.settings), label: 'Settings'),
-          ],
+        bottomNavigationBar: ValueListenableBuilder(
+          valueListenable: pageindex,
+          builder: (context, pageIndex, child) {
+            return NavigationBar(
+              selectedIndex: pageIndex,
+              backgroundColor: Colors.white,
+              onDestinationSelected: (value) {
+                pageindex.value = value;
+                
+              },
+              destinations: const [
+                NavigationDestination(
+                  icon: Icon(Icons.play_circle),
+                  label: 'Video',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.headphones),
+                  label: 'Music',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.queue_music),
+                  label: 'Playlist',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.settings),
+                  label: 'Settings',
+                ),
+              ],
+            );
+          },
         ),
 
         // bottomNavigationBar:

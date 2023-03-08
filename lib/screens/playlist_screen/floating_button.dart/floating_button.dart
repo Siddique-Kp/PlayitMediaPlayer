@@ -4,14 +4,13 @@ import 'package:playit/database/song_playlist_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
-import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 import 'package:provider/provider.dart';
+import '../../../core/boolians.dart';
+import '../../../core/values.dart';
 import '../../../database/player_db.dart';
 
 class FloatingButton extends StatelessWidget {
-    FloatingButton({super.key});
-
-   bool playlistFor = true;
+  const FloatingButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +29,9 @@ class FloatingButton extends StatelessWidget {
               backgroundColor: const Color.fromARGB(255, 48, 47, 47),
               foregroundColor: Colors.white,
               onTap: () {
-                playlistFor = true;
-                newPlayList(
-                    context, formKey, "Playlist for Music", playlistFor = true);
+                isMusicPlaylist = true;
+                newPlayList(context, formKey, "Playlist for Music",
+                    isMusicPlaylist = true);
               }),
           SpeedDialChild(
               child: const Icon(Icons.playlist_play),
@@ -40,7 +39,7 @@ class FloatingButton extends StatelessWidget {
               foregroundColor: Colors.white,
               onTap: () {
                 newPlayList(context, formKey, "Playlist for Video",
-                    playlistFor = false);
+                    isMusicPlaylist = false);
               })
         ],
       ),
@@ -51,8 +50,8 @@ class FloatingButton extends StatelessWidget {
 final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 TextEditingController textEditingController = TextEditingController();
 
-Future newPlayList(BuildContext context, GlobalKey<FormState> formKey,
-    String text, bool playListFor) {
+newPlayList(BuildContext context, GlobalKey<FormState> formKey, String text,
+    bool isMusicPlaylist) {
   return showDialog(
     context: context,
     builder: (context) {
@@ -127,7 +126,7 @@ Future newPlayList(BuildContext context, GlobalKey<FormState> formKey,
               SimpleDialogOption(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    if (playListFor == true) {
+                    if (isMusicPlaylist == true) {
                       saveMusicPlaylis(context);
                     } else {
                       saveVideoPlaylist(context);

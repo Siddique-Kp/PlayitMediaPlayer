@@ -4,10 +4,10 @@ import 'package:playit/database/song_favorite_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/screens/music/get_all_songs.dart';
-import 'package:playit/screens/music/music_page/songs/now_playint_bottom_sheet.dart';
 import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 import 'package:playit/screens/splash_screen/splash_screen.dart';
-
+import '../core/boolians.dart';
+import '../core/values.dart';
 import '../model/playit_media_model.dart';
 
 class ResetApp {
@@ -31,9 +31,8 @@ class ResetApp {
     FavoriteDb.favoriteSongs.value.clear();
     VideoFavoriteDb.videoFavoriteDb.value.clear();
     GetAllSongController.audioPlayer.pause();
-    isPlaying = false;
     isPlayingSong = false;
-    selectedIndex = -1;
+    selectedIndex = 0;
     bodyBottomMargin = 0;
 
     Navigator.pushAndRemoveUntil(

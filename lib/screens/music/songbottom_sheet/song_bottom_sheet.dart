@@ -5,13 +5,15 @@ import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/screens/music/songbottom_sheet/add_to_playlist.dart';
 import 'package:playit/screens/music/songbottom_sheet/details_song.dart';
 import 'package:provider/provider.dart';
+import '../../../core/boolians.dart';
+import '../../../core/values.dart';
 import '../../../database/song_favorite_db.dart';
 import '../../../database/video_favorite_db.dart';
 import '../get_all_songs.dart';
 import '../music_page/songs/song_list_builder.dart';
-import '../playing_music/playing_music.dart';
+import '../now_playing/playing_music.dart';
 
-class SongBottomSheet extends StatefulWidget {
+class SongBottomSheet extends StatelessWidget {
   const SongBottomSheet({
     super.key,
     required this.songTitle,
@@ -35,25 +37,20 @@ class SongBottomSheet extends StatefulWidget {
   final bool isFavor;
 
   @override
-  State<SongBottomSheet> createState() => _SongBottomSheetState();
-}
-
-class _SongBottomSheetState extends State<SongBottomSheet> {
-  @override
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () {
           songBottomSheet(
               context: context,
-              songTitle: widget.songTitle,
-              artistName: widget.artistName,
-              songModel: widget.songModel,
-              songFavorite: widget.songFavorite,
-              count: widget.count,
-              index: widget.index,
-              isVisible: widget.isPLaylist,
-              playList: widget.playList,
-              isFavor: widget.isFavor);
+              songTitle: songTitle,
+              artistName: artistName,
+              songModel: songModel,
+              songFavorite: songFavorite,
+              count: count,
+              index: index,
+              isVisible: isPLaylist,
+              playList: playList,
+              isFavor: isFavor);
         },
         icon: const Icon(Icons.more_vert));
   }
@@ -198,7 +195,7 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
                         title: bottomText("Delete"),
                         onTap: () {
                           Navigator.pop(context);
-                          showdialog(widget.playList, songModel, index);
+                          showdialog(playList, songModel, index,context);
                         },
                       ),
                     ),
@@ -215,12 +212,12 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
 
   Widget bottomText(text) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0),
+      padding: const EdgeInsets.only(left: 5.0),
       child: Text(
         text,
         style: const TextStyle(
           fontSize: 17,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );
@@ -247,6 +244,7 @@ class _SongBottomSheetState extends State<SongBottomSheet> {
     PlayItSongModel playlist,
     List<SongModel> songPlaylist,
     int index,
+    context
   ) {
     showDialog(
       context: context,
