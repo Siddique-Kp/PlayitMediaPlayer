@@ -141,7 +141,7 @@ class PlayList extends StatelessWidget {
         ],
       ),
       // ---------- Floating Button ---------------
-      floatingActionButton: FloatingButton(),
+      floatingActionButton:const FloatingButton(),
     );
   }
 

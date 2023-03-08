@@ -105,11 +105,11 @@ class FavoritePopUp extends StatelessWidget {
                       VideoFavoriteDb.videoFavoriteDb.notifyListeners();
 
                       snackBar(
-                          inTotal: 3,
-                          width: 2,
-                          context: context,
-                          content: "Favorite cleared successfully",
-                          );
+                        inTotal: 3,
+                        width: 2,
+                        context: context,
+                        content: "Favorite cleared successfully",
+                      );
                     },
                   )
                 : InkWell(
@@ -127,12 +127,10 @@ class FavoritePopUp extends StatelessWidget {
                     onTap: () {
                       Navigator.pop(context);
                       FavoriteDb.musicDb.clear();
-                      FavoriteDb.favoriteSongs.value.clear();
-                      FavoriteDb.favoriteSongs.notifyListeners();
-
+                      FavoriteDb.clear();
                       snackBar(
                         inTotal: 3,
-                        width: 2,
+                        width: 2.5,
                         context: context,
                         content: "Favorite cleared successfully",
                       );

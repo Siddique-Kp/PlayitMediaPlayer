@@ -7,10 +7,10 @@ import 'package:playit/screens/music/music_page/songs/songs_list_page.dart';
 import '../../playlist_screen/floating_button.dart/floating_button.dart';
 
 class AddToPlaylist extends StatelessWidget {
-  AddToPlaylist({super.key, required this.index});
+  const AddToPlaylist({super.key, required this.index});
   final int index;
 
-  final floatingButton = FloatingButton();
+  final floatingButton = const FloatingButton();
 
   @override
   Widget build(BuildContext context) {

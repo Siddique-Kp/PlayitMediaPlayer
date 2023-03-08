@@ -57,7 +57,7 @@ class VideoFavoriteDb extends ChangeNotifier {
 Future<void> snackBar(
     {required BuildContext context,
     required content,
-    required int width,
+    required double width,
     required int inTotal,
     function}) async {
   ScaffoldMessenger.of(context).showSnackBar(

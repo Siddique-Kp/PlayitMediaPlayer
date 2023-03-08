@@ -4,7 +4,6 @@ import 'package:playit/database/song_favorite_db.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/screens/music/get_all_songs.dart';
-import 'package:playit/screens/music/music_page/songs/song_list_builder.dart';
 import 'package:playit/screens/splash_screen/splash_screen.dart';
 import '../core/boolians.dart';
 import '../core/values.dart';

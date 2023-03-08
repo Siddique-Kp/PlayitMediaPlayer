@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:playit/database/video_favorite_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/screens/video/playing_video_screen/playing_video.dart';
-import 'package:playit/screens/video/video_bottom_sheet/video-addfavorite.dart';
+import 'package:playit/screens/video/video_bottom_sheet/video_addfavorite.dart';
 import 'package:playit/screens/video/video_bottom_sheet/video_addto_playlist.dart';
 import 'package:playit/screens/video/video_bottom_sheet/video_details.dart';
 

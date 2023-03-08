@@ -4,13 +4,16 @@ import 'package:playit/database/video_favorite_db.dart';
 import '../../../../database/song_favorite_db.dart';
 
 class FavoriteButton extends StatelessWidget {
-  const FavoriteButton({super.key, required this.songFavorite});
+  const FavoriteButton({
+    super.key,
+    required this.songFavorite,
+  });
   final SongModel songFavorite;
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: FavoriteDb.favoriteSongs,
-      builder: (BuildContext ctx, List<SongModel> favoriteData, Widget? child) {
+      builder: (ctx, List<SongModel> favoriteData, _) {
         return IconButton(
           onPressed: () {
             if (FavoriteDb.isFavor(songFavorite)) {
@@ -24,11 +27,16 @@ class FavoriteButton extends StatelessWidget {
                 inTotal: 4,
               );
             }
-            FavoriteDb.favoriteSongs.notifyListeners();
           },
           icon: FavoriteDb.isFavor(songFavorite)
-              ? const Icon(Icons.favorite, color: Colors.redAccent)
-              : const Icon(Icons.favorite_outline, color: Colors.white),
+              ? const Icon(
+                  Icons.favorite,
+                  color: Colors.redAccent,
+                )
+              : const Icon(
+                  Icons.favorite_outline,
+                  color: Colors.white,
+                ),
         );
       },
     );

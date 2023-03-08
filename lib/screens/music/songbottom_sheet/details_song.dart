@@ -3,18 +3,12 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/screens/video/access_video.dart';
 import 'package:intl/intl.dart';
 
-class SongDetails extends StatefulWidget {
+class SongDetails extends StatelessWidget {
   const SongDetails(
       {super.key, required this.artistName, required this.songModel});
   final dynamic artistName;
   final SongModel songModel;
 
-  @override
-  State<SongDetails> createState() => _SongDetailsState();
-}
-
-class _SongDetailsState extends State<SongDetails> {
-  
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -22,7 +16,7 @@ class _SongDetailsState extends State<SongDetails> {
       title: bottomText('Song info'),
       onTap: () {
         Navigator.pop(context);
-        songDetails();
+        songDetails(context);
       },
     );
   }
@@ -51,18 +45,18 @@ class _SongDetailsState extends State<SongDetails> {
     );
   }
 
-  songDetails() {
+  songDetails(context) {
     showDialog(
       context: context,
       builder: (context) {
         //----------- All information
-        String songTitle = widget.songModel.displayNameWOExt;
-        String albumName = widget.songModel.album!;
-        String songPath = widget.songModel.uri.toString();
-        int totalDuration = widget.songModel.duration!;
+        String songTitle = songModel.displayNameWOExt;
+        String albumName = songModel.album!;
+        String songPath = songModel.uri.toString();
+        int totalDuration = songModel.duration!;
         double seconds = totalDuration / 1000;
         dynamic duration = convertSecond(seconds);
-        int songSize = widget.songModel.size;
+        int songSize = songModel.size;
         dynamic size = formatSize(songSize);
         
         return SimpleDialog(
@@ -105,7 +99,7 @@ class _SongDetailsState extends State<SongDetails> {
                       child: const Text('Artist')),
                   Expanded(
                     child: Text(
-                      widget.artistName,
+                      artistName,
                       softWrap: true,
                     ),
                   ),
@@ -190,6 +184,7 @@ class _SongDetailsState extends State<SongDetails> {
       },
     );
   }
+
   String formatSize(int sizeInBytes) {
   if (sizeInBytes < 1024) {
     return '$sizeInBytes B';
@@ -204,6 +199,7 @@ class _SongDetailsState extends State<SongDetails> {
     return '${formatNumber(sizeInGB)} GB';
   }
 }
+
 String formatNumber(double number) {
   final format = NumberFormat('###,###,###.##');
   return format.format(number);

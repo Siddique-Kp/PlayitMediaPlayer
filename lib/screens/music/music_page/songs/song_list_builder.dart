@@ -3,7 +3,6 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/screens/music/get_all_songs.dart';
 import 'package:playit/database/recent_song_db.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/boolians.dart';
 import '../../../../core/values.dart';
 import '../../../../provider/mini_player/mini_player_provider.dart';
 import '../../songbottom_sheet/song_bottom_sheet.dart';
@@ -67,7 +66,6 @@ class SongListBuilder extends StatelessWidget {
                 artistName: artistName,
                 songModel: songModel,
                 songFavorite: songModel[index],
-                count: songModel.length,
                 index: index,
                 isFavor: isFavor,
                 isPLaylist: isPlaylist,
