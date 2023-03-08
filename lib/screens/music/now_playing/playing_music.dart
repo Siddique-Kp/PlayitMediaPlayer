@@ -26,10 +26,7 @@ class _PlayingMusicState extends State<PlayingMusic> {
   bool firstSong = false;
   bool lastSong = false;
   int large = 0;
-  // static TextStyle timerStyle = const TextStyle(
-  //   color: Colors.red,
-  //   fontWeight: FontWeight.w900,
-  // );
+
 
   @override
   void initState() {
@@ -57,20 +54,6 @@ class _PlayingMusicState extends State<PlayingMusic> {
   }
 
   playSong() {
-    // try {
-    //   widget.audioPlayer.setAudioSource(
-    //     AudioSource.uri(
-    //       Uri.parse(widget.songModel.uri!),
-    //       tag: MediaItem(
-    //         id: widget.songModel.id.toString(),
-    //         album: widget.songModel.album,
-    //         title: widget.songModel.displayNameWOExt,
-    //         artUri: Uri.parse('https://example.com/albumart.jpg'),
-    //       ),
-    //     ),
-    //   );}
-
-    // GetAllSongController.audioPlayer.play();
     GetAllSongController.audioPlayer.durationStream.listen((d) {
       if (mounted) {
         setState(() {
@@ -200,7 +183,10 @@ class _PlayingMusicState extends State<PlayingMusic> {
                 const SizedBox(
                   height: 10,
                 ),
-                MusicSliderWidget(duration: _duration, position: _position),
+                MusicSliderWidget(
+                  duration: _duration,
+                  position: _position,
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width * 0.57 / 5),

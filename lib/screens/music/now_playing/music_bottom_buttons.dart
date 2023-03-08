@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import '../../../core/boolians.dart';
 import '../get_all_songs.dart';
 import '../widgets/favorite_song_button.dart';
 import '../widgets/next_song_button.dart';
 import '../widgets/play_song_button.dart';
 import '../widgets/previous_song_button.dart';
 
-class MusicBottomButtons extends StatefulWidget {
-  const MusicBottomButtons({
+class MusicBottomButtons extends StatelessWidget {
+   const MusicBottomButtons({
     super.key,
     required this.songModel,
     required this.firstsong,
@@ -20,13 +21,7 @@ class MusicBottomButtons extends StatefulWidget {
   final bool lastsong;
   final SongModel songModel;
 
-  @override
-  State<MusicBottomButtons> createState() => _MusicBottomButtonsState();
-}
 
-class _MusicBottomButtonsState extends State<MusicBottomButtons> {
-  bool isPlaying = true;
-  bool _isShuffling = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +33,7 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
           children: [
             IconButton(
               onPressed: () {
-                _isShuffling == false
+                isShuffling == false
                     ? GetAllSongController.audioPlayer
                         .setShuffleModeEnabled(true)
                     : GetAllSongController.audioPlayer
@@ -49,9 +44,9 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                     GetAllSongController.audioPlayer.shuffleModeEnabledStream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    _isShuffling = snapshot.data;
+                    isShuffling = snapshot.data;
                   }
-                  if (_isShuffling) {
+                  if (isShuffling) {
                     return const Icon(Icons.shuffle_rounded,
                         color: Colors.deepOrange);
                   } else {
@@ -61,7 +56,7 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                 },
               ),
             ),
-            FavoriteButton(songFavorite: widget.songModel),
+            FavoriteButton(songFavorite: songModel),
             IconButton(
               onPressed: () {
                 GetAllSongController.audioPlayer.loopMode == LoopMode.one
@@ -94,7 +89,7 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            widget.firstsong
+            firstsong
                 ? const IconButton(
                     iconSize: 40,
                     onPressed: null,
@@ -104,13 +99,13 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                     ),
                   )
                 : SongSkipPreviousButton(
-                    songModel: widget.songModel,
+                    songModel: songModel,
                   ),
             CircleAvatar(
               radius: 30,
               backgroundColor: Colors.white,
               child: SongPauseButton(
-                songModel: widget.songModel,
+                songModel: songModel,
                 iconPause: const Icon(
                   Icons.pause,
                   color: Colors.black,
@@ -123,7 +118,7 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                 ),
               ),
             ),
-            widget.lastsong
+            lastsong
                 ? const IconButton(
                     iconSize: 40,
                     onPressed: null,
@@ -133,7 +128,7 @@ class _MusicBottomButtonsState extends State<MusicBottomButtons> {
                     ),
                   )
                 : SongSkipNextButton(
-                    songModel: widget.songModel,
+                    songModel: songModel,
                     iconSize: 40,
                   ),
           ],
