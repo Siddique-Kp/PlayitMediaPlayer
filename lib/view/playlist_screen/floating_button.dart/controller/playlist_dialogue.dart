@@ -87,7 +87,7 @@ class PlayListDialogue {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       if (isMusicPlaylist == true) {
-                        CreateMusicPlaylist.createMusicPlaylis(context);
+                        CreateMusicPlaylist.createMusicPlaylist(context);
                       } else {
                         CreateVideoPlaylist.createVideoPlaylist(context);
                       }

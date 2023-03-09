@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:playit/controller/database/player_db.dart';
 import 'package:playit/model/player.dart';
-import 'package:provider/provider.dart';
-import '../../../controller/database/song_playlist_db.dart';
-import '../../../controller/database/video_favorite_db.dart';
 import '../../../model/playit_media_model.dart';
+import '../video_playlist_list/controller/clear_playlist_controller.dart';
 import '../video_playlist_list/view_videos_playlist.dart';
+import 'controller/clear_song_playlist.dart';
 import 'view_songs_list.dart';
 
 class InsidePopupSong extends StatelessWidget {
@@ -56,156 +54,29 @@ class InsidePopupSong extends StatelessWidget {
             );
           }
           if (value == 2) {
-            clearVideoPlaylist(context, videoPlalist!);
+            ClearPlaylistController.clearVideoPlaylist(
+              context,
+              videoPlalist!,
+            );
           }
         } else {
           if (value == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddSongsPlaylist(playlist: playlist!),
+                builder: (context) => AddSongsPlaylist(
+                  playlist: playlist!,
+                ),
               ),
             );
           }
           if (value == 2) {
-            clearSongPlaylist(context, playlist!);
+            ClearSongPlaylist.clearSongPlaylist(
+              context,
+              playlist!,
+            );
           }
         }
-      },
-    );
-  }
-
-  clearSongPlaylist(
-    BuildContext context,
-    PlayItSongModel data,
-  ) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return SimpleDialog(
-          elevation: 0,
-          alignment: Alignment.bottomCenter,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          children: [
-            const Text(
-              "All songs in this playlist\n will be cleared",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey, fontSize: 13),
-            ),
-            InkWell(
-              child: const SizedBox(
-                  height: 40,
-                  child: Center(
-                    child: Text(
-                      "Clear all songs",
-                      style: TextStyle(
-                        color: Colors.redAccent,
-                      ),
-                    ),
-                  )),
-              onTap: () {
-                Navigator.pop(context);
-                data.clearSongs();
-                Provider.of<SongPlaylistDb>(context, listen: false)
-                    .getAllPlaylist();
-
-                snackBar(
-                  inTotal: 3,
-                  width: 2,
-                  context: context,
-                  content: "Playlist cleared successfully",
-                );
-              },
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Divider(thickness: 1),
-            ),
-            InkWell(
-              child: const SizedBox(
-                  height: 40,
-                  child: Center(
-                    child: Text(
-                      "Cancel",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  )),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        );
-      },
-    );
-  }
-
-  clearVideoPlaylist(
-    BuildContext context,
-    PlayerModel videoData,
-  ) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return SimpleDialog(
-          elevation: 0,
-          alignment: Alignment.bottomCenter,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          children: [
-            const Text(
-              "All videos in this playlist\n will be cleared",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey, fontSize: 13),
-            ),
-            InkWell(
-              child: const SizedBox(
-                  height: 40,
-                  child: Center(
-                    child: Text(
-                      "Clear all videos",
-                      style: TextStyle(
-                        color: Colors.redAccent,
-                      ),
-                    ),
-                  )),
-              onTap: () {
-                Navigator.pop(context);
-                videoData.clearSongs();
-                VideoPlayerListDB.playerNotify.notifyListeners();
-
-                snackBar(
-                  inTotal: 3,
-                  width: 2,
-                  context: context,
-                  content: "Playlist cleared successfully",
-                );
-              },
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Divider(thickness: 1),
-            ),
-            InkWell(
-              child: const SizedBox(
-                  height: 40,
-                  child: Center(
-                    child: Text(
-                      "Cancel",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  )),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        );
       },
     );
   }

@@ -17,8 +17,6 @@ class PlayListPopUpMusic extends StatelessWidget {
 
   final TextStyle _popupStyle = const TextStyle(color: Colors.white);
 
-
-
   @override
   Widget build(BuildContext context) {
     List<int> listSongs = [];
@@ -57,10 +55,7 @@ class PlayListPopUpMusic extends StatelessWidget {
               );
             } else if (value == 3) {
               DeleteSongPlaylist.deletePlayList(
-                context,
-                musicPlayitList,
-                index,
-              );
+                  context, index);
             }
           },
         );

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:playit/controller/database/music_playlist_db_controller.dart';
-import 'package:provider/provider.dart';
-import '../../../../controller/database/video_favorite_db.dart';
 
-class DeleteSongPlaylist {
-  // ---------- Edit song playlist
-  static deletePlayList(
+import '../../../../controller/database/player_db.dart';
+import '../../../../controller/database/video_favorite_db.dart';
+import '../../../../model/player.dart';
+
+class ClearPlaylistController{
+
+  //------- Clears all the videos from the playlist
+  static clearVideoPlaylist(
     BuildContext context,
-    int index,
+    PlayerModel videoData,
   ) {
     return showDialog(
       context: context,
@@ -19,12 +21,17 @@ class DeleteSongPlaylist {
             borderRadius: BorderRadius.circular(20),
           ),
           children: [
+            const Text(
+              "All videos in this playlist\n will be cleared",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey, fontSize: 13),
+            ),
             InkWell(
               child: const SizedBox(
                   height: 40,
                   child: Center(
                     child: Text(
-                      "Delete",
+                      "Clear all videos",
                       style: TextStyle(
                         color: Colors.redAccent,
                       ),
@@ -32,19 +39,21 @@ class DeleteSongPlaylist {
                   )),
               onTap: () {
                 Navigator.pop(context);
-                Provider.of<MusicPlaylistDbController>(context,listen: false)
-                    .deletePlaylist(index);
-
+                videoData.clearSongs();
+                VideoPlayerListDB.playerNotify.notifyListeners();
 
                 snackBar(
-                  inTotal: 4,
-                  width: 3,
+                  inTotal: 3,
+                  width: 2,
                   context: context,
-                  content: "Deleted successfully",
+                  content: "Playlist cleared successfully",
                 );
               },
             ),
-            const Divider(thickness: 1),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Divider(thickness: 1),
+            ),
             InkWell(
               child: const SizedBox(
                   height: 40,

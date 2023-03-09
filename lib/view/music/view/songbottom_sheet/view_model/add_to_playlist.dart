@@ -5,7 +5,7 @@ import 'package:playit/controller/database/video_favorite_db.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/view/music/view/music_page/songs/songs_list_page.dart';
 import '../../../../playlist_screen/floating_button.dart/controller/playlist_dialogue.dart';
-import '../../../../playlist_screen/floating_button.dart/floating_button.dart';
+import '../../../../playlist_screen/floating_button.dart/view/floating_button.dart';
 
 class AddToPlaylist extends StatelessWidget {
   const AddToPlaylist({super.key, required this.index});

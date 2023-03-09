@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:playit/view/playlist_screen/song_playlist_list/playlist.dart';
-import 'package:playit/view/playlist_screen/favorite_music/favorite_songs.dart';
-import 'package:playit/view/playlist_screen/floating_button.dart/floating_button.dart';
+import 'package:playit/view/playlist_screen/favorite/favorite_music/favorite_songs.dart';
+import 'package:playit/view/playlist_screen/floating_button.dart/view/floating_button.dart';
 import 'package:playit/view/playlist_screen/video_playlist_list/play_list.dart';
-import 'favorite_video/favorite_videos.dart';
+import 'favorite/favorite_video/favorite_videos.dart';
 
 class PlayList extends StatelessWidget {
   const PlayList({super.key});
@@ -17,12 +17,11 @@ class PlayList extends StatelessWidget {
       appBar: AppBar(
         // backgroundColor: Colors.black,
         title: const Text('Playlist'),
-        
+
         automaticallyImplyLeading: false,
         elevation: 2,
       ),
       body: ListView(
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
             height: 20,
@@ -36,7 +35,7 @@ class PlayList extends StatelessWidget {
             onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>const FavoriteSongs(),
+                  builder: (context) => const FavoriteSongs(),
                 )),
             leading: Container(
               height: 60,
@@ -64,7 +63,10 @@ class PlayList extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            trailing: const Icon(Icons.chevron_right,size: 35,),
+            trailing: const Icon(
+              Icons.chevron_right,
+              size: 35,
+            ),
           ),
           const SizedBox(height: 20),
           // ------------ container for liked videos--------------
@@ -108,40 +110,38 @@ class PlayList extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          // if(musicHivebox.isEmpty && videoHivebox.isEmpty)
-          // Column(
-          //   children: [
-          //       secondHeading("PlayLists"),
-          // const SizedBox(
-          //   height: 20,
-          // ),
 
-          //   ],
-          // ),
-        
           // ------------ New Playlist view -----------
-         Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-           children: [
-            secondHeading('Song Playlist'),
-            const SizedBox(height: 10,),
-             const NewMuciPlaylist(),
-             const SizedBox(height: 20,),
-           ],
-         ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              secondHeading('Song Playlist'),
+              const SizedBox(
+                height: 10,
+              ),
+              const NewMusicPlaylist(),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               secondHeading('Video Playlist'),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               const PlaylistOfVideo(),
-              const SizedBox(height: 60,),
+              const SizedBox(
+                height: 60,
+              ),
             ],
           ),
         ],
       ),
       // ---------- Floating Button ---------------
-      floatingActionButton:const FloatingButton(),
+      floatingActionButton: const FloatingButton(),
     );
   }
 
@@ -150,7 +150,10 @@ class PlayList extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15),
       child: Text(
         data,
-        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+        style: const TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../controller/database/song_playlist_db.dart';
+import '../../../../controller/database/music_playlist_db_controller.dart';
 import '../../../../controller/database/video_favorite_db.dart';
 import '../../../../model/playit_media_model.dart';
 
@@ -99,7 +99,7 @@ class EditSongPlaylist {
                     } else {
                       final playlistName =
                           PlayItSongModel(name: name, songId: songid);
-                      final datas = SongPlaylistDb.songPlaylistDb.values
+                      final datas = MusicPlaylistDbController.songPlaylistDb.values
                           .map((e) => e.name.trim())
                           .toList();
                       if (datas.contains(playlistName.name)) {
@@ -112,7 +112,7 @@ class EditSongPlaylist {
                         Navigator.of(context).pop();
                         _textEditingController.clear();
                       } else {
-                        Provider.of<SongPlaylistDb>(context, listen: false)
+                        Provider.of<MusicPlaylistDbController>(context, listen: false)
                             .editList(index, playlistName);
                         snackBar(
                           context: context,

@@ -27,7 +27,7 @@ class SongListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MusicTileController playingTile = context.read<MusicTileController>();
+    // final MusicTileController playingTile = context.read<MusicTileController>();
 
     return ListView.builder(
       shrinkWrap: isPlaylist ? true : false,
@@ -42,8 +42,8 @@ class SongListBuilder extends StatelessWidget {
         int playingSongId = songModel[index].id;
         int selectedIndex = context.watch<MusicTileController>().selectedIndex;
 
-        return Consumer<GetRecentSongController>(
-          builder: (context, recentSong, child) {
+        return Consumer2<GetRecentSongController,MusicTileController>(
+          builder: (context, recentSong,playingTile, child) {
             return ListTile(
               leading: ArtWorkWidget(
                 songModel: songModel[index],
@@ -72,7 +72,9 @@ class SongListBuilder extends StatelessWidget {
                 playList: playList,
               ),
               onTap: () {
-                playingTile.selectedMusicTile(playingSongid: playingSongId);
+                playingTile.selectedMusicTile(
+                  playingSongid: playingSongId,
+                );
 
                 GetAllSongController.audioPlayer.setAudioSource(
                     GetAllSongController.createSongList(songModel),

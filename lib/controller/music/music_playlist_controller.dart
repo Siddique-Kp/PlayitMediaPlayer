@@ -11,13 +11,14 @@ class MusicPlaylistController with ChangeNotifier {
     required context
   }) {
     songModel.add(data.id);
+    notifyListeners();
     snackBar(
       inTotal: 2,
       width: 1,
       context: context,
       content: "Song Added",
     );
-    notifyListeners();
+    
   }
 
   removeSongsFromPlaylist({

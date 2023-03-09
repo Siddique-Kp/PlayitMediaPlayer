@@ -14,7 +14,6 @@ class MusicFavController extends ChangeNotifier {
       }
     }
     isInitialized = true;
-    notifyListeners();
   }
 
   isFavor(SongModel song) {

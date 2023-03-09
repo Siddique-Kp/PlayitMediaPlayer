@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:playit/controller/database/video_favorite_db.dart';
 import 'package:playit/model/playit_media_model.dart';
-import 'package:playit/view/playlist_screen/favorite_video/favorite_popup.dart';
+import 'package:playit/view/playlist_screen/favorite/favorite_popup/favorite_popup.dart';
 import 'package:playit/view/videos/video/controller/access_video.dart';
 import 'package:playit/view/videos/video/view/video_list_builder.dart';
 import 'package:playit/view/videos/video/controller/video_thumbnail.dart';
-import '../../../main.dart';
+import '../../../../main.dart';
 
 class FavoriteVideos extends StatelessWidget {
   FavoriteVideos({super.key});
