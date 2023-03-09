@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
           create: (context) => MusicPlaylistController(),
         ),
         ChangeNotifierProvider(
-          create: (context) => FavoriteDb(),
+          create: (context) => MusicFavController(),
         ),
         ChangeNotifierProvider(
           create: (context) => GetRecentSongController(),

@@ -3,6 +3,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/controller/database/song_favorite_db.dart';
 import 'package:playit/view/music/view/music_page/songs/song_list_builder.dart';
 import '../../../controller/get_all_songs.dart';
+import 'package:provider/provider.dart';
 
 class SongList extends StatelessWidget {
   SongList({super.key});
@@ -13,6 +14,7 @@ class SongList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final musicFavController = context.watch<MusicFavController>();
     return FutureBuilder<List<SongModel>>(
       future: _audioQuery.querySongs(
           sortType: null,
@@ -32,8 +34,8 @@ class SongList extends StatelessWidget {
         }
 
         startSong = items.data!;
-        if (!FavoriteDb.isInitialized) {
-          FavoriteDb.initialize(items.data!);
+        if (!MusicFavController.isInitialized) {
+          musicFavController.initialize(items.data!);
         }
         GetAllSongController.songscopy = items.data!;
 

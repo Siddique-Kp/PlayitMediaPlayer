@@ -3,7 +3,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/controller/database/recent_song_db.dart';
 import 'package:playit/view/music/view/music_page/songs/song_list_builder.dart';
 import 'package:provider/provider.dart';
-import '../../../../../controller/database/song_favorite_db.dart';
+
 
 class RecentlyPlayedWidget extends StatelessWidget {
   RecentlyPlayedWidget({Key? key}) : super(key: key);
@@ -13,7 +13,6 @@ class RecentlyPlayedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FavoriteDb.favoriteSongs;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<GetRecentSongController>(context, listen: false)
           .getRecentSongs();

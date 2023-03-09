@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/controller/database/video_favorite_db.dart';
+import 'package:provider/provider.dart';
 import '../../../controller/database/song_favorite_db.dart';
 
 class FavoriteButton extends StatelessWidget {
@@ -11,15 +12,15 @@ class FavoriteButton extends StatelessWidget {
   final SongModel songFavorite;
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: FavoriteDb.favoriteSongs,
-      builder: (ctx, List<SongModel> favoriteData, _) {
+    return Consumer<MusicFavController>(
+      
+      builder:(context, musicFavController, child){
         return IconButton(
           onPressed: () {
-            if (FavoriteDb.isFavor(songFavorite)) {
-              FavoriteDb.delete(songFavorite.id);
+            if (musicFavController.isFavor(songFavorite)) {
+              musicFavController.delete(songFavorite.id);
             } else {
-              FavoriteDb.add(songFavorite);
+              musicFavController.add(songFavorite);
               snackBar(
                 context: context,
                 content: "Added To Favorite",
@@ -28,7 +29,7 @@ class FavoriteButton extends StatelessWidget {
               );
             }
           },
-          icon: FavoriteDb.isFavor(songFavorite)
+          icon: musicFavController.isFavor(songFavorite)
               ? const Icon(
                   Icons.favorite,
                   color: Colors.redAccent,

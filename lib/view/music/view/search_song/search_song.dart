@@ -3,6 +3,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/controller/database/song_favorite_db.dart';
 import 'package:playit/view/music/controller/get_all_songs.dart';
 import 'package:playit/view/music/view/music_page/songs/song_list_builder.dart';
+import 'package:provider/provider.dart';
 
 class SearchSongPage extends StatefulWidget {
   const SearchSongPage({super.key, required this.isFavSong});
@@ -117,7 +118,7 @@ class _SearchSongPageState extends State<SearchSongPage> {
 
   loadSongs() async {
     allSongs = widget.isFavSong
-        ? FavoriteDb.favoriteSongs.value.toList()
+        ? Provider.of<MusicFavController>(context,listen: false).favoriteSongs
         : GetAllSongController.songscopy;
     foundSongs = allSongs;
   }

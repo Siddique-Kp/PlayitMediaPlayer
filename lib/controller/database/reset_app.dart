@@ -27,7 +27,7 @@ class ResetApp {
     await videoPlaylistItems.clear();
     await allVideoinfo.clear();
     await allVideoPlaylist.clear();
-    FavoriteDb.favoriteSongs.value.clear();
+    Provider.of<MusicFavController>(context, listen: false).clear();
     VideoFavoriteDb.videoFavoriteDb.value.clear();
     GetAllSongController.audioPlayer.pause();
 

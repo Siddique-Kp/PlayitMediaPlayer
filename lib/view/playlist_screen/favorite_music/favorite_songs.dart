@@ -4,6 +4,7 @@ import 'package:playit/controller/database/song_favorite_db.dart';
 import 'package:playit/view/music/view/mini_player/mini_player_sheet.dart';
 import 'package:playit/view/music/view/music_page/songs/song_list_builder.dart';
 import 'package:playit/view/playlist_screen/favorite_video/favorite_popup.dart';
+import 'package:provider/provider.dart';
 
 class FavoriteSongs extends StatefulWidget {
   const FavoriteSongs({super.key});
@@ -17,9 +18,9 @@ class _FavoriteSongsState extends State<FavoriteSongs> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: FavoriteDb.favoriteSongs,
-      builder: (context, List<SongModel> favoriteSongData, child) {
+    return Consumer<MusicFavController>(
+    
+      builder: (context, musicFavController, child){
         return Scaffold(
           appBar: AppBar(
             elevation: 1,
@@ -27,10 +28,10 @@ class _FavoriteSongsState extends State<FavoriteSongs> {
             title: const Text("Favorite Songs"),
             actions: const [FavoritePopUp(isVideo: false)],
           ),
-          body: ValueListenableBuilder(
-            valueListenable: FavoriteDb.favoriteSongs,
-            builder: (context, List<SongModel> favoriteSongData, child) {
-              final temp = favoriteSongData.reversed.toList();
+          body: Consumer<MusicFavController>(
+          
+            builder: (context, musicFavController, child){
+              final temp = musicFavController.favoriteSongs.reversed.toList();
               favoriteData = temp.toSet().toList();
 
               if (favoriteData.isEmpty) {

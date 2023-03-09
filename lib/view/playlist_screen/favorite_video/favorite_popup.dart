@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playit/view/music/view/search_song/search_song.dart';
 import 'package:playit/view/videos/search_video/search_video.dart';
+import 'package:provider/provider.dart';
 import '../../../controller/database/song_favorite_db.dart';
 import '../../../controller/database/video_favorite_db.dart';
 
@@ -126,8 +127,8 @@ class FavoritePopUp extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      FavoriteDb.musicDb.clear();
-                      FavoriteDb.clear();
+                      Provider.of<MusicFavController>(context, listen: false)
+                          .clear();
                       snackBar(
                         inTotal: 3,
                         width: 2.5,
