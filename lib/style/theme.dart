@@ -11,14 +11,8 @@ class ThemeDataClass {
           statusBarColor: Colors.black,
         ),
       ),
-      backgroundColor: Colors.white
-      // floatingActionButtonTheme:
-      //     const FloatingActionButtonThemeData(backgroundColor: Colors.black)
-          );
+      backgroundColor: Colors.white);
   static ThemeData darkTheme = ThemeData(
-    
-    backgroundColor: ThemeData.dark().backgroundColor
-    //  floatingActionButtonTheme:
-    //       const FloatingActionButtonThemeData(backgroundColor: Colors.white)
+    backgroundColor: ThemeData.dark().backgroundColor,
   );
 }

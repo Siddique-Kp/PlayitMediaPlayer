@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:playit/database/song_playlist_db.dart';
+import 'package:playit/model/database/song_playlist_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
-import 'package:playit/provider/music_buttons/music_buttond_provider.dart';
-import 'package:playit/screens/splash_screen/splash_screen.dart';
+import 'package:playit/view/splash_screen/splash_screen.dart';
 import 'package:playit/style/theme.dart';
 import 'package:provider/provider.dart';
-import 'database/recent_song_db.dart';
-import 'database/song_favorite_db.dart';
-import 'provider/mini_player/mini_player_provider.dart';
-import 'provider/now_playing/now_playing_provider.dart';
-import 'provider/song_playlist/song_playlist.dart';
-import 'screens/bottom_navbar/bottom_navbar.dart';
+import 'model/database/recent_song_db.dart';
+import 'model/database/song_favorite_db.dart';
+import 'controller/music/music_tile_provider.dart';
+import 'controller/music/now_playing_provider.dart';
+import 'controller/music/song_playlist.dart';
+import 'view/main_page/main_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -78,14 +77,12 @@ class MyApp extends StatelessWidget {
             create: (context) => GetRecentSongController(),
           ),
           ChangeNotifierProvider(
-            create: (context) => MiniPlayerProvider(),
+            create: (context) => MusicTileProvider(),
           ),
           ChangeNotifierProvider(
             create: (context) => NowPlayingProvider(),
           ),
-          ChangeNotifierProvider(
-            create: (context) => MusicButtonsProvider(),
-          ),
+          
         ],
         builder: (context, child) {
           return MaterialApp(
@@ -97,7 +94,7 @@ class MyApp extends StatelessWidget {
             initialRoute: '/',
             routes: {
               '/': (context) => const SplashScreen(),
-              '/VideoPage': (context) => BottomNavBarScreen()
+              '/VideoPage': (context) => MainPage()
             },
           );
         });
