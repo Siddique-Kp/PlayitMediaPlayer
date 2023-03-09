@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../model/database/player_db.dart';
-import '../../../../model/database/video_favorite_db.dart';
+import '../../../../controller/database/player_db.dart';
+import '../../../../controller/database/video_favorite_db.dart';
 import '../../../../model/player.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

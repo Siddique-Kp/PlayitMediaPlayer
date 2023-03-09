@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:playit/model/database/recent_song_db.dart';
+import 'package:playit/controller/database/recent_song_db.dart';
 import 'package:playit/view/music/view/songbottom_sheet/view_model/add_to_favorite.dart';
 import 'package:playit/view/music/view/songbottom_sheet/view_model/add_to_playlist.dart';
 import 'package:playit/view/music/view/songbottom_sheet/view_model/delete_list.dart';
@@ -8,7 +8,7 @@ import 'package:playit/view/music/view/songbottom_sheet/view_model/details_song.
 import 'package:playit/view/music/view/songbottom_sheet/widgets/icons.dart';
 import 'package:playit/view/music/view/songbottom_sheet/widgets/text.dart';
 import 'package:provider/provider.dart';
-import '../../../../../controller/music/music_tile_provider.dart';
+import '../../../../../controller/music/music_tile_controller.dart';
 import '../../../controller/get_all_songs.dart';
 
 class SongBottomSheet extends StatelessWidget {
@@ -96,7 +96,7 @@ class SongBottomSheet extends StatelessWidget {
                 const Divider(
                   thickness: 1,
                 ),
-                Consumer2<GetRecentSongController, MusicTileProvider>(
+                Consumer2<GetRecentSongController, MusicTileController>(
                   builder: (context, recentSong, selectedItem, child) {
                     return ListTile(
                       leading: const Icon(

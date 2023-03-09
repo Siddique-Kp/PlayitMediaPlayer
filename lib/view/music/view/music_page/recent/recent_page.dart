@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:playit/model/database/recent_song_db.dart';
+import 'package:playit/controller/database/recent_song_db.dart';
 import 'package:playit/view/music/view/music_page/songs/song_list_builder.dart';
 import 'package:provider/provider.dart';
-import '../../../../../model/database/song_favorite_db.dart';
+import '../../../../../controller/database/song_favorite_db.dart';
 
 class RecentlyPlayedWidget extends StatelessWidget {
   RecentlyPlayedWidget({Key? key}) : super(key: key);

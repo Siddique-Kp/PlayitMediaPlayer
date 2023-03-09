@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/model/playit_media_model.dart';
 
-import '../../model/database/video_favorite_db.dart';
+import '../database/video_favorite_db.dart';
 
-class SongPlylistProvider with ChangeNotifier {
+class MusicPlaylistController with ChangeNotifier {
   addSongsToPlaylist({
     required PlayItSongModel songModel,
     required SongModel data,

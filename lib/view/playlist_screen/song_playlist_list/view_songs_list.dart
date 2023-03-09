@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/model/playit_media_model.dart';
-import 'package:playit/controller/music/song_playlist.dart';
+import 'package:playit/controller/music/music_playlist_controller.dart';
 import 'package:playit/view/music/widgets/art_work.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +41,7 @@ class AddSongsPlaylist extends StatelessWidget {
               final String songTitle = items.data![index].displayNameWOExt;
               String artistName = items.data![index].artist!;
 
-              return Consumer<SongPlylistProvider>(
+              return Consumer<MusicPlaylistController>(
                 builder: (context, songPlaylistProvider, child) {
                   return ListTile(
                     leading: ArtWorkWidget(

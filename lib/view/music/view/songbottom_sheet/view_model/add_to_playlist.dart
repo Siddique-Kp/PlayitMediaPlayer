@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:playit/model/database/video_favorite_db.dart';
+import 'package:playit/controller/database/video_favorite_db.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/view/music/view/music_page/songs/songs_list_page.dart';
 import '../../../../playlist_screen/floating_button.dart/controller/playlist_dialogue.dart';

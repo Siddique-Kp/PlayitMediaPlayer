@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/view/music/controller/get_all_songs.dart';
 import 'package:provider/provider.dart';
-import '../../../model/database/recent_song_db.dart';
-import '../../../controller/music/music_tile_provider.dart';
+import '../../../controller/database/recent_song_db.dart';
+import '../../../controller/music/music_tile_controller.dart';
 
 class SongSkipNextButton extends StatelessWidget {
   const SongSkipNextButton({
@@ -26,7 +26,7 @@ class SongSkipNextButton extends StatelessWidget {
               recentSong.addRecentlyPlayed(songModel.id);
               GetAllSongController.audioPlayer.seekToNext();
               context
-                  .read<MusicTileProvider>()
+                  .read<MusicTileController>()
                   .selectedListTile(songModel.id);
             }
           },

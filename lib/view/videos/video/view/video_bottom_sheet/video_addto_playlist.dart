@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/model/player.dart';
-import '../../../../../model/database/video_favorite_db.dart';
+import '../../../../../controller/database/video_favorite_db.dart';
 import '../../../../playlist_screen/floating_button.dart/controller/playlist_dialogue.dart';
 
 class VideoAddToPlayList extends StatelessWidget {

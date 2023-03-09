@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
-import 'package:playit/model/database/video_favorite_db.dart';
+import 'package:playit/controller/database/video_favorite_db.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/view/playlist_screen/favorite_video/favorite_popup.dart';
 import 'package:playit/view/videos/video/controller/access_video.dart';

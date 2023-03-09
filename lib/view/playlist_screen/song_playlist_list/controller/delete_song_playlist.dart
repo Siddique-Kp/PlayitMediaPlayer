@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import '../../../../model/database/video_favorite_db.dart';
+import '../../../../controller/database/video_favorite_db.dart';
 import '../../../../model/playit_media_model.dart';
 
 class DeleteSongPlaylist {

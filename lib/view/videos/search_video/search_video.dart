@@ -3,7 +3,7 @@ import 'package:playit/main.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/view/videos/video/controller/access_video.dart';
 import 'package:playit/view/videos/video/view/video_list_builder.dart';
-import '../../../model/database/video_favorite_db.dart';
+import '../../../controller/database/video_favorite_db.dart';
 
 class SearchVideoPage extends StatefulWidget {
   const SearchVideoPage({super.key, required this.isFavVideos});

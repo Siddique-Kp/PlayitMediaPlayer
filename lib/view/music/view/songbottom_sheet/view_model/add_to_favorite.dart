@@ -3,8 +3,8 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/view/music/view/songbottom_sheet/widgets/icons.dart';
 import 'package:playit/view/music/view/songbottom_sheet/widgets/text.dart';
 
-import '../../../../../model/database/song_favorite_db.dart';
-import '../../../../../model/database/video_favorite_db.dart';
+import '../../../../../controller/database/song_favorite_db.dart';
+import '../../../../../controller/database/video_favorite_db.dart';
 
 class AddToFavorite extends StatelessWidget {
   final SongModel songFavorite;

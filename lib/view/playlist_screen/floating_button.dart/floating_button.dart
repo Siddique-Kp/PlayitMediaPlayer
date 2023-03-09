@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:playit/controller/music/music_tile_controller.dart';
 import '../../../core/boolians.dart';
-import '../../../core/values.dart';
 import 'controller/playlist_dialogue.dart';
+import 'package:provider/provider.dart';
 
 class FloatingButton extends StatelessWidget {
   const FloatingButton({super.key});
 
   @override
   Widget build(BuildContext context) {
+    double bodyBottomMargin =
+        context.watch<MusicTileController>().bodyBottomMargin;
     return Padding(
       padding: EdgeInsets.only(bottom: bodyBottomMargin),
       child: SpeedDial(
@@ -25,8 +28,8 @@ class FloatingButton extends StatelessWidget {
             foregroundColor: Colors.white,
             onTap: () {
               isMusicPlaylist = true;
-              PlayListDialogue.newPlayList(context, "Playlist for Music",
-                  isMusicPlaylist = true);
+              PlayListDialogue.newPlayList(
+                  context, "Playlist for Music", isMusicPlaylist = true);
             },
           ),
           SpeedDialChild(
@@ -34,8 +37,8 @@ class FloatingButton extends StatelessWidget {
             backgroundColor: const Color.fromARGB(255, 48, 47, 47),
             foregroundColor: Colors.white,
             onTap: () {
-              PlayListDialogue.newPlayList(context, "Playlist for Video",
-                  isMusicPlaylist = false);
+              PlayListDialogue.newPlayList(
+                  context, "Playlist for Video", isMusicPlaylist = false);
             },
           )
         ],
@@ -43,11 +46,3 @@ class FloatingButton extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-

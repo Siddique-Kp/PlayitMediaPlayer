@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:playit/model/database/song_favorite_db.dart';
+import 'package:playit/controller/database/song_favorite_db.dart';
 import 'package:playit/view/music/controller/get_all_songs.dart';
 import 'package:playit/view/music/view/music_page/songs/song_list_builder.dart';
 

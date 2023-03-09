@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/view/music/controller/get_all_songs.dart';
-import 'package:playit/model/database/recent_song_db.dart';
+import 'package:playit/controller/database/recent_song_db.dart';
 import 'package:provider/provider.dart';
-import '../../../../../core/values.dart';
-import '../../../../../controller/music/music_tile_provider.dart';
+import '../../../../../controller/music/music_tile_controller.dart';
 import '../../songbottom_sheet/view/song_bottom_sheet.dart';
 import '../../../widgets/art_work.dart';
 
@@ -28,7 +27,7 @@ class SongListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MusicTileProvider playingTile = context.read<MusicTileProvider>();
+    final MusicTileController playingTile = context.read<MusicTileController>();
 
     return ListView.builder(
       shrinkWrap: isPlaylist ? true : false,
@@ -41,6 +40,7 @@ class SongListBuilder extends StatelessWidget {
         String artist = songModel[index].artist!;
         String artistName = artist == "<unknown>" ? "Unknown artist" : artist;
         int playingSongId = songModel[index].id;
+        int selectedIndex = context.watch<MusicTileController>().selectedIndex;
 
         return Consumer<GetRecentSongController>(
           builder: (context, recentSong, child) {

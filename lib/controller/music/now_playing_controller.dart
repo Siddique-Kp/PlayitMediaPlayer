@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import '../../view/music/controller/get_all_songs.dart';
 
-class NowPlayingProvider with ChangeNotifier {
+class NowPlayingController with ChangeNotifier {
   changeSlider(double value) {
     changeSliderValue(value.toInt());
     value = value;

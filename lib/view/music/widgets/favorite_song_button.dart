@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:playit/model/database/video_favorite_db.dart';
-import '../../../model/database/song_favorite_db.dart';
+import 'package:playit/controller/database/video_favorite_db.dart';
+import '../../../controller/database/song_favorite_db.dart';
 
 class FavoriteButton extends StatelessWidget {
   const FavoriteButton({

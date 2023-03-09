@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../model/database/song_playlist_db.dart';
-import '../../../../model/database/video_favorite_db.dart';
+import '../../../../controller/database/song_playlist_db.dart';
+import '../../../../controller/database/video_favorite_db.dart';
 import '../../../../model/playit_media_model.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

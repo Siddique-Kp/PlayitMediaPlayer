@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playit/controller/music/now_playing_provider.dart';
+import 'package:playit/controller/music/now_playing_controller.dart';
 import 'package:provider/provider.dart';
 
 class MusicSliderWidget extends StatelessWidget {
@@ -30,7 +30,7 @@ class MusicSliderWidget extends StatelessWidget {
           value: position.inSeconds.toDouble(),
           max: duration.inSeconds.toDouble(),
           onChanged: (value) {
-            context.read<NowPlayingProvider>().changeSlider(value);
+            context.read<NowPlayingController>().changeSlider(value);
           },
         ),
       ),

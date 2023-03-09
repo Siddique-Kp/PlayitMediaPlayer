@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-import '../../../../model/database/video_favorite_db.dart';
+import '../../../../controller/database/video_favorite_db.dart';
 import '../../../../model/player.dart';
 
 class DeletePlayListController {

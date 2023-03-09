@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:playit/model/database/player_db.dart';
+import 'package:playit/controller/database/player_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:provider/provider.dart';
-import '../../../model/database/song_playlist_db.dart';
-import '../../../model/database/video_favorite_db.dart';
+import '../../../controller/database/song_playlist_db.dart';
+import '../../../controller/database/video_favorite_db.dart';
 import '../../../model/playit_media_model.dart';
 import '../video_playlist_list/view_videos_playlist.dart';
 import 'view_songs_list.dart';

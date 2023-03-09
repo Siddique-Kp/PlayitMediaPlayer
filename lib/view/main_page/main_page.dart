@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:playit/view/music/view/mini_player/mini_player_sheet.dart';
 import 'package:playit/view/playlist_screen/play_list_page.dart';
 import 'package:playit/view/videos/videopage.dart';
-import '../../core/values.dart';
+import '../../controller/music/music_tile_controller.dart';
 import '../music/view/main_page/music_page.dart';
 import '../settings/settings_page.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({super.key});
@@ -19,6 +20,8 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double bodyBottomMargin =
+        context.watch<MusicTileController>().bodyBottomMargin;
     return SafeArea(
       child: Scaffold(
         body: ValueListenableBuilder(
@@ -51,7 +54,6 @@ class MainPage extends StatelessWidget {
               backgroundColor: Colors.white,
               onDestinationSelected: (value) {
                 pageindex.value = value;
-                
               },
               destinations: const [
                 NavigationDestination(

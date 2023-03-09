@@ -160,7 +160,6 @@ class _PlayingMusicState extends State<PlayingMusic> {
                           ),
                           textAlign: TextAlign.center,
                           mode: TextScrollMode.endless,
-                          // pauseBetween: const Duration(seconds: 2),
                         ),
                         const SizedBox(
                           height: 10,

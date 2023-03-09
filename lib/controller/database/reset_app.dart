@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:playit/model/database/song_favorite_db.dart';
-import 'package:playit/model/database/video_favorite_db.dart';
+import 'package:playit/controller/music/music_tile_controller.dart';
+import 'package:playit/controller/database/song_favorite_db.dart';
+import 'package:playit/controller/database/video_favorite_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/view/music/controller/get_all_songs.dart';
 import 'package:playit/view/splash_screen/splash_screen.dart';
-import '../../core/boolians.dart';
-import '../../core/values.dart';
-import '../playit_media_model.dart';
+import '../../model/playit_media_model.dart';
+import 'package:provider/provider.dart';
 
 class ResetApp {
   static Future<void> resetApp(context) async {
@@ -30,9 +30,9 @@ class ResetApp {
     FavoriteDb.favoriteSongs.value.clear();
     VideoFavoriteDb.videoFavoriteDb.value.clear();
     GetAllSongController.audioPlayer.pause();
-    isPlayingSong = false;
-    selectedIndex = 0;
-    bodyBottomMargin = 0;
+
+    await Provider.of<MusicTileController>(context, listen: false)
+        .removeSelectedMusicTile();
 
     Navigator.pushAndRemoveUntil(
         context,

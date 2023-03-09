@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:playit/view/music/view/search_song/search_song.dart';
 import 'package:playit/view/videos/search_video/search_video.dart';
-import '../../../model/database/song_favorite_db.dart';
-import '../../../model/database/video_favorite_db.dart';
+import '../../../controller/database/song_favorite_db.dart';
+import '../../../controller/database/video_favorite_db.dart';
 
 class FavoritePopUp extends StatelessWidget {
   const FavoritePopUp({
