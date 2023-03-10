@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/controller/music/now_playing_controller.dart';
+import 'package:playit/core/colors.dart';
 import 'package:playit/view/music/view/now_playing/widgets/music_bottom_buttons.dart';
 import 'package:playit/view/music/view/now_playing/widgets/music_slider.dart';
 import 'package:provider/provider.dart';
@@ -21,62 +22,11 @@ class PlayingMusic extends StatefulWidget {
 }
 
 class _PlayingMusicState extends State<PlayingMusic> {
-  // Duration _duration = const Duration();
-  // Duration _position = const Duration();
-  // int currentIndex = 0;
-  // bool firstSong = false;
-  // bool lastSong = false;
-  // int large = 0;
-
-  // @override
-  // void initState() {
-  //   GetAllSongController.audioPlayer.currentIndexStream.listen((index) {
-  //     if (index != null) {
-  //       GetAllSongController.currentIndexes = index;
-  //       if (mounted) {
-  //         setState(() {
-  //           large = widget.count - 1; //store the last song's index number
-  //           currentIndex = index;
-  //           index == 0 ? firstSong = true : firstSong = false;
-  //           index == large ? lastSong = true : lastSong = false;
-  //         });
-  //       }
-  //     }
-  //   });
-  //   deviceOrientation();
-  //   super.initState();
-  //   playSong();
-  // }
-
-  // deviceOrientation() {
-  //   SystemChrome.setPreferredOrientations(
-  //       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  // }
-
-  // playSong() {
-  //   GetAllSongController.audioPlayer.durationStream.listen((d) {
-  //     if (mounted) {
-  //       setState(() {
-  //         if (d != null) {
-  //           _duration = d;
-  //         }
-  //       });
-  //     }
-  //   });
-  //   GetAllSongController.audioPlayer.positionStream.listen((p) {
-  //     if (mounted) {
-  //       setState(() {
-  //         _position = p;
-  //       });
-  //     }
-  //   });
-  // }
-
   @override
   void dispose() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: Color.fromARGB(255, 47, 46, 46),
-      statusBarColor: Colors.black,
+      statusBarColor: kBlackColor,
     ));
 
     super.dispose();
@@ -128,14 +78,14 @@ class _PlayingMusicState extends State<PlayingMusic> {
                           const SystemUiOverlayStyle(
                             systemNavigationBarColor:
                                 Color.fromARGB(255, 47, 46, 46),
-                            statusBarColor: Colors.black,
+                            statusBarColor: kBlackColor,
                           ),
                         );
                         Navigator.pop(context);
                       },
                       icon: const Icon(
                         Icons.keyboard_arrow_down,
-                        color: Colors.white,
+                        color: kWhiteColor,
                       ),
                     ),
                   ],
@@ -177,7 +127,7 @@ class _PlayingMusicState extends State<PlayingMusic> {
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: kWhiteColor,
                         ),
                         textAlign: TextAlign.center,
                         mode: TextScrollMode.endless,
@@ -215,19 +165,16 @@ class _PlayingMusicState extends State<PlayingMusic> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        // _formatDuration(position),
                         nowPlayingController.formatPosition,
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: kWhiteColor,
                           fontSize: 13,
                         ),
                       ),
                       Text(
-                        // _formatDuration(duration),
                         nowPlayingController.formatDuration,
-
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: kWhiteColor,
                           fontSize: 13,
                         ),
                       ),

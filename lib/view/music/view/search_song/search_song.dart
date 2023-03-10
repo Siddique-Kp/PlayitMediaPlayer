@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/controller/music/search_music_controller.dart';
+import 'package:playit/core/colors.dart';
 import 'package:playit/view/music/view/music_page/songs/song_list_builder.dart';
 import 'package:provider/provider.dart';
 
@@ -17,13 +18,13 @@ class SearchSongPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final searchController =
-        Provider.of<SearchMusicController>(context, listen: false);
+    context.read<SearchMusicController>().loadSongs(
+          isFavSong,
+          context,
+        );
+    final searchController = context.read<SearchMusicController>();
     List<SongModel> foundSongs =
         context.watch<SearchMusicController>().foundSong;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      searchController.loadSongs(isFavSong, context);
-    });
 
     return Scaffold(
       body: SafeArea(
@@ -35,7 +36,7 @@ class SearchSongPage extends StatelessWidget {
               child: TextField(
                 controller: _searchtext,
                 onChanged: (value) => searchController.updateList(value),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: kWhiteColor),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.black,
@@ -43,18 +44,18 @@ class SearchSongPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide.none),
                   hintText: 'Search Song',
-                  hintStyle: const TextStyle(color: Colors.white),
+                  hintStyle: const TextStyle(color: kWhiteColor),
                   prefixIcon: InkWell(
                     onTap: () {
-                       _searchtext.clear();
+                      _searchtext.clear();
                       Navigator.pop(context);
                     },
                     child: const Icon(
                       Icons.arrow_back,
-                      color: Colors.white,
+                      color: kWhiteColor,
                     ),
                   ),
-                  prefixIconColor: Colors.white,
+                  prefixIconColor: kWhiteColor,
                   suffixIcon: _searchtext.text.isNotEmpty
                       ? InkWell(
                           onTap: () {
@@ -64,7 +65,7 @@ class SearchSongPage extends StatelessWidget {
                           },
                           child: const Icon(
                             Icons.close,
-                            color: Colors.white,
+                            color: kWhiteColor,
                           ),
                         )
                       : const SizedBox(),

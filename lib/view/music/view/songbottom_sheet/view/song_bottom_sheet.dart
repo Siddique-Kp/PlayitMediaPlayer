@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/controller/database/recent_song_db.dart';
-import 'package:playit/view/music/view/songbottom_sheet/view_model/add_to_favorite.dart';
-import 'package:playit/view/music/view/songbottom_sheet/view_model/add_to_playlist.dart';
-import 'package:playit/view/music/view/songbottom_sheet/view_model/delete_list.dart';
-import 'package:playit/view/music/view/songbottom_sheet/view_model/details_song.dart';
+import 'package:playit/view/music/view/songbottom_sheet/controller/add_to_favorite.dart';
+import 'package:playit/view/music/view/songbottom_sheet/controller/add_to_playlist.dart';
+import 'package:playit/view/music/view/songbottom_sheet/controller/delete_list.dart';
+import 'package:playit/view/music/view/songbottom_sheet/controller/details_song.dart';
 import 'package:playit/view/music/view/songbottom_sheet/widgets/icons.dart';
 import 'package:playit/view/music/view/songbottom_sheet/widgets/text.dart';
 import 'package:provider/provider.dart';

@@ -17,9 +17,7 @@ class AddToFavorite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Provider.of<MusicFavController>(
-      context,
-    ).isFavor(
+    return Provider.of<MusicFavController>(context).isFavor(
       songFavorite,
     )
         ? ListTile(
