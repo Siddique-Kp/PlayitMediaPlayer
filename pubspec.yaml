@@ -39,6 +39,7 @@ dependencies:
   flutter_speed_dial: ^6.2.0
   fluttertoast: ^8.1.2
   get: ^4.6.5
+  share_plus: ^6.3.0
 
   #PACKAGES FOR MUSIC 
   audio_manager: ^0.8.2

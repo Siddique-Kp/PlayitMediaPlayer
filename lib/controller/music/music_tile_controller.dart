@@ -18,12 +18,7 @@ class MusicTileController with ChangeNotifier {
     notifyListeners();
   }
 
-  void selectedListTile(int songId) {
-    _selectedIndex = songId;
-    notifyListeners();
-  }
-
-  Future<void> removeSelectedMusicTile()async {
+  Future<void> removeSelectedMusicTile() async {
     _selectedIndex = 0;
     isPlayingSong = false;
     _bodyBottomMargin = 0;

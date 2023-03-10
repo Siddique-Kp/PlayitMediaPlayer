@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:playit/model/player.dart';
-import '../../../model/playit_media_model.dart';
-import '../video_playlist_list/controller/clear_playlist_controller.dart';
-import '../video_playlist_list/view_videos_playlist.dart';
-import 'controller/clear_song_playlist.dart';
+import '../../../../model/playit_media_model.dart';
+import '../../video_playlist_list/controller/clear_playlist_controller.dart';
+import '../../video_playlist_list/view/view_videos_playlist.dart';
+import '../controller/clear_song_playlist.dart';
 import 'view_songs_list.dart';
 
 class InsidePopupSong extends StatelessWidget {

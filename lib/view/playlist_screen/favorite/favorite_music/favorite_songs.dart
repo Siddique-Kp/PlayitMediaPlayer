@@ -6,21 +6,14 @@ import 'package:playit/view/music/view/music_page/songs/song_list_builder.dart';
 import 'package:playit/view/playlist_screen/favorite/favorite_popup/favorite_popup.dart';
 import 'package:provider/provider.dart';
 
-class FavoriteSongs extends StatefulWidget {
+class FavoriteSongs extends StatelessWidget {
   const FavoriteSongs({super.key});
 
   @override
-  State<FavoriteSongs> createState() => _FavoriteSongsState();
-}
-
-class _FavoriteSongsState extends State<FavoriteSongs> {
-  List<SongModel> favoriteData = [];
-
-  @override
   Widget build(BuildContext context) {
+    List<SongModel> favoriteData = [];
     return Consumer<MusicFavController>(
-    
-      builder: (context, musicFavController, child){
+      builder: (context, musicFavController, child) {
         return Scaffold(
           appBar: AppBar(
             elevation: 1,
@@ -29,8 +22,7 @@ class _FavoriteSongsState extends State<FavoriteSongs> {
             actions: const [FavoritePopUp(isVideo: false)],
           ),
           body: Consumer<MusicFavController>(
-          
-            builder: (context, musicFavController, child){
+            builder: (context, musicFavController, child) {
               final temp = MusicFavController.favoriteSongs.reversed.toList();
               favoriteData = temp.toSet().toList();
 

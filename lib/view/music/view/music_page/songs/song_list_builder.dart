@@ -27,7 +27,6 @@ class SongListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final MusicTileController playingTile = context.read<MusicTileController>();
 
     return ListView.builder(
       shrinkWrap: isPlaylist ? true : false,

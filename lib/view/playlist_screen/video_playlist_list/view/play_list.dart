@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/model/player.dart';
-import 'package:playit/view/playlist_screen/video_playlist_list/video_list.dart';
-import 'package:playit/view/playlist_screen/video_playlist_list/playlist_popup_menu.dart';
+import 'package:playit/view/playlist_screen/video_playlist_list/view/video_list.dart';
+import 'package:playit/view/playlist_screen/video_playlist_list/view/playlist_popup_menu.dart';
 
 class PlaylistOfVideo extends StatelessWidget {
   const PlaylistOfVideo({super.key});

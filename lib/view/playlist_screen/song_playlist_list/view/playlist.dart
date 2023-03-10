@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:playit/view/playlist_screen/song_playlist_list/play_list_popup.dart';
-import 'package:playit/view/playlist_screen/song_playlist_list/song_list.dart';
-import '../../../model/playit_media_model.dart';
+import 'package:playit/view/playlist_screen/song_playlist_list/view/play_list_popup.dart';
+import 'package:playit/view/playlist_screen/song_playlist_list/view/song_list.dart';
+import '../../../../model/playit_media_model.dart';
 
 class NewMusicPlaylist extends StatelessWidget {
   const NewMusicPlaylist({super.key});

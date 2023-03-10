@@ -9,8 +9,6 @@ class FloatingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // double bodyBottomMargin =
-    //     context.watch<MusicTileController>().bodyBottomMargin;
     return SpeedDial(
       icon: Icons.playlist_add,
       backgroundColor: kBlackColor,
@@ -34,7 +32,7 @@ class FloatingButton extends StatelessWidget {
         ),
         SpeedDialChild(
           child: const Icon(Icons.playlist_play),
-          backgroundColor:kSpeedButtonColor,
+          backgroundColor: kSpeedButtonColor,
           foregroundColor: kWhiteColor,
           onTap: () {
             PlayListDialogue.newPlayList(

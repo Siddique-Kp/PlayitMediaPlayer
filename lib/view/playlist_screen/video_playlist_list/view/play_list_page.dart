@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:playit/view/playlist_screen/song_playlist_list/playlist.dart';
+import 'package:playit/view/playlist_screen/song_playlist_list/view/playlist.dart';
 import 'package:playit/view/playlist_screen/favorite/favorite_music/favorite_songs.dart';
 import 'package:playit/view/playlist_screen/floating_button.dart/view/floating_button.dart';
-import 'package:playit/view/playlist_screen/video_playlist_list/play_list.dart';
-import 'favorite/favorite_video/favorite_videos.dart';
+import 'package:playit/view/playlist_screen/video_playlist_list/view/play_list.dart';
+import '../../favorite/favorite_video/favorite_videos.dart';
 
 class PlayList extends StatelessWidget {
   const PlayList({super.key});

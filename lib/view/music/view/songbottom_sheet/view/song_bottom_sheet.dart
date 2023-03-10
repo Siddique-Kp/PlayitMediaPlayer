@@ -112,7 +112,7 @@ class SongBottomSheet extends StatelessWidget {
                             initialIndex: index);
                         GetAllSongController.audioPlayer.play();
                         Navigator.of(context).pop();
-                        selectedItem.selectedListTile(songModel[index].id);
+                        selectedItem.selectedMusicTile(playingSongid: songModel[index].id);
                       },
                     );
                   },

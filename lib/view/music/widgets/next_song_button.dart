@@ -27,7 +27,7 @@ class SongSkipNextButton extends StatelessWidget {
               GetAllSongController.audioPlayer.seekToNext();
               context
                   .read<MusicTileController>()
-                  .selectedListTile(songModel.id);
+                  .selectedMusicTile(playingSongid: songModel.id);
             }
           },
           icon: const Icon(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/model/player.dart';
-import 'controller/delete_playlist_controller.dart';
-import 'controller/edit_playlist_controller.dart';
+import '../controller/delete_playlist_controller.dart';
+import '../controller/edit_playlist_controller.dart';
 
 class PlayListPopUpVideo extends StatelessWidget {
   const PlayListPopUpVideo({

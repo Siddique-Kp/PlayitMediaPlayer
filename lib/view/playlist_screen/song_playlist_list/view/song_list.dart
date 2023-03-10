@@ -4,9 +4,9 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/view/music/controller/get_all_songs.dart';
 import 'package:playit/view/music/view/mini_player/mini_player_sheet.dart';
 import 'package:playit/view/music/view/music_page/songs/song_list_builder.dart';
-import 'package:playit/view/playlist_screen/song_playlist_list/view_songs_list.dart';
-import 'package:playit/view/playlist_screen/song_playlist_list/song_list_popup.dart';
-import '../../../model/playit_media_model.dart';
+import 'package:playit/view/playlist_screen/song_playlist_list/view/view_songs_list.dart';
+import 'package:playit/view/playlist_screen/song_playlist_list/view/song_list_popup.dart';
+import '../../../../model/playit_media_model.dart';
 
 class SongPlayListList extends StatelessWidget {
   const SongPlayListList({
