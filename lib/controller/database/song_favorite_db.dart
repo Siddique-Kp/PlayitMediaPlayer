@@ -5,7 +5,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 class MusicFavController extends ChangeNotifier {
   static bool isInitialized = false;
   static final musicDb = Hive.box<int>('SongFavoriteDB');
-  List<SongModel> favoriteSongs = [];
+  static List<SongModel> favoriteSongs = [];
 
   initialize(List<SongModel> songs) {
     for (SongModel song in songs) {

@@ -31,7 +31,7 @@ class _FavoriteSongsState extends State<FavoriteSongs> {
           body: Consumer<MusicFavController>(
           
             builder: (context, musicFavController, child){
-              final temp = musicFavController.favoriteSongs.reversed.toList();
+              final temp = MusicFavController.favoriteSongs.reversed.toList();
               favoriteData = temp.toSet().toList();
 
               if (favoriteData.isEmpty) {

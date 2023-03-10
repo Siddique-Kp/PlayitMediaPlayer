@@ -26,7 +26,5 @@ class VideoPlayerListDB extends ChangeNotifier {
   static Future<void> editList(int index, PlayerModel value) async {
     await videoPlayerListDB.putAt(index, value);
     getAllPlaylist();
-  }
-
- 
+  } 
 }

@@ -51,7 +51,7 @@ class FavoritePopUp extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const SearchSongPage(isFavSong: true),
+                builder: (context) =>  SearchSongPage(isFavSong: true),
               ),
             );
           } else if (value == 2) {

@@ -36,7 +36,7 @@ class MusicPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              const SearchSongPage(isFavSong: false),
+                               SearchSongPage(isFavSong: false),
                         ),
                       );
                     },

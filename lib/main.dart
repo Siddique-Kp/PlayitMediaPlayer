@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:playit/controller/database/music_playlist_db_controller.dart';
+import 'package:playit/controller/music/search_music_controller.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/view/splash_screen/splash_screen.dart';
@@ -81,6 +82,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => NowPlayingController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => NowPlayingPageController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SearchMusicController(),
         ),
       ],
       builder: (context, child) {
