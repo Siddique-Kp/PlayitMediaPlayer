@@ -25,13 +25,17 @@ class MusicSliderWidget extends StatelessWidget {
           thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 5.0),
           overlayShape: const RoundSliderOverlayShape(overlayRadius: 30.0),
         ),
-        child: Slider(
-          min: const Duration(microseconds: 0).inSeconds.toDouble(),
-          value: position.inSeconds.toDouble(),
-          max: duration.inSeconds.toDouble(),
-          onChanged: (value) {
-            context.read<NowPlayingController>().changeSlider(value);
-          },
+        child: Consumer<NowPlayingController>(
+          builder: (context, nowPlayingController, child) {
+            return Slider(
+              min: const Duration(microseconds: 0).inSeconds.toDouble(),
+              value: position.inSeconds.toDouble(),
+              max: duration.inSeconds.toDouble(),
+              onChanged: (value) {
+                nowPlayingController.changeSlider(value);
+              },
+            );
+          }
         ),
       ),
     );

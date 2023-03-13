@@ -120,10 +120,9 @@ class _MiniPlayerSheetState extends State<MiniPlayerSheet> {
                   ),
                   Row(
                     children: [
-// ----- Favorite button
                       FavoriteButton(
                         songFavorite: singleSongModel,
-                      ),
+                      ), 
 // --------- Play and pause button
                       SongPauseButton(
                         songModel: singleSongModel,
@@ -155,7 +154,4 @@ class _MiniPlayerSheetState extends State<MiniPlayerSheet> {
       return const SizedBox();
     }
   }
-
-  
 }
-

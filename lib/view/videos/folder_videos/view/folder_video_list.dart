@@ -11,7 +11,7 @@ class FolderVideoInside extends StatefulWidget {
 }
 
 class _FolderVideoInsideState extends State<FolderVideoInside> {
-  final String _duration = '00:00';
+  final String _duration = '';
   @override
   void initState() {
     loadVideos(widget.folderPath);

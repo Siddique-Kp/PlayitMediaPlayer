@@ -12,11 +12,11 @@ class FolderVideoList extends StatefulWidget {
 }
 
 class _FolderVideoListState extends State<FolderVideoList> {
-  @override
-  void initState() {
-    getPermmission();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   getPermmission();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +73,9 @@ class _FolderVideoListState extends State<FolderVideoList> {
     );
   }
 
-  getPermmission() async {
-    if (await requestPermission(Permission.storage)) {
-      setState(() {});
-    }
-  }
+  // getPermmission() async {
+  //   if (await requestPermission(Permission.storage)) {
+  //     setState(() {});
+  //   }
+  // }
 }

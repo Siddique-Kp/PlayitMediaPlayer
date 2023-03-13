@@ -16,22 +16,14 @@ class VideoList extends StatefulWidget {
 class _VideoListState extends State<VideoList> {
   late List<VideoPlayerController> controller;
 
-  @override
-  void initState() {
-    askPermission();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   askPermission();
+  //   super.initState();
+  // }
 
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: requestPermission(Permission.storage),
-      builder: (context, items) {
-        if (items.data == null) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+  Widget build(BuildContext context) { 
 
         return allVideos.value.isEmpty
             ? const Center(
@@ -59,16 +51,8 @@ class _VideoListState extends State<VideoList> {
                   );
                 },
               );
-      },
-    );
+    
   }
 
-  askPermission() async {
-    if (await requestPermission(Permission.storage)) {
-      const Center(
-        child: CircularProgressIndicator(),
-      );
-      setState(() {});
-    }
-  }
+
 }

@@ -86,7 +86,7 @@ class SettingsPage extends StatelessWidget {
                 title: const Text("Share App"),
                 onTap: () {
                   // shareAppFile(context);
-                  // Share.share('jiiiiiiiiiii');
+                  Share.share('https://play.google.com/store/apps/details?id=in.brototype.example.playit');
                 },
               ),
             ],

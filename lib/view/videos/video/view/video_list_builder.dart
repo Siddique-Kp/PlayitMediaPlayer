@@ -34,7 +34,7 @@ class VideoListBuilder extends StatefulWidget {
 }
 
 class _VideoListBuilderState extends State<VideoListBuilder> {
-  String _duration = '00:00';
+  String _duration = '';
   @override
   void initState() {
     getduration();
