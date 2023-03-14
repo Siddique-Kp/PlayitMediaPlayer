@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:playit/controller/database/reset_app.dart';
 import 'package:playit/view/settings/about_us.dart';
 import 'package:playit/view/settings/privacy_policy.dart';
-import 'package:playit/view/settings/share_app.dart';
 import 'package:playit/view/settings/terms_condition.dart';
 import 'package:share_plus/share_plus.dart';
 

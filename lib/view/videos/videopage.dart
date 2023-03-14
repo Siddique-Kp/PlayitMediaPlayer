@@ -26,7 +26,7 @@ class VideoPage extends StatelessWidget {
             fontSize: 25,
             fontWeight: FontWeight.w600,
           ),
-          title: const Text('VIDEO'),
+          title: const Text('PLAYIT'),
           actions: [
             // IconButton(
             //   onPressed: () {},

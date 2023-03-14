@@ -18,7 +18,7 @@ class GetRecentSongController extends ChangeNotifier{
    Future<void> getRecentSongs() async {
     recentlyPlayed = recentDb.values.toList();
     displayRecents();
-    notifyListeners();
+    // notifyListeners();
   }
 
    Future<void> displayRecents() async {
