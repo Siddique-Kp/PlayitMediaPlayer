@@ -27,7 +27,7 @@ class _PlayingVideoState extends State<PlayingVideo> {
   late VideoPlayerController _controller;
   Duration videoDuration = const Duration();
   Duration videoPosition = const Duration();
- late int videoMicrDuration;
+  late int videoMicrDuration;
   Duration videoMicrPosition = const Duration();
   bool isPlaying = true;
   bool isLandscape = true;
@@ -95,7 +95,8 @@ class _PlayingVideoState extends State<PlayingVideo> {
                   ),
                 ),
               ),
-              VideoPlayerWidget(controller: _controller,fit: fit,index: fitIndex),
+              VideoPlayerWidget(
+                  controller: _controller, fit: fit, index: fitIndex),
               Visibility(
                 visible: isVisible,
                 child: Column(
@@ -105,7 +106,7 @@ class _PlayingVideoState extends State<PlayingVideo> {
                       height: 60,
                       //----------- Appbar starts
                       child: AppBar(
-                        backgroundColor:Colors.black.withAlpha(100),
+                        backgroundColor: Colors.black.withAlpha(100),
                         title: Text(
                           widget.videoTitle,
                           overflow: TextOverflow.clip,
@@ -178,7 +179,6 @@ class _PlayingVideoState extends State<PlayingVideo> {
                             videoPosition: videoPosition,
                           ),
                         ),
-                       
                       ],
                     ),
                   ],

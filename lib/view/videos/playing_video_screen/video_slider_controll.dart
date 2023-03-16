@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoSliderController extends StatefulWidget {
+import '../../../controller/videos/playing_video_controller.dart';
+
+class VideoSliderController extends StatelessWidget {
   final VideoPlayerController controller;
   final Duration videoDuration;
   final Duration videoPosition;
@@ -13,11 +16,6 @@ class VideoSliderController extends StatefulWidget {
   });
 
   @override
-  State<VideoSliderController> createState() => _VideoSliderControllerState();
-}
-
-class _VideoSliderControllerState extends State<VideoSliderController> {
-  @override
   Widget build(BuildContext context) {
     return SliderTheme(
       data: SliderTheme.of(context).copyWith(
@@ -28,22 +26,17 @@ class _VideoSliderControllerState extends State<VideoSliderController> {
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 5.0),
         overlayShape: const RoundSliderOverlayShape(overlayRadius: 30.0),
       ),
-      child: Slider(
-        min: const Duration(microseconds: 0).inSeconds.toDouble(),
-        max: widget.videoDuration.inSeconds.toDouble(),
-        value: widget.videoPosition.inSeconds.toDouble(),
-        onChanged: (value) {
-          setState(() {
-            changeSliderValue(value.toInt());
-            value = value;
-          });
-        },
-      ),
+      child: Consumer<PlayingVideoController>(
+          builder: (context, playingVideoController, child) {
+        return Slider(
+          min: const Duration(microseconds: 0).inSeconds.toDouble(),
+          max: videoDuration.inSeconds.toDouble(),
+          value: videoPosition.inSeconds.toDouble(),
+          onChanged: (value) {
+            playingVideoController.changeSlider(value, controller);
+          },
+        );
+      }),
     );
-  }
-
-  void changeSliderValue(int seconds) {
-    Duration duration = Duration(seconds: seconds);
-    widget.controller.seekTo(duration);
   }
 }
