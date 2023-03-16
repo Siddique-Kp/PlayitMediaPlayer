@@ -3,18 +3,15 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/view/videos/video/controller/access_video.dart';
+import 'package:provider/provider.dart';
+import '../../../../controller/videos/video_playlist_controller.dart';
 import '../../../../main.dart';
 import '../../../videos/video/controller/video_thumbnail.dart';
 
-class AddVideosToPlayList extends StatefulWidget {
+class AddVideosToPlayList extends StatelessWidget {
   const AddVideosToPlayList({super.key, required this.playlist});
   final PlayerModel playlist;
 
-  @override
-  State<AddVideosToPlayList> createState() => _AddVideosToPlayListState();
-}
-
-class _AddVideosToPlayListState extends State<AddVideosToPlayList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,68 +25,77 @@ class _AddVideosToPlayListState extends State<AddVideosToPlayList> {
             );
           }
 
-          return allVideos.value.isEmpty?
-          const Center(child: Text('No videos'),):
-           ListView.builder(
-            itemCount: accessVideosPath.length,
-            itemExtent: 75,
-            itemBuilder: (context, index) {
-              String path = accessVideosPath[index];
-              final videoTitle =
-                  accessVideosPath[index].toString().split('/').last;
-              String shorttitle = videoTitle;
-              if (videoTitle.length > 19) {
-                shorttitle = shorttitle.substring(0, 19);
-              }
-              AllVideos? videoinfo = videoDB.getAt(index);
+          return allVideos.value.isEmpty
+              ? const Center(
+                  child: Text('No videos'),
+                )
+              : ListView.builder(
+                  itemCount: accessVideosPath.length,
+                  itemExtent: 75,
+                  itemBuilder: (context, index) {
+                    String path = accessVideosPath[index];
+                    final videoTitle =
+                        accessVideosPath[index].toString().split('/').last;
+                    String shorttitle = videoTitle;
+                    if (videoTitle.length > 19) {
+                      shorttitle = shorttitle.substring(0, 19);
+                    }
+                    AllVideos? videoinfo = videoDB.getAt(index);
 
-              return ListTile(
-                leading: thumbnail(
-                  path: path,
-                  context: context,
-                  duration: videoinfo!.duration.toString().split(".").first,
-                ),
-                title: Text(
-                  shorttitle,
-                  overflow: TextOverflow.clip,
-                  maxLines: 1,
-                ),
-                subtitle: Text(fileSize(path)),
-                trailing: 
-                !widget.playlist.isValueIn(path)
-                    ? IconButton(
-                        onPressed: () {
-                          setState(() {
-                            widget.playlist.add(path);
-                          });
-                        },
-                        icon: const CircleAvatar(
-                          backgroundColor: Colors.black,
-                          radius: 10,
-                          child: Icon(
-                            Icons.add,
-                            size: 20,
-                          ),
-                        ))
-                    : IconButton(
-                        onPressed: () {
-                          setState(() {
-                            widget.playlist.deleteData(path);
-                          });
-                        },
-                        icon: const CircleAvatar(
-                          radius: 10,
-                          backgroundColor: Colors.grey,
-                          child: Icon(
-                            Icons.horizontal_rule,
-                            size: 16,
-                            color: Colors.white,
-                          ),
+                    return Consumer<VideoPlaylistController>(
+                        builder: (context, videoPlaylistController, child) {
+                      return ListTile(
+                        leading: thumbnail(
+                          path: path,
+                          context: context,
+                          duration:
+                              videoinfo!.duration.toString().split(".").first,
                         ),
-                      ),
-              );
-            },
-          );
+                        title: Text(
+                          shorttitle,
+                          overflow: TextOverflow.clip,
+                          maxLines: 1,
+                        ),
+                        subtitle: Text(fileSize(path)),
+                        trailing: !playlist.isValueIn(path)
+                            ? IconButton(
+                                onPressed: () {
+                                  videoPlaylistController.addVideosToPlaylist(
+                                    videoModel: playlist,
+                                    path: path,
+                                    context: context,
+                                  );
+                                },
+                                icon: const CircleAvatar(
+                                  backgroundColor: Colors.black,
+                                  radius: 10,
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 20,
+                                  ),
+                                ))
+                            : IconButton(
+                                onPressed: () {
+                                  videoPlaylistController
+                                      .removeVideosFromPlaylist(
+                                    videoModel: playlist,
+                                    path: path,
+                                  );
+                                },
+                                icon: const CircleAvatar(
+                                  radius: 10,
+                                  backgroundColor: Colors.grey,
+                                  child: Icon(
+                                    Icons.remove,
+                                    size: 16,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                      );
+                    });
+                  },
+                );
         },
       ),
     );

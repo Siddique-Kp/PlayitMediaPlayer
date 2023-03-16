@@ -12,6 +12,7 @@ import 'controller/database/song_favorite_db.dart';
 import 'controller/music/music_tile_controller.dart';
 import 'controller/music/now_playing_controller.dart';
 import 'controller/music/music_playlist_controller.dart';
+import 'controller/videos/video_playlist_controller.dart';
 import 'view/main_page/main_page.dart';
 
 Future<void> main() async {
@@ -88,6 +89,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => SearchMusicController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => VideoPlaylistController(),
         ),
       ],
       builder: (context, child) {

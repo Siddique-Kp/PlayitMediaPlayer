@@ -4,20 +4,10 @@ import 'package:playit/view/videos/video/controller/access_video.dart';
 import 'package:playit/view/videos/folder_videos/controller/accsess_folder.dart';
 import 'package:playit/view/videos/folder_videos/view/folder_video_list.dart';
 
-class FolderVideoList extends StatefulWidget {
+class FolderVideoList extends StatelessWidget {
   const FolderVideoList({super.key});
 
-  @override
-  State<FolderVideoList> createState() => _FolderVideoListState();
-}
-
-class _FolderVideoListState extends State<FolderVideoList> {
   // @override
-  // void initState() {
-  //   getPermmission();
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -72,10 +62,4 @@ class _FolderVideoListState extends State<FolderVideoList> {
       },
     );
   }
-
-  // getPermmission() async {
-  //   if (await requestPermission(Permission.storage)) {
-  //     setState(() {});
-  //   }
-  // }
 }

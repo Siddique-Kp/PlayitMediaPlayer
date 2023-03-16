@@ -6,6 +6,7 @@ import 'package:playit/view/playlist_screen/favorite/favorite_popup/favorite_pop
 import 'package:playit/view/videos/video/controller/access_video.dart';
 import 'package:playit/view/videos/video/view/video_list_builder.dart';
 import 'package:playit/view/videos/video/controller/video_thumbnail.dart';
+import 'package:provider/provider.dart';
 import '../../../../main.dart';
 
 class FavoriteVideos extends StatelessWidget {
@@ -17,7 +18,7 @@ class FavoriteVideos extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!VideoFavoriteDb.isInitialized) {
       for (int i = 0; i < accessVideosPath.length; i++) {
-        VideoFavoriteDb.initialize(
+        Provider.of<VideoFavoriteDb>(context,listen: false).initialize(
           VideoFavoriteModel(
             title: accessVideosPath[i].toString().split('/').last,
             videoPath: accessVideosPath[i],
@@ -27,10 +28,9 @@ class FavoriteVideos extends StatelessWidget {
       }
     }
 
-    return ValueListenableBuilder(
-      valueListenable: VideoFavoriteDb.videoFavoriteDb,
-      builder: (context, List<VideoFavoriteModel> videoData, child) {
-        final temp = videoData.reversed.toList();
+    return Consumer<VideoFavoriteDb>(
+      builder: (context, value, child){
+        final temp = VideoFavoriteDb.videoFavoriteDb.reversed.toList();
         final videoFavData = temp.toSet().toList();
         return Scaffold(
           appBar: AppBar(

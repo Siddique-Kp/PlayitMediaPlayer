@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:playit/main.dart';
 import 'package:playit/model/playit_media_model.dart';
 
-class VideoFavoriteDb extends ChangeNotifier {
+class VideoFavoriteDb with ChangeNotifier {
   static bool isInitialized = false;
   static final videoDb = Hive.box<String>('VideoFavoriteDataB');
-  static ValueNotifier<List<VideoFavoriteModel>> videoFavoriteDb =
-      ValueNotifier([]);
+  static List<VideoFavoriteModel> videoFavoriteDb = [];
 
-  static void initialize(VideoFavoriteModel value) {
+  void initialize(VideoFavoriteModel value) {
     if (isVideoFavor(value)) {
-      videoFavoriteDb.value.add(value);
-      videoFavoriteDb.notifyListeners();
+      videoFavoriteDb.add(value);
     }
     isInitialized = true;
+    notifyListeners();
   }
 
-  static isVideoFavor(VideoFavoriteModel videoFav) {
+   isVideoFavor(VideoFavoriteModel videoFav) {
     if (videoDb.values.contains(videoFav.videoPath)) {
       return true;
     } else {
@@ -24,10 +24,10 @@ class VideoFavoriteDb extends ChangeNotifier {
     }
   }
 
-  static videoAdd(VideoFavoriteModel value, context) {
+  videoAdd(VideoFavoriteModel value, context) {
     videoDb.add(value.videoPath);
-    videoFavoriteDb.value.add(value);
-    videoFavoriteDb.notifyListeners();
+    videoFavoriteDb.add(value);
+    notifyListeners();
     snackBar(
       context: context,
       content: "video added to favorite",
@@ -36,7 +36,7 @@ class VideoFavoriteDb extends ChangeNotifier {
     );
   }
 
-  static videoDelete(String videoPath, context) {
+  videoDelete(String videoPath, context) {
     int deleteKey = 0;
     if (!videoDb.values.contains(videoPath)) {
       return;
@@ -48,9 +48,14 @@ class VideoFavoriteDb extends ChangeNotifier {
       }
     });
     videoDb.delete(deleteKey);
-    videoFavoriteDb.value
-        .removeWhere((element) => element.videoPath == videoPath);
-    videoFavoriteDb.notifyListeners();
+    videoFavoriteDb.removeWhere((element) => element.videoPath == videoPath);
+    notifyListeners();
+  }
+
+  clearVideos() async{
+    await videoDB.clear();
+    videoFavoriteDb.clear();
+    notifyListeners();
   }
 }
 

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:playit/view/videos/video/view/video_bottom_sheet/video_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../controller/database/video_favorite_db.dart';
 import '../../../../../model/playit_media_model.dart';
 
-class VideoAddToFavorite extends StatefulWidget {
+class VideoAddToFavorite extends StatelessWidget {
   const VideoAddToFavorite({
     super.key,
     required this.videoPath,
@@ -18,34 +19,24 @@ class VideoAddToFavorite extends StatefulWidget {
   final bool isFavor;
 
   @override
-  State<VideoAddToFavorite> createState() => _VideoAddToFavoriteState();
-}
-
-class _VideoAddToFavoriteState extends State<VideoAddToFavorite> {
-  @override
   Widget build(BuildContext context) {
-    return !VideoFavoriteDb.isVideoFavor(
+    return Provider.of<VideoFavoriteDb>(context).isVideoFavor(
       VideoFavoriteModel(
-          title: widget.videoTitle,
-          videoPath: widget.videoPath,
-          videoSize: widget.videoSize),
+          title: videoTitle,
+          videoPath: videoPath,
+          videoSize: videoSize),
     )
         ? ListTile(
             leading: bottomIcon(Icons.favorite_border_outlined),
             title: bottomText("Add To Favorite"),
             onTap: () {
-              setState(
-                () {
-                  VideoFavoriteDb.videoAdd(
-                      VideoFavoriteModel(
-                        title: widget.videoTitle,
-                        videoPath: widget.videoPath,
-                        videoSize: widget.videoSize,
-                      ),
-                      context);
-                  VideoFavoriteDb.videoFavoriteDb.notifyListeners();
-                },
-              );
+              Provider.of<VideoFavoriteDb>(context, listen: false).videoAdd(
+                  VideoFavoriteModel(
+                    title: videoTitle,
+                    videoPath: videoPath,
+                    videoSize: videoSize,
+                  ),
+                  context);
             },
           )
         : ListTile(
@@ -59,13 +50,10 @@ class _VideoAddToFavoriteState extends State<VideoAddToFavorite> {
             ),
             title: bottomText("Added To Favorite"),
             onTap: () {
-              setState(
-                () {
-                  VideoFavoriteDb.videoDelete(widget.videoPath, context);
-                  VideoFavoriteDb.videoFavoriteDb.notifyListeners();
-                },
-              );
-              if (widget.isFavor) {
+              Provider.of<VideoFavoriteDb>(context, listen: false)
+                  .videoDelete(videoPath, context);
+
+              if (isFavor) {
                 Navigator.pop(context);
               }
             },

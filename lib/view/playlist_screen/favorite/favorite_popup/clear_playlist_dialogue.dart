@@ -5,8 +5,7 @@ import '../../../../controller/database/song_favorite_db.dart';
 import '../../../../controller/database/video_favorite_db.dart';
 
 class ClearPlaylist {
-
- static clearFavorite(bool isVideo, context) {
+  static clearFavorite(bool isVideo, context) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -43,9 +42,7 @@ class ClearPlaylist {
                     onTap: () {
                       Navigator.pop(context);
 
-                      VideoFavoriteDb.videoFavoriteDb.value.clear();
-                      VideoFavoriteDb.videoDb.clear();
-                      VideoFavoriteDb.videoFavoriteDb.notifyListeners();
+                      Provider.of<VideoFavoriteDb>(context,listen: false).clearVideos();
 
                       snackBar(
                         inTotal: 3,
@@ -103,7 +100,4 @@ class ClearPlaylist {
       },
     );
   }
-
-
-
 }

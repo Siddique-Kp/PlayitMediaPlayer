@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:playit/view/videos/search_video/search_video.dart';
-import 'package:playit/view/videos/video/view/video_list.dart';
 import 'folder_videos/view/folder_list.dart';
 
 class VideoPage extends StatelessWidget {

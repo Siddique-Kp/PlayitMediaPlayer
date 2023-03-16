@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:playit/main.dart';
 import 'package:playit/model/playit_media_model.dart';
-import 'package:playit/view/videos/video/controller/access_video.dart';
 import 'package:playit/view/videos/video/view/video_list_builder.dart';
-import '../../../controller/database/video_favorite_db.dart';
+import 'package:provider/provider.dart';
+import '../../../controller/videos/video_search_controller.dart';
 
 class SearchVideoPage extends StatefulWidget {
   const SearchVideoPage({super.key, required this.isFavVideos});
@@ -15,42 +15,14 @@ class SearchVideoPage extends StatefulWidget {
 
 class _SearchVideoPageState extends State<SearchVideoPage> {
   TextEditingController searchtext = TextEditingController();
-  List<String> allVideos = [];
-  List<String> foundVideo = [];
-
-  @override
-  void initState() {
-    loadSearchVideo();
-    super.initState();
-  }
-
-  void updateList(String searchText) {
-    List<String> result = [];
-    if (searchText.isEmpty) {
-      result = allVideos;
-    } else {
-      result = allVideos
-          .where((element) => element
-              .split('/')
-              .last
-              .toLowerCase()
-              .contains(searchText.toLowerCase()))
-          .toList();
-    }
-    setState(() {
-      foundVideo = result;
-    });
-  }
-
-  clearSearch() {
-    setState(() {
-      searchtext.clear();
-      loadSearchVideo();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    context
+        .read<VideoSearchController>()
+        .loadVideos(widget.isFavVideos, context);
+    final searchController = context.read<VideoSearchController>();
+    List<String> foundVideo = context.watch<VideoSearchController>().foundVideo;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -60,7 +32,7 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: searchtext,
-                onChanged: (value) => updateList(value),
+                onChanged: (value) => searchController.updateList(value),
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     filled: true,
@@ -83,7 +55,11 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
                     prefixIconColor: Colors.white,
                     suffixIcon: searchtext.text.isNotEmpty
                         ? InkWell(
-                            onTap: () => clearSearch(),
+                            onTap: () {
+                              searchtext.clear();
+                              searchController.onClearTextField(
+                                  widget.isFavVideos, context);
+                            },
                             child: const Icon(
                               Icons.close,
                               color: Colors.white,
@@ -136,12 +112,5 @@ class _SearchVideoPageState extends State<SearchVideoPage> {
         ),
       ),
     );
-  }
-
-  loadSearchVideo() async {
-    allVideos = widget.isFavVideos
-        ? VideoFavoriteDb.videoDb.values.toList()
-        : accessVideosPath;
-    foundVideo = allVideos;
   }
 }

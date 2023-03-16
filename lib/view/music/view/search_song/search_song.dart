@@ -18,10 +18,7 @@ class SearchSongPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<SearchMusicController>().loadSongs(
-          isFavSong,
-          context,
-        );
+    context.read<SearchMusicController>().loadSongs(isFavSong, context);
     final searchController = context.read<SearchMusicController>();
     List<SongModel> foundSongs =
         context.watch<SearchMusicController>().foundSong;

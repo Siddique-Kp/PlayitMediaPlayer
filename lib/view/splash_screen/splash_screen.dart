@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:playit/view/main_page/main_page.dart';
 
 import '../videos/video/controller/access_video.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,8 +16,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    videoFetch();
-    gotoHome();
+    // gotoHome();
+    Timer(const Duration(seconds: 3), () {
+      videoFetch();
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPage(),
+          ));
+    });
     super.initState();
   }
 
@@ -25,6 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
     //   systemNavigationBarColor: Colors.white,
     //   statusBarColor: Colors.white,
     // ));
+
     return Scaffold(
       body: Center(
           child: SvgPicture.asset(
@@ -35,12 +45,12 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  gotoHome() async {
-    await Future.delayed(const Duration(seconds: 2));
-    navigatePage();
-  }
+  // gotoHome() async {
+  //   await Future.delayed(const Duration(seconds: 2));
+  //   navigatePage();
+  // }
 
-  navigatePage() {
-    Navigator.pushReplacementNamed(context, '/VideoPage');
-  }
+  // navigatePage() {
+  //   Navigator.pushReplacementNamed(context, '/VideoPage');
+  // }
 }
