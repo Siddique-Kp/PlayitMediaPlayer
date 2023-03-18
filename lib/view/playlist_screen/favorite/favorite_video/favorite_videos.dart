@@ -3,9 +3,9 @@ import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:playit/controller/database/video_favorite_db.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/view/playlist_screen/favorite/favorite_popup/favorite_popup.dart';
-import 'package:playit/controller/videos/access_video.dart';
+import 'package:playit/controller/videos/access_video_controller.dart';
 import 'package:playit/view/videos/video/view/video_list_builder.dart';
-import 'package:playit/controller/videos/video_thumbnail.dart';
+import 'package:playit/controller/videos/video_thumbnail_controller.dart';
 import 'package:provider/provider.dart';
 import '../../../../main.dart';
 

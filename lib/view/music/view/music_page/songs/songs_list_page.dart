@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:playit/controller/database/song_favorite_db.dart';
 import 'package:playit/view/music/view/music_page/songs/song_list_builder.dart';
-import '../../../controller/get_all_songs.dart';
+import '../../../../../controller/music/get_all_songs_controller.dart';
 import 'package:provider/provider.dart';
 
 class SongList extends StatelessWidget {

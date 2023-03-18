@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:playit/view/music/widgets/art_work.dart';
 import 'package:text_scroll/text_scroll.dart';
 import '../../../../core/boolians.dart';
-import '../../controller/get_all_songs.dart';
+import '../../../../controller/music/get_all_songs_controller.dart';
 import '../../widgets/favorite_song_button.dart';
 import '../../widgets/next_song_button.dart';
 import '../../widgets/play_song_button.dart';
-import 'controller/animated_route.dart';
+import 'routes/animated_route.dart';
 
 class MiniPlayerSheet extends StatefulWidget {
   const MiniPlayerSheet({

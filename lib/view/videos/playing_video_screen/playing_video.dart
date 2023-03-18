@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:playit/controller/videos/playing_video_controller.dart';
-import 'package:playit/view/music/controller/get_all_songs.dart';
+import 'package:playit/controller/music/get_all_songs_controller.dart';
 import 'package:playit/view/videos/playing_video_screen/bottom_controller.dart';
 import 'package:playit/view/videos/playing_video_screen/video_player_widget.dart';
 import 'package:playit/view/videos/playing_video_screen/video_slider_controll.dart';

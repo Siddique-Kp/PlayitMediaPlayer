@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import '../../view/music/controller/get_all_songs.dart';
+import 'get_all_songs_controller.dart';
 import '../database/song_favorite_db.dart';
 
 class SearchMusicController with ChangeNotifier {

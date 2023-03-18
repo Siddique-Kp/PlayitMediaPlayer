@@ -7,6 +7,7 @@ import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/view/splash_screen/splash_screen.dart';
 import 'package:playit/style/theme.dart';
 import 'package:provider/provider.dart';
+import 'controller/database/player_db.dart';
 import 'controller/database/recent_song_db.dart';
 import 'controller/database/song_favorite_db.dart';
 import 'controller/music/music_tile_controller.dart';
@@ -100,6 +101,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => PlayingVideoController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => VideoPlayerListDB(),
         ),
       ],
       builder: (context, child) {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:playit/view/main_page/main_page.dart';
 
-import '../../controller/videos/access_video.dart';
+import '../../controller/videos/access_video_controller.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

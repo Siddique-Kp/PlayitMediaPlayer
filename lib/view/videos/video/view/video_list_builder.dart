@@ -4,7 +4,7 @@ import 'package:playit/main.dart';
 import '../../../../model/playit_media_model.dart';
 import '../../playing_video_screen/playing_video.dart';
 import '../video_bottom_sheet/video_bottom_sheet.dart';
-import '../../../../controller/videos/video_thumbnail.dart';
+import '../../../../controller/videos/video_thumbnail_controller.dart';
 
 class VideoListBuilder extends StatefulWidget {
   const VideoListBuilder({

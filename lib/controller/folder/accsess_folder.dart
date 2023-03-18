@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../videos/access_video.dart';
+import '../videos/access_video_controller.dart';
 
 ValueNotifier<List<String>> folderVideos = ValueNotifier([]);
 

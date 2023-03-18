@@ -4,7 +4,7 @@ import 'package:playit/controller/music/music_tile_controller.dart';
 import 'package:playit/controller/database/song_favorite_db.dart';
 import 'package:playit/controller/database/video_favorite_db.dart';
 import 'package:playit/model/player.dart';
-import 'package:playit/view/music/controller/get_all_songs.dart';
+import 'package:playit/controller/music/get_all_songs_controller.dart';
 import 'package:playit/view/splash_screen/splash_screen.dart';
 import '../../model/playit_media_model.dart';
 import 'package:provider/provider.dart';

@@ -3,28 +3,27 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:playit/model/player.dart';
 
 class VideoPlayerListDB extends ChangeNotifier {
-  static ValueNotifier<List<PlayerModel>> playerNotify =
-      ValueNotifier([]);
+  static List<PlayerModel> playerNotify = [];
   static final videoPlayerListDB = Hive.box<PlayerModel>('PlayerDB');
 
   static Future<void> addPlaylist(PlayerModel value) async {
     await videoPlayerListDB.add(value);
-    playerNotify.value.add(value);
+    playerNotify.add(value);
   }
 
-  static Future<void> getAllPlaylist() async {
-    playerNotify.value.clear();
-    playerNotify.value.addAll(videoPlayerListDB.values);
-    playerNotify.notifyListeners();
+   Future<void> getAllPlaylist() async {
+    playerNotify.clear();
+    playerNotify.addAll(videoPlayerListDB.values);
+    notifyListeners();
   }
 
-  static Future<void> deletePlaylist(int index) async {
+   Future<void> deletePlaylist(int index) async {
     await videoPlayerListDB.deleteAt(index);
     getAllPlaylist();
   }
 
-  static Future<void> editList(int index, PlayerModel value) async {
+   Future<void> editList(int index, PlayerModel value) async {
     await videoPlayerListDB.putAt(index, value);
     getAllPlaylist();
-  } 
+  }
 }

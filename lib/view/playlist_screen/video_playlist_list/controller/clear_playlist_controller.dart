@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../../../controller/database/player_db.dart';
 import '../../../../controller/database/video_favorite_db.dart';
 import '../../../../model/player.dart';
 
-class ClearPlaylistController{
-
+class ClearPlaylistController {
   //------- Clears all the videos from the playlist
   static clearVideoPlaylist(
     BuildContext context,
@@ -40,7 +39,7 @@ class ClearPlaylistController{
               onTap: () {
                 Navigator.pop(context);
                 videoData.clearSongs();
-                VideoPlayerListDB.playerNotify.notifyListeners();
+                context.read<VideoPlayerListDB>().getAllPlaylist();
 
                 snackBar(
                   inTotal: 3,

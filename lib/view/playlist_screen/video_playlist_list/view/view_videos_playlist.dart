@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
-import 'package:playit/controller/videos/access_video.dart';
+import 'package:playit/controller/videos/access_video_controller.dart';
 import 'package:provider/provider.dart';
 import '../../../../controller/videos/video_playlist_controller.dart';
 import '../../../../main.dart';
-import '../../../../controller/videos/video_thumbnail.dart';
+import '../../../../controller/videos/video_thumbnail_controller.dart';
 
 class AddVideosToPlayList extends StatelessWidget {
   const AddVideosToPlayList({super.key, required this.playlist});

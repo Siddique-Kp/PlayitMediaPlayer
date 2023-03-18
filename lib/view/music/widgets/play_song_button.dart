@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
 import '../../../controller/database/recent_song_db.dart';
-import '../controller/get_all_songs.dart';
+import '../../../controller/music/get_all_songs_controller.dart';
 
 class SongPauseButton extends StatelessWidget {
   const SongPauseButton({

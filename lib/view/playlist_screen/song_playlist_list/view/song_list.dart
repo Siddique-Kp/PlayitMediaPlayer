@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:playit/view/music/controller/get_all_songs.dart';
+import 'package:playit/controller/music/get_all_songs_controller.dart';
 import 'package:playit/view/music/view/mini_player/mini_player_sheet.dart';
 import 'package:playit/view/music/view/music_page/songs/song_list_builder.dart';
 import 'package:playit/view/playlist_screen/song_playlist_list/view/view_songs_list.dart';

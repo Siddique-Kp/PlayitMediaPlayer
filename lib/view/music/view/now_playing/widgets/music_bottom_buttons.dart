@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../../../../../core/boolians.dart';
-import '../../../controller/get_all_songs.dart';
+import '../../../../../controller/music/get_all_songs_controller.dart';
 import '../../../widgets/favorite_song_button.dart';
 import '../../../widgets/next_song_button.dart';
 import '../../../widgets/play_song_button.dart';

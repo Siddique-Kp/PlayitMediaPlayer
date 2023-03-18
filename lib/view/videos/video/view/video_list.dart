@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:playit/main.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/view/videos/video/view/video_list_builder.dart';
-import '../../../../controller/videos/access_video.dart';
+import '../../../../controller/videos/access_video_controller.dart';
 
 class VideoList extends StatelessWidget {
   const VideoList({super.key});

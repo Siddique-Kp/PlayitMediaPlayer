@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../../controller/database/player_db.dart';
 import '../../../../controller/database/video_favorite_db.dart';
 import '../../../../model/player.dart';
@@ -111,7 +112,7 @@ class EditPlayListController {
                         Navigator.of(context).pop();
                         _textEditingController.clear();
                       } else {
-                        VideoPlayerListDB.editList(index, playlistName);
+                        context.read<VideoPlayerListDB>().editList(index, playlistName);
                         snackBar(
                           context: context,
                           content: "Playlist updated",
