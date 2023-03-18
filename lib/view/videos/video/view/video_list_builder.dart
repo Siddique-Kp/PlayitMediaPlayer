@@ -3,8 +3,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/main.dart';
 import '../../../../model/playit_media_model.dart';
 import '../../playing_video_screen/playing_video.dart';
-import 'video_bottom_sheet/video_bottom_sheet.dart';
-import '../controller/video_thumbnail.dart';
+import '../video_bottom_sheet/video_bottom_sheet.dart';
+import '../../../../controller/videos/video_thumbnail.dart';
 
 class VideoListBuilder extends StatefulWidget {
   const VideoListBuilder({

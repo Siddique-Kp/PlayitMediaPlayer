@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:playit/view/videos/video/controller/access_video.dart';
+import 'package:playit/controller/videos/access_video.dart';
 import 'package:intl/intl.dart';
 
 class SongDetails extends StatelessWidget {

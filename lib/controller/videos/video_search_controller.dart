@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playit/view/videos/video/controller/access_video.dart';
+import 'package:playit/controller/videos/access_video.dart';
 
 import '../database/video_favorite_db.dart';
 

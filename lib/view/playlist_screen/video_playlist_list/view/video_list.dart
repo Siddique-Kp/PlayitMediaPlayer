@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:playit/main.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/view/playlist_screen/song_playlist_list/view/song_list_popup.dart';
-import 'package:playit/view/videos/video/controller/access_video.dart';
+import 'package:playit/controller/videos/access_video.dart';
 import 'package:playit/view/videos/video/view/video_list_builder.dart';
 import '../../../../model/playit_media_model.dart';
 import 'view_videos_playlist.dart';

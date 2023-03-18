@@ -1,34 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:playit/view/videos/playing_video_screen/playing_video.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoBottomController extends StatefulWidget {
+import '../../../controller/videos/playing_video_controller.dart';
+
+class VideoBottomController extends StatelessWidget {
   final Duration videoPosition;
   final Duration videoDuration;
   final VideoPlayerController controller;
 
-  const VideoBottomController({
+   const VideoBottomController({
     super.key,
     required this.controller,
     required this.videoDuration,
     required this.videoPosition,
   });
 
-  @override
-  State<VideoBottomController> createState() => _VideoBottomControllerState();
-}
-
-int fitIndex = 0;
-List<BoxFit> fit = [
-  BoxFit.cover,
-  BoxFit.fitHeight,
-  BoxFit.contain,
-];
-
-class _VideoBottomControllerState extends State<VideoBottomController> {
-  bool isPlaying = true;
-  bool isLandscape = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +25,11 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              _formatDuration(widget.videoPosition),
+              _formatDuration(videoPosition),
               style: const TextStyle(color: Colors.white),
             ),
             Text(
-              _formatDuration(widget.videoDuration),
+              _formatDuration(videoDuration),
               style: const TextStyle(color: Colors.white),
             ),
           ],
@@ -54,13 +41,8 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
             IconButton(
                 iconSize: 30,
                 onPressed: () {
-                  setState(
-                    () {
-                      isVisible = false;
-                      isLocked = true;
-                      lockScreen();
-                    },
-                  );
+                  Provider.of<PlayingVideoController>(context, listen: false)
+                      .videoLockButtonController();
                 },
                 icon: icon(Icons.lock_open_rounded)),
             IconButton(
@@ -71,18 +53,13 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
                 icon: icon(Icons.fast_rewind_rounded)),
             IconButton(
               onPressed: () {
-                setState(
-                  () {
-                    if (widget.controller.value.isPlaying) {
-                      widget.controller.pause();
-                    } else {
-                      widget.controller.play();
-                    }
-                    isPlaying = !isPlaying;
-                  },
-                );
+                if (controller.value.isPlaying) {
+                  controller.pause();
+                } else {
+                  controller.play();
+                }
               },
-              icon: widget.controller.value.isPlaying
+              icon: controller.value.isPlaying
                   ? icon(Icons.pause_rounded)
                   : icon(Icons.play_arrow_rounded),
               iconSize: 50,
@@ -96,9 +73,8 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
             IconButton(
                 iconSize: 30,
                 onPressed: () {
-                  setState(() {
-                    fitIndex = (fitIndex + 1) % fit.length;
-                  });
+                  Provider.of<PlayingVideoController>(context,listen: false)
+                      .changeScreenView();
                 },
                 icon: icon(Icons.fit_screen)),
           ],
@@ -108,13 +84,13 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
   }
 
   forwardSec(sec) {
-    widget.controller
-        .seekTo(widget.controller.value.position + Duration(seconds: sec));
+    controller
+        .seekTo(controller.value.position + Duration(seconds: sec));
   }
 
   rewindSec(sec) {
-    widget.controller
-        .seekTo(widget.controller.value.position - Duration(seconds: sec));
+    controller
+        .seekTo(controller.value.position - Duration(seconds: sec));
   }
 
   String _formatDuration(Duration duration) {
@@ -130,10 +106,5 @@ class _VideoBottomControllerState extends State<VideoBottomController> {
       videoIcon,
       color: Colors.white,
     );
-  }
-
-  Future lockScreen() async {
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: []);
   }
 }

@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:playit/controller/videos/playing_video_controller.dart';
 import 'package:playit/view/music/controller/get_all_songs.dart';
 import 'package:playit/view/videos/playing_video_screen/bottom_controller.dart';
 import 'package:playit/view/videos/playing_video_screen/video_player_widget.dart';
 import 'package:playit/view/videos/playing_video_screen/video_slider_controll.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 class PlayingVideo extends StatefulWidget {
@@ -20,17 +22,12 @@ class PlayingVideo extends StatefulWidget {
   State<PlayingVideo> createState() => _PlayingVideoState();
 }
 
-bool isVisible = true;
-bool isLocked = false;
-
 class _PlayingVideoState extends State<PlayingVideo> {
   late VideoPlayerController _controller;
   Duration videoDuration = const Duration();
   Duration videoPosition = const Duration();
   late int videoMicrDuration;
   Duration videoMicrPosition = const Duration();
-  bool isPlaying = true;
-  bool isLandscape = true;
 
   @override
   void initState() {
@@ -60,14 +57,19 @@ class _PlayingVideoState extends State<PlayingVideo> {
     videoMicrDuration = _controller.value.duration.inMicroseconds;
     videoMicrPosition = _controller.value.position;
     final isMuted = _controller.value.volume == 0;
+    bool isLocked = Provider.of<PlayingVideoController>(context).isLocked;
+    bool isVisible =
+        Provider.of<PlayingVideoController>(context).isVisibleScreen;
+    final playingVideoController = context.watch<PlayingVideoController>();
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
-        onTap: () => setState(
-          () {
-            if (isLocked != true) checkVisible();
-          },
-        ),
+        onTap: () {
+          if (isLocked != true) {
+            Provider.of<PlayingVideoController>(context, listen: false)
+                .checkVisible();
+          }
+        },
         child: SafeArea(
           child: Stack(
             children: [
@@ -80,12 +82,9 @@ class _PlayingVideoState extends State<PlayingVideo> {
                     color: const Color.fromARGB(125, 158, 158, 158),
                     child: IconButton(
                       onPressed: () {
-                        setState(
-                          () {
-                            isVisible = !isVisible;
-                            isLocked = !isLocked;
-                          },
-                        );
+                        Provider.of<PlayingVideoController>(context,
+                                listen: false)
+                            .videoLockButtonController();
                       },
                       icon: const Icon(
                         Icons.lock,
@@ -96,7 +95,10 @@ class _PlayingVideoState extends State<PlayingVideo> {
                 ),
               ),
               VideoPlayerWidget(
-                  controller: _controller, fit: fit, index: fitIndex),
+                controller: _controller,
+                fit: playingVideoController.screenViews,
+                index: playingVideoController.fitInsex,
+              ),
               Visibility(
                 visible: isVisible,
                 child: Column(
@@ -116,12 +118,7 @@ class _PlayingVideoState extends State<PlayingVideo> {
                           ),
                         ),
                         leading: IconButton(
-                            onPressed: () async {
-                              await SystemChrome.setPreferredOrientations(
-                                DeviceOrientation.values,
-                              );
-
-                              // ignore: use_build_context_synchronously
+                            onPressed: () {
                               Navigator.pop(context);
                             },
                             icon: const Icon(Icons.arrow_back)),
@@ -137,12 +134,9 @@ class _PlayingVideoState extends State<PlayingVideo> {
                             radius: 20,
                             child: IconButton(
                               onPressed: () {
-                                setState(
-                                  () {
-                                    setLandscape();
-                                    isLandscape = !isLandscape;
-                                  },
-                                );
+                                context
+                                    .read<PlayingVideoController>()
+                                    .landScapeMode();
                               },
                               icon: const Icon(Icons.screen_rotation),
                               color: Colors.white,
@@ -194,24 +188,5 @@ class _PlayingVideoState extends State<PlayingVideo> {
   Future disposeOrientation() async {
     await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
     // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
-  }
-
-  Future setLandscape() async {
-    if (isLandscape) {
-      await SystemChrome.setEnabledSystemUIMode(
-        SystemUiMode.immersiveSticky,
-      );
-      await SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ]);
-    } else {
-      await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-    }
-  }
-
-  checkVisible() {
-    isVisible = true;
-    Future.delayed(const Duration(seconds: 5), () => isVisible = false);
   }
 }

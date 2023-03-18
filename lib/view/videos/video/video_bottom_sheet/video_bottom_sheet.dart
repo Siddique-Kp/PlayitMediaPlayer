@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:playit/controller/database/video_favorite_db.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/view/videos/playing_video_screen/playing_video.dart';
-import 'package:playit/view/videos/video/view/video_bottom_sheet/video_addfavorite.dart';
-import 'package:playit/view/videos/video/view/video_bottom_sheet/video_addto_playlist.dart';
-import 'package:playit/view/videos/video/view/video_bottom_sheet/video_details.dart';
+import 'package:playit/view/videos/video/video_bottom_sheet/video_addfavorite.dart';
+import 'package:playit/view/videos/video/video_bottom_sheet/video_addto_playlist.dart';
+import 'package:playit/view/videos/video/video_bottom_sheet/video_details.dart';
 
 class VideoBottomSheet extends StatelessWidget {
   const VideoBottomSheet({

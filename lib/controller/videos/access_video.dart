@@ -6,7 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:playit/main.dart';
 import 'package:playit/model/playit_media_model.dart';
 
-import '../../folder_videos/controller/accsess_folder.dart';
+import '../folder/accsess_folder.dart';
 
 class AccessFilesFromStorage {
   static const channel = MethodChannel("fetch_files_from_storage");

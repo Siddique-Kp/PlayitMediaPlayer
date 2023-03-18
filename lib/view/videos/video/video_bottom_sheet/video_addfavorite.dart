@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:playit/view/videos/video/view/video_bottom_sheet/video_bottom_sheet.dart';
+import 'package:playit/view/videos/video/video_bottom_sheet/video_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../controller/database/video_favorite_db.dart';
-import '../../../../../model/playit_media_model.dart';
+import '../../../../controller/database/video_favorite_db.dart';
+import '../../../../model/playit_media_model.dart';
 
 class VideoAddToFavorite extends StatelessWidget {
   const VideoAddToFavorite({

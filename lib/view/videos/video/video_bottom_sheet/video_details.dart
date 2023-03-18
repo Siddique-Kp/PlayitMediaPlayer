@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:playit/view/videos/video/view/video_bottom_sheet/video_bottom_sheet.dart';
-import 'package:playit/view/videos/video/controller/video_thumbnail.dart';
+import 'package:playit/view/videos/video/video_bottom_sheet/video_bottom_sheet.dart';
+import 'package:playit/controller/videos/video_thumbnail.dart';
 
 class VideoDetailsePage extends StatelessWidget {
   const VideoDetailsePage(

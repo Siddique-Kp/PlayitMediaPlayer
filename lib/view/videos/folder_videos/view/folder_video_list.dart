@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playit/view/videos/folder_videos/controller/accsess_folder.dart';
+import 'package:playit/controller/folder/accsess_folder.dart';
 import 'package:playit/view/videos/video/view/video_list_builder.dart';
 
 class FolderVideoInside extends StatefulWidget {

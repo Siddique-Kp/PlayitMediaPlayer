@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:playit/view/videos/video/controller/access_video.dart';
-import 'package:playit/view/videos/folder_videos/controller/accsess_folder.dart';
+import 'package:playit/controller/videos/access_video.dart';
+import 'package:playit/controller/folder/accsess_folder.dart';
 import 'package:playit/view/videos/folder_videos/view/folder_video_list.dart';
 
 class FolderVideoList extends StatelessWidget {
