@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
@@ -11,13 +12,16 @@ import '../folder/accsess_folder.dart';
 class AccessFilesFromStorage {
   static const channel = MethodChannel("fetch_files_from_storage");
 
-  static void accessFromStorage(List<String> query,
-      void Function(List<String>) onSuccess, void Function(String) onError) {
+  static void accessFromStorage(
+    List<String> query,
+    void Function(List<String>) onSuccess,
+    void Function(String) onError,
+  ) {
     channel.invokeMethod('search', query).then((value) {
       final res = value as List<Object?>;
       onSuccess(res.map((e) => e.toString()).toList());
     }).onError((error, stackTrace) {
-      log(error.toString());
+      log("Error : $error ");
       onError(error.toString());
     });
   }
@@ -25,33 +29,66 @@ class AccessFilesFromStorage {
 
 List<String> accessVideosPath = [];
 
-Future<bool> requestPermission(Permission permission) async {
-  const storage = Permission.storage;
+Future<bool> requestPermission() async {
+  const storagePermission = Permission.storage;
   const mediaAccess = Permission.accessMediaLocation;
-  if (await permission.isGranted) {
-    await mediaAccess.isGranted && await storage.isGranted;
-    return true;
-  } else {
-    var result = await storage.request();
-    var mediaresult = await mediaAccess.request();
+  final deviceInfo = await DeviceInfoPlugin().androidInfo;
 
-    if (result == PermissionStatus.granted &&
-        mediaresult == PermissionStatus.granted) {
+  try {
+    log("in permission");
+    if (await storagePermission.isGranted) {
+      log("11111111111111");
+      await mediaAccess.isGranted && await storagePermission.isGranted;
+      return true;
+    } else if (deviceInfo.version.sdkInt > 32) {
+      log("Audio permission");
+      if (await Permission.audio.isGranted &&
+          await Permission.videos.isGranted) {
+        log("audio video granted");
+        return true;
+      } else if (await Permission.audio.isPermanentlyDenied ||
+          await Permission.videos.isPermanentlyDenied) {
+        log("here");
+        await openAppSettings();
+        return true;
+      }
+      await Permission.audio.request();
+      await Permission.videos.request();
+      log("Audio video called");
       return true;
     } else {
-      return false;
+      log("2222222222");
+      var result = await storagePermission.request();
+      log("aaaaaaaaaaaaaaa");
+      var mediaresult = await mediaAccess.request();
+      log("0000000000000000000");
+      if (result == PermissionStatus.granted &&
+          mediaresult == PermissionStatus.granted) {
+        log("33333333333");
+        return true;
+      } else {
+        log("4444444444");
+        return false;
+      }
     }
+  } catch (e) {
+    log("Error: $e");
+    return false;
   }
 }
 
 Future videoFetch() async {
-  if (await requestPermission(Permission.storage)) {
+  bool permission = await requestPermission();
+  if (permission) {
     AccessFilesFromStorage.accessFromStorage([
       '.mkv',
       '.mp4',
-    ], onSuccess, (p0) {});
+    ], onSuccess, (p0) {
+      log("access erro $p0");
+    });
+    return;
   } else {
-    videoFetch();
+    await openAppSettings();
   }
 }
 
@@ -70,9 +107,6 @@ onSuccess(List<String> path) {
 ValueNotifier<List<String>> allVideos = ValueNotifier([]);
 List<AllVideos> aLLvideoList = [];
 
-
-
-
 final videoInfo = FlutterVideoInfo();
 Future loadVideoduration() async {
   if (videoDB.isEmpty || videoDB.length != accessVideosPath.length) {
@@ -83,7 +117,7 @@ Future loadVideoduration() async {
       double second = info!.duration! / 1000;
       String duration = convertSecond(second);
 
-      videosObj = AllVideos(duration: duration,path: info.path!);
+      videosObj = AllVideos(duration: duration, path: info.path!);
       videoDB.add(videosObj);
     }
   }

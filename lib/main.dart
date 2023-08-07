@@ -5,7 +5,6 @@ import 'package:playit/controller/music/search_music_controller.dart';
 import 'package:playit/model/player.dart';
 import 'package:playit/model/playit_media_model.dart';
 import 'package:playit/view/splash_screen/splash_screen.dart';
-import 'package:playit/style/theme.dart';
 import 'package:provider/provider.dart';
 import 'controller/database/player_db.dart';
 import 'controller/database/recent_song_db.dart';
@@ -109,9 +108,19 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: ThemeDataClass.lightTheme,
-          darkTheme: ThemeData.dark(),
-          themeMode: ThemeMode.light,
+          theme: ThemeData(
+            useMaterial3: true,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.black,
+              iconTheme: IconThemeData(color: Colors.white),
+              titleTextStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+                fontWeight: FontWeight.w500,
+              
+              ),
+            ),
+          ),
           title: 'PlayIt App',
           initialRoute: '/',
           routes: {

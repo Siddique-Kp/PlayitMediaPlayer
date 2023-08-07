@@ -34,12 +34,7 @@ class MainActivity: FlutterActivity() {
             call, result ->
             if(call.method == "search")
             {
-                var _result = requestPermissionAndListFiles();
-                if(!_result){
-                    result.error("401","No READ_EXTERNAL_STORAGE_PERMISSION","")
-                    return@setMethodCallHandler
-                }
-                else{
+               
                     Log.i("FILE_CHECKING","Searching for"+call.arguments);
                     var _r = listExternalStorage(call.arguments as List<String>)
                     if(_r == null){
@@ -48,19 +43,11 @@ class MainActivity: FlutterActivity() {
                     }else{
                         result.success(_r);
                     }
-                }
+                
             }
         }
     }
 
-    private fun requestPermissionAndListFiles():Boolean{
-        Log.e("PERMISSION" , "getting permission status")
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            return false;
-        }else{
-            return true;
-        }
-    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,grantResults: IntArray) {
         if(requestCode == this.requestCode){

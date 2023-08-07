@@ -9,9 +9,9 @@ class PrivacyPolicy extends StatelessWidget {
       appBar: AppBar(
         title:const Text('Privacy and Policy'),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
-          children: const [
+          children:  [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Text('''
