@@ -11,6 +11,7 @@ class FloatingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SpeedDial(
       icon: Icons.playlist_add,
+      iconTheme: const IconThemeData(color: Colors.white),
       backgroundColor: kBlackColor,
       overlayColor: kBlackColor,
       overlayOpacity: 0.4,
@@ -18,7 +19,7 @@ class FloatingButton extends StatelessWidget {
       spaceBetweenChildren: 4,
       children: [
         SpeedDialChild(
-          child: const Icon(Icons.queue_music),
+          child: const Icon(Icons.queue_music,color: kWhiteColor,),
           backgroundColor: kSpeedButtonColor,
           foregroundColor: kWhiteColor,
           onTap: () {

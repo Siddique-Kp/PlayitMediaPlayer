@@ -12,8 +12,8 @@ class MainPage extends StatelessWidget {
 
   final ValueNotifier<int> pageindex = ValueNotifier(0);
   static const List<Widget> pages = [
-    VideoPage(),
     MusicPage(),
+    VideoPage(),
     PlayList(),
     SettingsPage(),
   ];
@@ -56,14 +56,15 @@ class MainPage extends StatelessWidget {
                 pageindex.value = value;
               },
               destinations: const [
+                   NavigationDestination(
+                  icon: Icon(Icons.headphones),
+                  label: 'Music',
+                ),
                 NavigationDestination(
                   icon: Icon(Icons.play_circle),
                   label: 'Video',
                 ),
-                NavigationDestination(
-                  icon: Icon(Icons.headphones),
-                  label: 'Music',
-                ),
+             
                 NavigationDestination(
                   icon: Icon(Icons.queue_music),
                   label: 'Playlist',

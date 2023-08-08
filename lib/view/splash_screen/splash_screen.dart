@@ -14,11 +14,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // gotoHome();
+     videoFetch();
     Timer(
       const Duration(seconds: 3),
       () {
-        videoFetch();
+       
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

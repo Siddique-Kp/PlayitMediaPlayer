@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:playit/core/colors.dart';
 import 'package:playit/view/music/view/music_page/albums/albums.dart';
 import 'package:playit/view/music/view/music_page/artist/artists.dart';
 import 'package:playit/view/music/view/music_page/recent/recent_page.dart';
@@ -11,10 +11,6 @@ class MusicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      systemNavigationBarColor: Color.fromARGB(255, 47, 46, 46),
-      statusBarColor: Colors.black,
-    ));
 
     return DefaultTabController(
       length: 4,
@@ -48,7 +44,8 @@ class MusicPage extends StatelessWidget {
                 floating: true,
                 snap: true,
                 bottom: TabBar(
-                  indicatorColor: Colors.white,
+                  
+                  indicatorColor: Colors.deepOrange,
                   tabs: [
                     Tab(child: tabNames('Songs')),
                     Tab(child: tabNames('Artist')),
@@ -75,7 +72,7 @@ class MusicPage extends StatelessWidget {
   tabNames(String tabName) {
     return Text(
       tabName,
-      style: const TextStyle(fontSize: 15),
+      style: const TextStyle(fontSize: 15,color: kWhiteColor),
     );
   }
 }
